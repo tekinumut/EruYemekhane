@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/pref_hideMorning"
+        android:icon="@mipmap/delete_icon"
+        android:defaultValue="false"
+        android:title="Öğle kayıtlarını gösterme"
+        android:summary="Eğer seçili olursa öğle vakitleri gizlenir."/>
+
+    <android.support.v7.preference.SwitchPreferenceCompat
+        android:key="@string/pref_hideEvening"
+        android:defaultValue="false"
+        android:icon="@mipmap/delete_icon"
+        android:title="Akşam kayıtlarını gösterme"
+        android:summary="Eğer seçili olursa akşam vakitleri gizlenir."/>
+</android.support.v7.preference.PreferenceScreen>
