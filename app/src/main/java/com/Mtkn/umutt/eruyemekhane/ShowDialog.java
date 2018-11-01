@@ -2,12 +2,11 @@ package com.Mtkn.umutt.eruyemekhane;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
-import com.Mtkn.umutt.eruyemekhane.R;
 
 class ShowDialog {
 
@@ -27,8 +26,20 @@ class ShowDialog {
         View dialogView= inflater.inflate(R.layout.progress_dialog_layout, null);
 
         TextView textView = dialogView.findViewById(R.id.textViewProgress);
-        String message = "Yükleniyor";
-        textView.setText(message);
+
+        new CountDownTimer(15000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String message ="Yükleniyor... "+millisUntilFinished/1000;
+                textView.setText(message);
+            }
+
+            @Override
+            public void onFinish() {
+                b.dismiss();
+            }
+        }.start();
+
         dialogBuilder.setView(dialogView);
         dialogBuilder.setCancelable(true);
         b = dialogBuilder.create();

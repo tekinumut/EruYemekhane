@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import com.Mtkn.umutt.eruyemekhane.abstracts.ConnectivityStatus;
 import com.Mtkn.umutt.eruyemekhane.activities.MainActivity;
 
@@ -46,9 +46,12 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
     @Override
     protected String[] doInBackground(String... strings) {
         try {
-            document =Jsoup.connect("https://www.erciyes.edu.tr/kategori/KAMPUSTE-YASAM/Yemek-Hizmetleri/22/167").timeout(3000).get();
+            document =Jsoup.connect("https://www.erciyes.edu.tr/kategori/KAMPUSTE-YASAM/Yemek-Hizmetleri/22/167").timeout(14500).get();
         } catch (IOException e) {
-            Log.e("MyAPP123","no connect ??");
+            Snackbar.make(((MainActivity)mContext()).findViewById(R.id.coordinatorLayout),
+                    "Bağlantı sağlanamadı. İnternetinizde veya sitede bir sorun olabilir.",60000)
+                    .setAction("Tamam",v ->{} ).setActionTextColor(Color.parseColor("#2980b9"))
+                    .show(); //Boş setAction , butona tıklandığında snackbarı kapatacaktır.
         }
 
         return strings;
@@ -117,7 +120,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
        {
            Snackbar.make(((MainActivity)mContext()).findViewById(R.id.coordinatorLayout),
                    "Herhangi bir kayıt bulunamadı. Bunun sebebi listenin henüz yayınlanmamış olması olabilir.",60000)
-                   .setAction("Tamam",v ->{} ).setActionTextColor(Color.parseColor("#ffffff"))
+                   .setAction("Tamam",v ->{} ).setActionTextColor(Color.parseColor("#2980b9"))
                    .show(); //Boş setAction , butona tıklandığında snackbarı kapatacaktır.
 
        }

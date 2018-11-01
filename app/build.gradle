@@ -23,7 +23,7 @@ android {
         applicationId "com.Mtkn.umutt.eruyemekhane"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 6
+        versionCode 9
         versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.key1

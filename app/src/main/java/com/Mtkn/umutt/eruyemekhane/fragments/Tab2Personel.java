@@ -45,7 +45,7 @@ public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefre
             recyclerView.setAdapter(new RecyclerAdapter(mContext,database.valuesDAO().getValues("2")));
         }
 
-    new GetValuesWithAsync(this,true).execute("div.ListeSatir >div.YemekTarih","div.ListeSatir >div.YemekListe >ul","2");
+    new GetValuesWithAsync(this,false).execute("div.ListeSatir >div.YemekTarih","div.ListeSatir >div.YemekListe >ul","2");
         //context/Progress Dialog çıksın mı ? ---Execute: AsyncTask'ı çağır 1.veri tarih, 2.veri yemekler, 3.veri tür
 
         return rootView;
