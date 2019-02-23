@@ -37,7 +37,7 @@ public class Tab3About extends Fragment {
         geriBildirim.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
             intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"bm.umuttekin@gmail.com"});
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mtkn358@gmail.com"});
             startActivity(Intent.createChooser(intent, "Mail gönder"));
         });
         appDegerlendir.setOnClickListener(v -> {

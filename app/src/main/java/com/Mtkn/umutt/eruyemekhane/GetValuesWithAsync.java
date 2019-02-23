@@ -7,8 +7,12 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.Mtkn.umutt.eruyemekhane.abstracts.ConnectivityStatus;
+import com.Mtkn.umutt.eruyemekhane.fragments.Tab1Ogrenci;
+import com.Mtkn.umutt.eruyemekhane.fragments.Tab2Personel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -41,12 +45,17 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
     @Override
     protected String[] doInBackground(String... strings) {
         try {
-            document =Jsoup.connect("https://www.erciyes.edu.tr/kategori/KAMPUSTE-YASAM/Yemek-Hizmetleri/22/167").timeout(14500).get();
+            document =Jsoup.connect("https://www.erciyes.edu.tr/kategori/KAMPUSTE-YASAM/Yemek-Hizmetleri/22/167").timeout(15000).get();
         } catch (IOException e) {
-            Snackbar.make(((MainActivity)mContext()).findViewById(R.id.coordinatorLayout),
-                    "Bağlantı sağlanamadı. İnternetinizde veya sitede bir sorun olabilir.",60000)
-                    .setAction("Tamam",v ->{} ).setActionTextColor(Color.parseColor("#2980b9"))
-                    .show(); //Boş setAction , butona tıklandığında snackbarı kapatacaktır.
+
+            if(weakReference.get() instanceof Tab1Ogrenci) {
+                //snackbarın iki kere üst üste çıkmasını engellemek için
+                Snackbar.make(((MainActivity) mContext()).findViewById(R.id.coordinatorLayout),
+                        "Bağlantı sağlanamadı. İnternetinizde veya sitede bir sorun olabilir.", 60000)
+                        .setAction("Tamam", v -> {
+                        }).setActionTextColor(Color.parseColor("#2980b9"))
+                        .show(); //Boş setAction , butona tıklandığında snackbarı kapatacaktır.
+            }
         }
 
         return strings;
@@ -69,39 +78,122 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
         List<RecyclerModel> recyclerList = new ArrayList<>();
         Elements ogrTarihValue =document.select(values[0]);
         //Yukarıda öğrenciler için aktif olan listelerin tarih bilgisi alınır.
-
         RecyclerModel recyclerModel = null;
+
+
         for (int i = 0; i < ogrTarihValue.size(); i++) { //tüm öğle tarihlerini alır. daha sonra bu tarihlere ait yemek listesi alınacak
-            StringBuilder builder = new StringBuilder(); //Tüm yemekleri satır satır builder'a ekleyeceğiz.
-            int topCal =0; //Yemek bölümünün sonuna toplam kaloriyi yazacağız.
-            ArrayList<String> arrayTopCal =new ArrayList<>(); //Kalori değerlerini alıp bunların toplanmasını sağlayacak list.
-            Elements ogrYemekValue =document.select(values[1]).get(i).select("li");
-            //Yukarıda get(i) ile her günün yemeklerinin listesi alınır. select("li") yapıyorsun çünkü o yemeğe ait li'yi alman lazım.
-            for (int j = 0; j <ogrYemekValue.size() ; j++) {//O günün tüm yemeklerini tek tek alana kadar çalış.
-                builder.append("\u2022  ")
-                .append(ogrYemekValue.get(j).select("li").text())
-                .append("\n"); //Yemekler satır satır yazılır ve diğer günün yemekleri alınmak üzere döngüden çıkılır.
 
-    try{//Toplam kalori değerini yazdır.
-        arrayTopCal.add(ogrYemekValue.get(j).select("li").text().replaceAll("\\D","")); //Her satırdaki sadece sayısal değerler alınır.
-        topCal+=Integer.valueOf(arrayTopCal.get(j));}   catch (Exception ignored){} //Bun sayılar tek tek toplanarak topCal değerine yazılır.
-                String topCalString=String.valueOf(topCal);
-    if(topCal==0)
-        topCalString="Kalori belirtilmedi.";
-                if(j==ogrYemekValue.size()-1) //Eğer döngünün sonundaysam
-                {
-        builder.delete(builder.lastIndexOf("\n"),builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
+            if (fragment instanceof Tab1Ogrenci) {
+                if (ogrTarihValue.get(i).text().contains("Öğle")) {
+                //eğer Tab1'de isek çalışır. Sadece öğle menülerini göstermek için uygulamamız gerekir.
 
-        recyclerModel =new RecyclerModel(ogrTarihValue.get(i).text(),builder.toString(),topCalString,values[2]);
+                StringBuilder builder = new StringBuilder(); //Tüm yemekleri satır satır builder'a ekleyeceğiz.
+                int topCal = 0; //Yemek bölümünün sonuna toplam kaloriyi yazacağız.
+                ArrayList<String> arrayTopCal = new ArrayList<>(); //Kalori değerlerini alıp bunların toplanmasını sağlayacak list.
+                Elements ogrYemekValue = document.select(values[1]).get(i).select("li");
+                //Yukarıda get(i) ile her günün yemeklerinin listesi alınır. select("li") yapıyorsun çünkü o yemeğe ait li'yi alman lazım.
+
+                for (int j = 0; j < ogrYemekValue.size(); j++) {//O günün tüm yemeklerini tek tek alana kadar çalış.
+                    builder.append("\u2022  ")
+                            .append(ogrYemekValue.get(j).select("li").text())
+                            .append("\n"); //Yemekler satır satır yazılır ve diğer günün yemekleri alınmak üzere döngüden çıkılır.
+
+                    try {
+                        //Toplam kalori değerini yazdır.
+                        arrayTopCal.add(ogrYemekValue.get(j).select("li").text().replaceAll("\\D", "")); //Her satırdaki sadece sayısal değerler alınır.
+                        topCal += Integer.valueOf(arrayTopCal.get(j));
+                    } catch (Exception ignored) {
+                    } //Bun sayılar tek tek toplanarak topCal değerine yazılır.
+
+                    String topCalString = String.valueOf(topCal);
+                    if (topCal == 0)
+                        topCalString = "Kalori belirtilmedi";
+                    if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
+                    {
+                        builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
+
+                        recyclerModel = new RecyclerModel(ogrTarihValue.get(i).text(), builder.toString(), topCalString, values[2]);
+                    }
+                }
+                recyclerList.add(recyclerModel);//her gün için verileri liste ekle. for içerisinde
+            }
+
+            if(recyclerList.isEmpty()) { //eğer öğle verisi bulamazsa, tüm verileri getir.
+
+                for (int k = 0; k < ogrTarihValue.size(); k++) {
+                    StringBuilder builder = new StringBuilder(); //Tüm yemekleri satır satır builder'a ekleyeceğiz.
+                    int topCal = 0; //Yemek bölümünün sonuna toplam kaloriyi yazacağız.
+                    ArrayList<String> arrayTopCal = new ArrayList<>(); //Kalori değerlerini alıp bunların toplanmasını sağlayacak list.
+                    Elements ogrYemekValue = document.select(values[1]).get(k).select("li");
+                    //Yukarıda get(i) ile her günün yemeklerinin listesi alınır. select("li") yapıyorsun çünkü o yemeğe ait li'yi alman lazım.
+
+                    for (int j = 0; j < ogrYemekValue.size(); j++) {//O günün tüm yemeklerini tek tek alana kadar çalış.
+                        builder.append("\u2022  ")
+                                .append(ogrYemekValue.get(j).select("li").text())
+                                .append("\n"); //Yemekler satır satır yazılır ve diğer günün yemekleri alınmak üzere döngüden çıkılır.
+
+                        try {
+                            //Toplam kalori değerini yazdır.
+                            arrayTopCal.add(ogrYemekValue.get(j).select("li").text().replaceAll("\\D", "")); //Her satırdaki sadece sayısal değerler alınır.
+                            topCal += Integer.valueOf(arrayTopCal.get(j));
+                        } catch (Exception ignored) {
+                        } //Bun sayılar tek tek toplanarak topCal değerine yazılır.
+
+                        String topCalString = String.valueOf(topCal);
+                        if (topCal == 0)
+                            topCalString = "Kalori belirtilmedi";
+                        if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
+                        {
+                            builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
+
+                            recyclerModel = new RecyclerModel(ogrTarihValue.get(k).text(), builder.toString(), topCalString, values[2]);
+                        }
+                    }
+                    recyclerList.add(recyclerModel);//her gün için verileri liste ekle. for içerisinde
                 }
             }
-            recyclerList.add(recyclerModel);//her gün için verileri liste ekle. fori içerisinde
-        }
+
+        }//end of Tab1 if statement
+             if(fragment instanceof Tab2Personel){ //Şimdilik personel verilerini alabilmek için
+                 // üst satırdaki kod tekrar etmek zorunda kaldı.
+
+                StringBuilder builder = new StringBuilder(); //Tüm yemekleri satır satır builder'a ekleyeceğiz.
+                int topCal = 0; //Yemek bölümünün sonuna toplam kaloriyi yazacağız.
+                ArrayList<String> arrayTopCal = new ArrayList<>(); //Kalori değerlerini alıp bunların toplanmasını sağlayacak list.
+                Elements ogrYemekValue = document.select(values[1]).get(i).select("li");
+                //Yukarıda get(i) ile her günün yemeklerinin listesi alınır. select("li") yapıyorsun çünkü o yemeğe ait li'yi alman lazım.
+
+                for (int j = 0; j < ogrYemekValue.size(); j++) {//O günün tüm yemeklerini tek tek alana kadar çalış.
+                    builder.append("\u2022  ")
+                            .append(ogrYemekValue.get(j).select("li").text())
+                            .append("\n"); //Yemekler satır satır yazılır ve diğer günün yemekleri alınmak üzere döngüden çıkılır.
+
+                    try {
+                        //Toplam kalori değerini yazdır.
+                        arrayTopCal.add(ogrYemekValue.get(j).select("li").text().replaceAll("\\D", "")); //Her satırdaki sadece sayısal değerler alınır.
+                        topCal += Integer.valueOf(arrayTopCal.get(j));
+                    } catch (Exception ignored) {
+                    } //Bun sayılar tek tek toplanarak topCal değerine yazılır.
+
+                    String topCalString = String.valueOf(topCal);
+                    if (topCal == 0)
+                        topCalString = "Kalori belirtilmedi";
+                    if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
+                    {
+                        builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
+
+                        recyclerModel = new RecyclerModel(ogrTarihValue.get(i).text(), builder.toString(), topCalString, values[2]);
+                    }
+                }
+                recyclerList.add(recyclerModel);//her gün için verileri liste ekle. fori içerisinde
+            }
+
+        }//end of for
 
        if(recyclerList.size()==0)//Eğer hiç veri yoksa snackbar ile kullanıcıyı bilgilendir.
        {
            Snackbar.make(((MainActivity)mContext()).findViewById(R.id.coordinatorLayout),
-                   "Herhangi bir kayıt bulunamadı. Bunun sebebi listenin henüz yayınlanmamış olması olabilir.",60000)
+                   "Herhangi bir kayıt bulunamadı. Bunun sebebi listenin boş olması olabilir.",60000)
                    .setAction("Tamam",v ->{} ).setActionTextColor(Color.parseColor("#2980b9"))
                    .show(); //Boş setAction , butona tıklandığında snackbarı kapatacaktır.
 
@@ -114,6 +206,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
         if(isShow)
             showDialog.HideProgressDialog();
         }//End of onPost
+
 
     private Context mContext()
     {

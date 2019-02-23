@@ -30,12 +30,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.setOffscreenPageLimit(3);
 
-        if(!ConnectivityStatus.isConnected(this))
-        {
-            Snackbar snackbar=Snackbar.make(findViewById(R.id.coordinatorLayout),
-                    "İnternete bağlanılamadı. Verileriniz güncel olmayabilir.",3000);
-            snackbar.show();
-        }
     }
 
      class SectionsPagerAdapter extends FragmentPagerAdapter {

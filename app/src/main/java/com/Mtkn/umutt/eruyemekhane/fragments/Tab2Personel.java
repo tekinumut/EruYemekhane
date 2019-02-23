@@ -49,7 +49,6 @@ public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefre
         }
 
     new GetValuesWithAsync(this,false).execute(".ListeSatir >.YemekTarih",".ListeSatir >.YemekListe >ul","2");
-        //context/Progress Dialog çıksın mı ? ---Execute: AsyncTask'ı çağır 1.veri tarih, 2.veri yemekler, 3.veri tür
 
         return rootView;
     }
@@ -71,7 +70,7 @@ public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefre
         else if (!ConnectivityStatus.isConnected(mContext))
         {
             Snackbar snackbar=Snackbar.make(((MainActivity)mContext).findViewById(R.id.coordinatorLayout),
-                    "İnternete bağlanılamadı. Verileriniz güncel olmayabilir.",2000);
+                    "İnternete bağlanılamadı. Verileriniz güncel olmayabilir.",3000);
             snackbar.show();
         }
         refreshLayout.setRefreshing(false);

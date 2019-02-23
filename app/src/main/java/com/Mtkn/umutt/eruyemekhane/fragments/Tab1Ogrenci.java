@@ -45,7 +45,8 @@ public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefres
 
         if(!ConnectivityStatus.isConnected(mContext)) //eğer internet yoksa, eski verileri getir.
         {
-            recyclerView.setAdapter(new RecyclerAdapter(mContext,database.valuesDAO().getValues("1")));//offline veri çek
+            recyclerView.setAdapter(new RecyclerAdapter(mContext,database.valuesDAO().getValues("1")));
+            //çevrimdışı ise veri çeker
         }
 
     new GetValuesWithAsync(this,true).execute(".ListeSatirOgr >.YemekTarih",".ListeSatirOgr >.YemekListe >ul","1");
@@ -70,7 +71,7 @@ public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefres
         else if (!ConnectivityStatus.isConnected(mContext))
         {
             Snackbar.make(((MainActivity)mContext).findViewById(R.id.coordinatorLayout),
-                    "İnternete bağlanılamadı. Verileriniz güncel olmayabilir.",2000).show();
+                    "İnternete bağlanılamadı. Verileriniz güncel olmayabilir.",3000).show();
         }
         refreshLayout.setRefreshing(false);
 
