@@ -14,11 +14,11 @@ class RecyclerModel {
     @ColumnInfo(name = "yemekler")
     private final String yemekler;
     @ColumnInfo(name = "topCal")
-    private final int topCal;
+    private final String topCal;
     @ColumnInfo(name = "type")
     private final String type;
 
-    RecyclerModel(String tarih, String yemekler, int topCal,String type) {
+    RecyclerModel(String tarih, String yemekler, String topCal,String type) {
 
         this.tarih = tarih;
         this.yemekler = yemekler;
@@ -33,7 +33,7 @@ class RecyclerModel {
         return yemekler;
     }
 
-    int getTopCal() {
+    String getTopCal() {
         return topCal;
     }
 

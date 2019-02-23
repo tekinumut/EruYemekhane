@@ -2,7 +2,6 @@
     <string name="app_name">Erü Yemekhane</string>
     <string name="tab_text_1">Öğrenci</string>
     <string name="tab_text_2">Personel</string>
-    <string name="menuAyarlar">Ayarlar</string>
     <string name="menuHakkinda">Hakkında</string>
     <string name="topCalTextView">Toplam Kalori : %1$d</string>
 
@@ -10,12 +9,7 @@
     <!-- Database -->
     <string name="my_values">my_values</string>
 
-    <!-- Keys-Preferences -->
-
-    <string name="pref_hideMorning">hideMorning</string>
-    <string name="pref_hideEvening">hideEvening</string>
-
-    <!-- About Page-->
+    <!-- Tab3About Page-->
 
     <string name="program_kullanimi">Progam Kullanımı:</string>
     <string name="contact_me">Geri Bildirim Gönder</string>

@@ -34,7 +34,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         holder.tarih.setText(model.getTarih());
         holder.yemek.setText(model.getYemekler());
-        holder.topCal.setText(mContext.getString(R.string.topCalTextView,model.getTopCal())); //SetText'in gariplikleri işte. İlgili detay linkte:
+        holder.topCal.setText("Toplam Kalori : "+model.getTopCal()); //SetText'in gariplikleri işte. İlgili detay linkte:
         //https://stackoverflow.com/questions/33164886/android-textview-do-not-concatenate-text-displayed-with-settext
 
     }

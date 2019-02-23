@@ -19,7 +19,7 @@ import com.Mtkn.umutt.eruyemekhane.GetValuesWithAsync;
 import com.Mtkn.umutt.eruyemekhane.R;
 import com.Mtkn.umutt.eruyemekhane.RecyclerAdapter;
 import com.Mtkn.umutt.eruyemekhane.ValuesDatabase;
-import com.Mtkn.umutt.eruyemekhane.activities.MainActivity;
+import com.Mtkn.umutt.eruyemekhane.MainActivity;
 
 public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -39,13 +39,16 @@ public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefre
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL)); //Recyclerview için her bloğu ayırır.
 
         ValuesDatabase database= Room.databaseBuilder(mContext,ValuesDatabase.class,mContext.getString(R.string.my_values))
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()//database güncellenirse verileri sil
+                 .build();
+
         if(!ConnectivityStatus.isConnected(mContext))
         {
             recyclerView.setAdapter(new RecyclerAdapter(mContext,database.valuesDAO().getValues("2")));
         }
 
-    new GetValuesWithAsync(this,false).execute("div.ListeSatir >div.YemekTarih","div.ListeSatir >div.YemekListe >ul","2");
+    new GetValuesWithAsync(this,false).execute(".ListeSatir >.YemekTarih",".ListeSatir >.YemekListe >ul","2");
         //context/Progress Dialog çıksın mı ? ---Execute: AsyncTask'ı çağır 1.veri tarih, 2.veri yemekler, 3.veri tür
 
         return rootView;
@@ -61,7 +64,7 @@ public class Tab2Personel extends Fragment implements SwipeRefreshLayout.OnRefre
     {
         if(ConnectivityStatus.isConnected(mContext))
         {
-     new GetValuesWithAsync(this,false).execute("div.ListeSatir >div.YemekTarih","div.ListeSatir >div.YemekListe >ul","2");
+     new GetValuesWithAsync(this,false).execute(".ListeSatir >.YemekTarih",".ListeSatir >.YemekListe >ul","2");
             Snackbar.make(((MainActivity)mContext).findViewById(R.id.coordinatorLayout),
                     "Kayıtlarınız yenilendi.",1500).show();
         }

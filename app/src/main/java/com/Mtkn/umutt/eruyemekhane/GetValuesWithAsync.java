@@ -4,13 +4,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
 import com.Mtkn.umutt.eruyemekhane.abstracts.ConnectivityStatus;
-import com.Mtkn.umutt.eruyemekhane.activities.MainActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,7 +29,6 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
         weakReference= new WeakReference<>(fragment);
         this.isShow =isShow;
     }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -40,9 +37,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
             showDialog=new ShowDialog(mContext());
             showDialog.ShowProgressDialog();
         }
-
     }
-
     @Override
     protected String[] doInBackground(String... strings) {
         try {
@@ -65,21 +60,18 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
 
         RecyclerView recyclerView=Objects.requireNonNull(fragment.getView()).findViewById(R.id.recycler_view);
         ValuesDatabase database= Room.databaseBuilder(mContext(),ValuesDatabase.class,mContext().getString(R.string.my_values))
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()//database güncellenirse verileri sil
+                .build();
 
         if(document!=null && ConnectivityStatus.isConnected(mContext())) //Eğer internet varsa
         {
         List<RecyclerModel> recyclerList = new ArrayList<>();
-        boolean switch_sabah = PreferenceManager.getDefaultSharedPreferences(mContext())
-                .getBoolean(mContext().getString(R.string.pref_hideMorning), false);
-        boolean switch_aksam = PreferenceManager.getDefaultSharedPreferences(mContext())
-                .getBoolean(mContext().getString(R.string.pref_hideEvening), false);
-
         Elements ogrTarihValue =document.select(values[0]);
         //Yukarıda öğrenciler için aktif olan listelerin tarih bilgisi alınır.
 
         RecyclerModel recyclerModel = null;
-        for (int i = 0; i < ogrTarihValue.size(); i++) { //Örneğin 5 adet tarihin verisi varsa, o zamana kadar ki tarihler için tek tek çalış
+        for (int i = 0; i < ogrTarihValue.size(); i++) { //tüm öğle tarihlerini alır. daha sonra bu tarihlere ait yemek listesi alınacak
             StringBuilder builder = new StringBuilder(); //Tüm yemekleri satır satır builder'a ekleyeceğiz.
             int topCal =0; //Yemek bölümünün sonuna toplam kaloriyi yazacağız.
             ArrayList<String> arrayTopCal =new ArrayList<>(); //Kalori değerlerini alıp bunların toplanmasını sağlayacak list.
@@ -93,29 +85,19 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
     try{//Toplam kalori değerini yazdır.
         arrayTopCal.add(ogrYemekValue.get(j).select("li").text().replaceAll("\\D","")); //Her satırdaki sadece sayısal değerler alınır.
         topCal+=Integer.valueOf(arrayTopCal.get(j));}   catch (Exception ignored){} //Bun sayılar tek tek toplanarak topCal değerine yazılır.
-
+                String topCalString=String.valueOf(topCal);
+    if(topCal==0)
+        topCalString="Kalori belirtilmedi.";
                 if(j==ogrYemekValue.size()-1) //Eğer döngünün sonundaysam
                 {
         builder.delete(builder.lastIndexOf("\n"),builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
 
-        recyclerModel =new RecyclerModel(ogrTarihValue.get(i).text(),builder.toString(),topCal,values[2]);
+        recyclerModel =new RecyclerModel(ogrTarihValue.get(i).text(),builder.toString(),topCalString,values[2]);
                 }
             }
             recyclerList.add(recyclerModel);//her gün için verileri liste ekle. fori içerisinde
         }
 
-        if(switch_sabah && values[2].equals("1"))//Kullanıcı öğle verilerini gizlemek isterse
-        {
-            for (int i = 0; i < ogrTarihValue.size()/2; i++) {//öğle verisini gizlemek için i=0,2,4,6 gibi çift sayı olmalı.
-                recyclerList.remove(i); //Burada da bu çift sayıları seçip siliyorum. Böylece sabah verileri silinmiş olacak.
-            }
-        }
-        else if(switch_aksam && values[2].equals("1"))//Kullanıcı akşam verilerini gizlemek isterse
-        {
-            for (int i = 1; i <= ogrTarihValue.size()/2; i++) {//aksam verisini gizlemek için i=0,2,4,6 gibi çift sayı olmalı.
-                recyclerList.remove(i); //O yüzden 1,3,5,7 gibi verileri for ile alıp bu verileri Arraylist'den silip öyle adapter'a veriyorum.
-            }
-        }
        if(recyclerList.size()==0)//Eğer hiç veri yoksa snackbar ile kullanıcıyı bilgilendir.
        {
            Snackbar.make(((MainActivity)mContext()).findViewById(R.id.coordinatorLayout),
@@ -132,7 +114,6 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
         if(isShow)
             showDialog.HideProgressDialog();
         }//End of onPost
-
 
     private Context mContext()
     {

@@ -19,7 +19,7 @@ import com.Mtkn.umutt.eruyemekhane.GetValuesWithAsync;
 import com.Mtkn.umutt.eruyemekhane.R;
 import com.Mtkn.umutt.eruyemekhane.RecyclerAdapter;
 import com.Mtkn.umutt.eruyemekhane.ValuesDatabase;
-import com.Mtkn.umutt.eruyemekhane.activities.MainActivity;
+import com.Mtkn.umutt.eruyemekhane.MainActivity;
 
 public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -39,14 +39,16 @@ public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefres
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),DividerItemDecoration.VERTICAL)); //Recyclerview için her bloğu ayırır.
 
         ValuesDatabase database= Room.databaseBuilder(mContext,ValuesDatabase.class,mContext.getString(R.string.my_values))
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()//database güncellenirse verileri sil
+                .build();
 
-        if(!ConnectivityStatus.isConnected(mContext))
+        if(!ConnectivityStatus.isConnected(mContext)) //eğer internet yoksa, eski verileri getir.
         {
             recyclerView.setAdapter(new RecyclerAdapter(mContext,database.valuesDAO().getValues("1")));//offline veri çek
         }
 
-    new GetValuesWithAsync(this,true).execute("div.ListeSatirOgr >div.YemekTarih","div.ListeSatirOgr >div.YemekListe >ul","1");
+    new GetValuesWithAsync(this,true).execute(".ListeSatirOgr >.YemekTarih",".ListeSatirOgr >.YemekListe >ul","1");
         //context/Progress Dialog çıksın mı ? ---Execute: AsyncTask'ı çağır 1.veri tarih, 2.veri yemekler, 3.veri tür
 
         return rootView;
@@ -61,7 +63,7 @@ public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefres
     {
         if(ConnectivityStatus.isConnected(mContext))
         {
-    new GetValuesWithAsync(this,false).execute("div.ListeSatirOgr >div.YemekTarih","div.ListeSatirOgr >div.YemekListe >ul","1");
+    new GetValuesWithAsync(this,false).execute(".ListeSatirOgr >.YemekTarih",".ListeSatirOgr >.YemekListe >ul","1");
             Snackbar.make(((MainActivity)mContext).findViewById(R.id.coordinatorLayout),
                     "Kayıtlarınız yenilendi.",1500).show();
         }

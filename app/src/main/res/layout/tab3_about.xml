@@ -2,8 +2,6 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activities.AboutActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -37,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <TextView
-            android:onClick="geri_bildirim_gonder"
+            android:id="@+id/geriBildirim"
             android:textColor="@android:color/black"
             android:drawablePadding="10dp"
             android:drawableStart="@mipmap/contactme_icon"
@@ -56,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <TextView
-            android:onClick="uygulamayi_degerlendir"
+            android:id="@+id/appDegerlendir"
             android:textColor="@android:color/black"
             android:drawablePadding="10dp"
             android:drawableStart="@mipmap/rate_icon"
@@ -81,7 +79,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:onClick="github_eris"
+            android:id="@+id/gitHubKodlari"
             android:textColor="@android:color/black"
             android:drawablePadding="10dp"
             android:drawableStart="@mipmap/github_icon"
