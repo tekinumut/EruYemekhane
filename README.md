@@ -1,11 +1,15 @@
 EruYemekhane Erciyes Üniversitesinin yemekhane listelerini gösteren bir Android uygulamasıdır.                                         
-Öğrenci ve Personel yemek listesini ayrı ayrı gösterir. Ayrıca Öğrenci bölümünde genelde aynı olan öğle-akşam menüleri gizlenebilir.        
+Öğrenci ve Personel yemek listesini ayrı ayrı gösterir.     
 Uygulama internete bağlı iken aldığı son kayıtları hafızasında tutar. Böylece daha sonra bu verilere çevrimdışı erişilebilir.
 
 ### Öğrenci Yemek Listesi
 
-![eru_ogrenci](https://user-images.githubusercontent.com/33953921/47813470-4211e980-dd5c-11e8-9f3f-8f7584c42d1d.png)
+![1ogrenci](https://user-images.githubusercontent.com/33953921/53304512-550a7580-3887-11e9-8b5a-0137adde608b.png)
+
+### Personel Yemek Listesi
+
+![2personel](https://user-images.githubusercontent.com/33953921/53304514-550a7580-3887-11e9-94f2-f1cd280008a0.png)
 
 ### Ayarlar
 
-![eru_settings](https://user-images.githubusercontent.com/33953921/47813472-4211e980-dd5c-11e8-825f-80fe8bf2c0ec.png)
+![3hakkinda](https://user-images.githubusercontent.com/33953921/53304515-550a7580-3887-11e9-8def-3bc59f66b0ae.png)
