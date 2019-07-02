@@ -1,14 +1,14 @@
 package com.Mtkn.umutt.eruyemekhane;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.Toast;
+
+import com.Mtkn.umutt.eruyemekhane.RoomFiles.ValuesDatabase;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.Mtkn.umutt.eruyemekhane.abstracts.ConnectivityStatus;
 import com.Mtkn.umutt.eruyemekhane.fragments.Tab1Ogrenci;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
+public class GetValuesWithAsync extends AsyncTask<String, Void, String[]> {
     private final WeakReference<Fragment> weakReference;
     private Document document;
     private ShowDialog showDialog;
@@ -68,7 +68,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
             return ;
 
         RecyclerView recyclerView=Objects.requireNonNull(fragment.getView()).findViewById(R.id.recycler_view);
-        ValuesDatabase database= Room.databaseBuilder(mContext(),ValuesDatabase.class,mContext().getString(R.string.my_values))
+        ValuesDatabase database= Room.databaseBuilder(mContext(), ValuesDatabase.class,mContext().getString(R.string.my_values))
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()//database güncellenirse verileri sil
                 .build();
@@ -107,7 +107,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
 
                     String topCalString = String.valueOf(topCal);
                     if (topCal == 0)
-                        topCalString = "Kalori belirtilmedi";
+                        topCalString = "0";
                     if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
                     {
                         builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
@@ -141,7 +141,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
 
                         String topCalString = String.valueOf(topCal);
                         if (topCal == 0)
-                            topCalString = "Kalori belirtilmedi";
+                            topCalString = "0";
                         if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
                         {
                             builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.
@@ -177,7 +177,7 @@ public class GetValuesWithAsync extends AsyncTask<String, String, String[]> {
 
                     String topCalString = String.valueOf(topCal);
                     if (topCal == 0)
-                        topCalString = "Kalori belirtilmedi";
+                        topCalString = "0";
                     if (j == ogrYemekValue.size() - 1) //Eğer döngünün sonundaysam
                     {
                         builder.delete(builder.lastIndexOf("\n"), builder.length());//En sonda \n ile bırakılan boşluğu sil. Çünkü yazı bir boşluk fazla gözüküyor.

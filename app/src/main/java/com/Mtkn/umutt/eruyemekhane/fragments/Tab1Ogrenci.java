@@ -1,15 +1,15 @@
 package com.Mtkn.umutt.eruyemekhane.fragments;
 
-import android.arch.persistence.room.Room;
+import androidx.room.Room;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,7 @@ import com.Mtkn.umutt.eruyemekhane.abstracts.ConnectivityStatus;
 import com.Mtkn.umutt.eruyemekhane.GetValuesWithAsync;
 import com.Mtkn.umutt.eruyemekhane.R;
 import com.Mtkn.umutt.eruyemekhane.RecyclerAdapter;
-import com.Mtkn.umutt.eruyemekhane.ValuesDatabase;
+import com.Mtkn.umutt.eruyemekhane.RoomFiles.ValuesDatabase;
 import com.Mtkn.umutt.eruyemekhane.MainActivity;
 
 public class Tab1Ogrenci extends Fragment implements SwipeRefreshLayout.OnRefreshListener {

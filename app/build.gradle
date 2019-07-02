@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
-def keystorePropertiesFile = rootProject.file("keystore.properties")
+//def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 // Initialize a new Properties() object called keystoreProperties.
-def keystoreProperties = new Properties()
+//def keystoreProperties = new Properties()
 
 // Load your keystore.properties file into the keystoreProperties object.
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+//keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
-    signingConfigs {
+  /*  signingConfigs {
         key1 {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
@@ -17,7 +17,19 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+*/
+    buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+             //
+                //   signingConfig signingConfigs.key1
+            }
+            debug {
+            //    signingConfig signingConfigs.key1
+            }
 
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.Mtkn.umutt.eruyemekhane"
@@ -25,19 +37,10 @@ android {
         targetSdkVersion 28
         versionCode 11
         versionName "1.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.key1
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        signingConfig signingConfigs.key1
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.key1
-        }
-        debug {
-            signingConfig signingConfigs.key1
-        }
-    }
+
     buildToolsVersion '28.0.3'
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -49,21 +52,17 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support:design:28.0.0'
-    implementation 'com.android.support:support-v4:28.0.0'
-    implementation 'com.android.support:preference-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
     implementation 'org.jsoup:jsoup:1.11.3'
     
     testİmplementation 'junit:junit:4.12'
-    androidTestİmplementation 'com.android.support.test:runner:1.0.2'
-    androidTestİmplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestİmplementation 'androidx.test:runner:1.2.0'
+    androidTestİmplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    def room_version = "1.1.1"
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
 
-    def lifecycle_version = "1.1.1"
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 }

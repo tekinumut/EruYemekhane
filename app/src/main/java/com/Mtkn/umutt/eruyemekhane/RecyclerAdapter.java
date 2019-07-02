@@ -1,8 +1,8 @@
 package com.Mtkn.umutt.eruyemekhane;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,6 +34,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         holder.tarih.setText(model.getTarih());
         holder.yemek.setText(model.getYemekler());
+        if(model.getTopCal().equals("0"))
+            holder.topCal.setText("Kalori Belirtilmedi");
+        else
         holder.topCal.setText("Toplam Kalori : "+model.getTopCal()); //SetText'in gariplikleri işte. İlgili detay linkte:
         //https://stackoverflow.com/questions/33164886/android-textview-do-not-concatenate-text-displayed-with-settext
 
