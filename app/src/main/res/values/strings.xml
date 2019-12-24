@@ -1,21 +1,52 @@
 <resources>
-    <string name="app_name">Erü Yemekhane</string>
-    <string name="tab_text_1">Öğrenci</string>
-    <string name="tab_text_2">Personel</string>
-    <string name="menuHakkinda">Hakkında</string>
-    <string name="topCalTextView">Toplam Kalori : %1$d</string>
+    <string name="app_name">EruYemekhane</string>
+    <string name="ogrenci_title">Öğrenci</string>
+    <string name="personel_title">Personel</string>
+    <string name="no_value">Veri Alınamadı</string>
+    <string name="_m_please_wait">Lütfen Bekleyiniz!</string>
+    <string name="open_web_site">Web Sitesine Git</string>
+    <string name="no_connection">İnternet bağlantısı bulunamadı. Son kayıtlar yüklendi.</string>
+    <string name="no_access_web_page">Veriler web sitesinden alınamadı.</string>
+    <string name="ayarlar">Ayarlar</string>
+    <string name="hakkinda">Hakkında</string>
+    <string name="tamam">Tamam</string>
+    <string name="myGmail">bm.umuttekin@gmail.com</string>
+    <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
 
+    <string name="ad_publish_id">ca-app-pub-2705228793908409~4438637145</string>
+    <string name="banner_ad_unit_id">ca-app-pub-2705228793908409/6862116545</string>
 
-    <!-- Database -->
-    <string name="my_values">my_values</string>
-
-    <!-- Tab3About Page-->
-
-    <string name="program_kullanimi">Progam Kullanımı:</string>
-    <string name="contact_me">Geri Bildirim Gönder</string>
+    <!--
+    <string name="ad_publish_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    -->
+    <!-- Hakkında -->
+    <string name="kullanim_kilavuzu">
+        • Uygulamadan daha fazla verim alabilmek için lütfen Program Kullanımı kısmını okuyunuz.\n
+        • Uygulama öğrenci ve personel yemek listelerini gösterir. Bu yayınlanan listenin değişmesi ile güncellenebilir.\n
+        • Ayarlar menüsünden ilk olarak görmek istediğiniz listeyi düzenleyebilirsiniz.\n
+        • Yine ayarlar menüsünden gece modunu kapatıp, açabilirsiniz.\n
+        • Uygulama size hafızasında kayıtlı son verileri gösterir. Eğer erciyes.edu.tr\'den verileri sorunsuz bir şekilde alırsanız bu hafızadaki veriler,
+        güncel veriler ile değiştirilir ve size güncel veri sunulur.\n
+        • Listeler belirli sebeplerden dolayı boş olabilir. Bu sebepleri size açıklayan bir ekran gösterilir. \n
+        • Listeleri görüntülerken ekranı yukarıdan aşağı çekerek kayıtları yenileyebilirsiniz.\n
+        • Uygulamanın güncel kodlarına aşağıdaki Github linkinden erişebilirsiniz.</string>
+    <string name="prog_kullanimi">Program Kullanımı</string>
     <string name="rate_app">Uygulamayı Değerlendir</string>
-    <string name="for_gelistiriciler">Geliştiriciler için</string>
-    <string name="app_codes_about">Uygulama kaynak kodları</string>
-    <string name="yukleniyor">Yükleniyor</string>
+    <string name="send_feedback">Geri Bildirim Gönder</string>
+    <string name="github_source_code">Uygulama Kaynak Kodları</string>
+    <string name="expand_more">Genişletmek için tıkla</string>
+    <string name="expand_less">Daraltmak için tıkla</string>
+
+    <!-- Ayarlar -->
+    <string name="night_mode_active">Gece modu açık</string>
+    <string name="night_mode_passive">Gece modu kapalı</string>
+    <string name="empty_list">Liste Boş</string>
+    <string name="empty_content">Yemek listesinin boş olma sebepleri: \n\n
+        • İnternet bağlantınızın olmaması \n
+        • erciyes.edu.tr\'nin yanıt vermemesi \n
+        • Henüz erciyes.edu.tr\'deki listenin yayınlanmamış olması. \n\n
+
+        Sayfayı yenilemeyi deneyin eğer veri yoksa aşağıdaki butona tıklayarak yemek listesinin bulunduğu sayfaya ulaşabilirsiniz</string>
 
 </resources>

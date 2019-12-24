@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_ayarlar"
+        android:title="@string/ayarlar"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_hakkinda"
+        android:title="@string/hakkinda"
+        app:showAsAction="never" />
+</menu>

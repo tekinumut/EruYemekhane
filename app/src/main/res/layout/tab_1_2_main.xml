@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ViewSwitcher
+        android:id="@+id/viewSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/rec_empty_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorDateBackground"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/margin_4"
+                    android:paddingEnd="@dimen/margin_4"
+                    android:text="@string/empty_list"
+                    android:textColor="@color/dateText"
+                    android:textSize="@dimen/size_20"
+                    app:layout_constraintBottom_toTopOf="@id/rec_empty_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias=".1"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+
+                <TextView
+                    android:id="@+id/rec_empty_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:lineSpacingExtra="@dimen/margin_4"
+                    android:paddingStart="@dimen/margin_4"
+                    android:paddingEnd="@dimen/margin_4"
+                    android:text="@string/empty_content"
+                    android:textColor="@color/foodText"
+                    android:textSize="@dimen/size_18"
+                    app:layout_constraintBottom_toTopOf="@id/go_web_site"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rec_empty_title" />
+
+                <Button
+                    android:id="@+id/go_web_site"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="@string/open_web_site"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white87"
+                    android:textSize="@dimen/size_16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias=".4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rec_empty_content" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </ViewSwitcher>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/defTab_entries"
+        android:entryValues="@array/defTab_values"
+        android:key="defaultTab"
+        android:summary="Uygulama açıldığında görmek istediğiniz sayfayı belirleyin"
+        android:title="Başlangıç Sayfası" />
+    <SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="nightMode"
+        android:summary="Gece modu aktif"
+        android:title="Gece Modu" />
+</PreferenceScreen>

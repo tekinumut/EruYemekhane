@@ -1,68 +1,87 @@
 apply plugin: 'com.android.application'
 
-//def keystorePropertiesFile = rootProject.file("keystore.properties")
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 // Initialize a new Properties() object called keystoreProperties.
-//def keystoreProperties = new Properties()
+def keystoreProperties = new Properties()
 
 // Load your keystore.properties file into the keystoreProperties object.
-//keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 
 android {
-  /*  signingConfigs {
-        key1 {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.Mtkn.umutt.eruyemekhane"
+        minSdkVersion 17
+        targetSdkVersion 29
+        multiDexEnabled true
+        versionCode 200
+        versionName "2.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        config {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
     }
-*/
-    buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-             //
-                //   signingConfig signingConfigs.key1
-            }
-            debug {
-            //    signingConfig signingConfigs.key1
-            }
-
-    }
-    compileSdkVersion 28
-    defaultConfig {
-        applicationId "com.Mtkn.umutt.eruyemekhane"
-        minSdkVersion 17
-        targetSdkVersion 28
-        versionCode 11
-        versionName "1.1"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        signingConfig signingConfigs.key1
-    }
-
-    buildToolsVersion '28.0.3'
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    productFlavors {
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.preference:preference:1.0.0'
-    implementation 'org.jsoup:jsoup:1.11.3'
-    
-    testİmplementation 'junit:junit:4.12'
-    androidTestİmplementation 'androidx.test:runner:1.2.0'
-    androidTestİmplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:18.3.0'
+    implementation 'org.jsoup:jsoup:1.12.1'
+    implementation "androidx.preference:preference-ktx:1.1.0"
+    implementation 'com.android.support:multidex:2.0.1'
 
-    implementation 'androidx.room:room-runtime:2.1.0'
-    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+    def room_version = "2.2.3"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // For Kotlin use kapt instead of annotationProcessor
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
 
+    // Lifecycle and Viewmodel dependencies
+    def lifecycle_version = "2.2.0-rc03"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
