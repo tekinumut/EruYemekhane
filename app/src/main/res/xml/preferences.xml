@@ -4,12 +4,22 @@
         android:defaultValue="0"
         android:entries="@array/defTab_entries"
         android:entryValues="@array/defTab_values"
-        android:key="defaultTab"
-        android:summary="Uygulama açıldığında görmek istediğiniz sayfayı belirleyin"
-        android:title="Başlangıç Sayfası" />
-    <SwitchPreferenceCompat
+        android:key="@string/firstTabKey"
+        android:summary="@string/firstTabSummary"
+        android:title="@string/firstTabTitle" />
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/nightModel_entries"
+        android:entryValues="@array/nightMode_values"
+        android:key="@string/nightModeKey"
+        android:summary="@string/nightModeSummary"
+        android:title="@string/nightModeTitle" />
+
+    <SwitchPreference
         android:defaultValue="true"
-        android:key="nightMode"
-        android:summary="Gece modu aktif"
-        android:title="Gece Modu" />
+        android:key="@string/adKey"
+        android:summary="@string/adSummaryActive"
+        android:title="@string/adActivityTitle">
+
+    </SwitchPreference>
 </PreferenceScreen>

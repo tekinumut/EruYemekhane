@@ -1,66 +1,184 @@
 package com.Mtkn.umutt.eruyemekhane.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.Mtkn.umutt.eruyemekhane.MainViewModel
 import com.Mtkn.umutt.eruyemekhane.R
-import com.Mtkn.umutt.eruyemekhane.fragments.TabOgrenciPersonel
+import com.Mtkn.umutt.eruyemekhane.TabOgrPer
+import com.Mtkn.umutt.eruyemekhane.YemekModel
+import com.Mtkn.umutt.eruyemekhane.library.Constants
+import com.Mtkn.umutt.eruyemekhane.library.Resource
+import com.Mtkn.umutt.eruyemekhane.library.Utility
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.google.android.material.tabs.TabLayout
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
 
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var mainPref: SharedPreferences
-    private lateinit var adapter: SectionPagerAdapter
+    private val loadingDialog by lazy { Utility.getLoadingDialog(this) }
+    private val mainViewModel: MainViewModel by viewModels()
+    private val mainPref by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
+    private val typeOrder by lazy { mainPref.getString(getString(R.string.firstTabKey), "${Constants.ogrType}")?.toInt()!! }
+    private val adActivity by lazy { mainPref.getBoolean(getString(R.string.adKey), true) }
+    private val view by lazy { findViewById<View>(android.R.id.content) }
+    private var selectedTab = Constants.ogrType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainPref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
-        MobileAds.initialize(this) {}
-        val mAdView = findViewById<AdView>(R.id.adViewBanner)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
+        loadBannerAd()
 
-        //   showBuilder()
+        refreshLayout.setOnRefreshListener(this)
+        viewpager.offscreenPageLimit = 1
+        viewpager.adapter = SectionPagerAdapter(this, typeOrder)
 
-        adapter = SectionPagerAdapter(supportFragmentManager, tabLayout)
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+        viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                selectedTab = position
+                refreshLayout.isRefreshing = false
+            }
 
-        val selectedTab = Integer.parseInt(mainPref.getString("defaultTab", "0")!!)
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                toggleRefresh(state == ViewPager2.SCROLL_STATE_IDLE)
+            }
+        })
 
-        if (selectedTab == 0) {
-            tabLayout.getTabAt(0)?.text = getString(R.string.ogrenci_title)
-            tabLayout.getTabAt(1)?.text = getString(R.string.personel_title)
+        getFoodData(Constants.bothType)
+        initSettingsMenu()
+        TabLayoutMediator(tab_layout, viewpager) { tab, position ->
+            tab.text = getTabText(position)
+        }.attach()
+    }
+
+    /**
+     * Banner reklamı aktif et
+     */
+    private fun loadBannerAd() {
+        if (adActivity) {
+            MobileAds.initialize(this) {}
+            val adRequest = AdRequest.Builder().build()
+            adViewBanner.loadAd(adRequest)
         } else {
-            tabLayout.getTabAt(0)?.text = getString(R.string.personel_title)
-            tabLayout.getTabAt(1)?.text = getString(R.string.ogrenci_title)
+            adViewBanner.visibility = View.GONE
+        }
+    }
+
+    /**
+     * Web sitesinden verileri çeker.
+     */
+    private fun getFoodData(type: Int) {
+        if (Utility.isInternetAvailable(this)) {
+            mainViewModel.getFoodData(type).observe(this, Observer { result ->
+                when (result) {
+                    Resource.InProgress -> loadingDialog.show()
+                    is Resource.Success -> {
+                        Toast.makeText(this, getString(R.string.data_updated), Toast.LENGTH_SHORT).show()
+                        // Eğer veri ilk kez yükleniyorsa listenin dolu olduğu sayfayı aç
+                        if (type == Constants.bothType) {
+                            selectNonEmptyTab(result.data)
+                        }
+                        loadingDialog.dismiss()
+                        refreshLayout.isRefreshing = false
+                    }
+                    is Resource.Error -> {
+                        loadingDialog.dismiss()
+                        refreshLayout.isRefreshing = false
+                        showErrorSnackBar()
+                    }
+                }
+            })
+        } else {
+            refreshLayout.isRefreshing = false
+            Snackbar.make(view, getString(R.string.no_connection), 3000).show()
+        }
+    }
+
+    /**
+     * Eğer listenin biri boş diğeri dolu ise
+     * otomatik olarak dolu listenin bulunduğu sayfayı açar
+     */
+    private fun selectNonEmptyTab(list: List<YemekModel>) {
+        var ogrCount = 0
+        var perCount = 0
+        list.forEach {
+            if (it.type == Constants.ogrType) ogrCount += 1
+            else if (it.type == Constants.perType) perCount += 1
         }
 
-        openSettings.setOnClickListener {
-            val popup = PopupMenu(this@MainActivity, it)
+        // Eğer sadece Öğrenci listesi doluysa
+        if (ogrCount > 0 && perCount == 0) {
+            viewpager.currentItem = if (typeOrder == 0) Constants.ogrType else Constants.perType
+        }
+        // Eğer sadece Personel listesi doluysa
+        if (perCount > 0 && ogrCount == 0) {
+            viewpager.currentItem = if (typeOrder == 0) Constants.perType else Constants.ogrType
+        }
+    }
+
+    /**
+     * Tab'ların text verisini belirler
+     */
+    private fun getTabText(position: Int): String {
+        return when (position) {
+            0 -> {
+                if (typeOrder == 0) getString(R.string.ogrenci_title)
+                else getString(R.string.personel_title)
+            }
+            1 -> {
+                if (typeOrder == 0) getString(R.string.personel_title)
+                else getString(R.string.ogrenci_title)
+            }
+            else -> getString(R.string.error)
+        }
+    }
+
+    /**
+     * Veriler yüklenirken bir hata meydana geldiğinde çağrılır.
+     */
+    private fun showErrorSnackBar() {
+        Snackbar.make(view, getString(R.string.error_loading_data), 5000)
+            .setAction(getString(R.string.open_web_site)) {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL)))
+            }.setActionTextColor(ContextCompat.getColor(this, R.color.white))
+            .show()
+    }
+
+    /**
+     * Sağ üst köşede bulunan pop menüsünün işlevlerini tanımlar.
+     */
+    private fun initSettingsMenu() {
+        ib_settings.setOnClickListener {
+            val popup = PopupMenu(this, it)
             popup.menuInflater.inflate(R.menu.settings_menu, popup.menu)
 
             popup.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.menu_ayarlar -> {
-                        startActivity(Intent(this, SettingsActivity::class.java).setAction("Ayarlar"))
                         finish()
+                        startActivity(Intent(this, SettingsActivity::class.java).setAction(getString(R.string.settings)))
+                        overridePendingTransition(0, 0)
                     }
                     R.id.menu_hakkinda -> {
-                        startActivity(Intent(this, SettingsActivity::class.java).setAction("Hakkinda"))
+                        startActivity(Intent(this, SettingsActivity::class.java).setAction(getString(R.string.about)))
                     }
                 }
                 true
@@ -69,26 +187,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class SectionPagerAdapter(fm: FragmentManager, private val tabLayout: TabLayout) :
-        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        override fun getItem(position: Int): Fragment {
-
-            val tabType: ArrayList<Int> = ArrayList()
-            for (i in 0 until tabLayout.tabCount) {
-                when (tabLayout.getTabAt(i)?.text.toString()) {
-                    tabLayout.context.getString(R.string.ogrenci_title) -> tabType.add(0)
-                    tabLayout.context.getString(R.string.personel_title) -> tabType.add(1)
-                }
-            }
-            return when (position) {
-                in 0..1 -> TabOgrenciPersonel.newInstance(tabType[position], position)
-                else -> TabOgrenciPersonel.newInstance(0, 0)
-            }
-        }
-
-        override fun getCount(): Int = 2
+    /**
+     * Bu metot ViewPager2 SwipeRefreshLayout içerisinde olduğundan dolayı
+     * tablar arasında geçiş yaparken refreshlayout ile çakışmasını engeller.
+     */
+    private fun toggleRefresh(enabled: Boolean) {
+        refreshLayout?.let { refreshLayout.isEnabled = enabled }
     }
 
+    // An equivalent ViewPager2 adapter class
+    class SectionPagerAdapter(fa: FragmentActivity, private val typeOrder: Int) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = 2
+
+        // position 0-1 olarak gelecek
+        // eğer ilk personel göster deniyorsa 1-0 olarak veri gönderilecek.
+        override fun createFragment(position: Int): Fragment {
+            return if (typeOrder == 0) TabOgrPer.newInstance(position)
+            else {
+                if (position == 0) TabOgrPer.newInstance(1)
+                else TabOgrPer.newInstance(0)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adViewBanner.destroy()
+        loadingDialog.dismiss()
+        refreshLayout.isRefreshing = false
+    }
+
+    override fun onRefresh() {
+        refreshLayout.post { getFoodData(selectedTab) }
+    }
 }
-
-

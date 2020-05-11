@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e9afca398ea3385e5bf664a540dad433",
+    "identityHash": "342ab5fcfed4f5c66d357665f343a594",
     "entities": [
       {
         "tableName": "YemekList",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ty_id` INTEGER PRIMARY KEY AUTOINCREMENT, `tarih` TEXT NOT NULL, `yemekler` TEXT NOT NULL, `type` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`yemek_id` INTEGER PRIMARY KEY AUTOINCREMENT, `tarih` TEXT NOT NULL, `yemekler` TEXT NOT NULL, `type` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "ty_id",
-            "columnName": "ty_id",
+            "fieldPath": "yemek_id",
+            "columnName": "yemek_id",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -35,7 +35,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "ty_id"
+            "yemek_id"
           ],
           "autoGenerate": true
         },
@@ -46,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9afca398ea3385e5bf664a540dad433')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '342ab5fcfed4f5c66d357665f343a594')"
     ]
   }
 }

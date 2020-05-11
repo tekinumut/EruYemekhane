@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#001c3d</color>
-    <color name="colorPrimaryDark">#2c3e50</color>
-    <color name="colorAccent">#395169</color>
-    <color name="primaryText">#FFFFFFFF</color>
+    <color name="primaryText">#FFFFFF</color>
     <color name="secondaryText">#B3FFFFFF</color>
     <color name="disabledText">#80FFFFFF</color>
-    <color name="dateText">#DEFFF4D9</color>
-    <color name="foodText">#DEFFFFFF</color>
-    <color name="colorDateBackground">#333333</color>
-    <color name="white87forBoth">#242424</color>
+    <color name="DateText">#DEFFF4D9</color>
+    <color name="DateBG">#333333</color>
+    <color name="EmptyBtnBG">#2c3e50</color>
+    <color name="loadingBar">#DEFFF4D9</color>
+    <color name="both_white87">#DE000000</color>
 </resources>

@@ -1,36 +1,46 @@
-<resources>
-    <string name="app_name">EruYemekhane</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos">
+    <string name="app_name">Eru Yemekhane</string>
     <string name="ogrenci_title">Öğrenci</string>
     <string name="personel_title">Personel</string>
+    <string name="error">HATA</string>
     <string name="no_value">Veri Alınamadı</string>
-    <string name="_m_please_wait">Lütfen Bekleyiniz!</string>
-    <string name="open_web_site">Web Sitesine Git</string>
+    <string name="_m_please_wait">Güncel veriler yükleniyor…</string>
+    <string name="data_updated">Son veriler başarıyla yüklendi</string>
+    <string name="error_loading_data">Veriler alınırken bir hata meydana geldi.</string>
     <string name="no_connection">İnternet bağlantısı bulunamadı. Son kayıtlar yüklendi.</string>
-    <string name="no_access_web_page">Veriler web sitesinden alınamadı.</string>
-    <string name="ayarlar">Ayarlar</string>
-    <string name="hakkinda">Hakkında</string>
-    <string name="tamam">Tamam</string>
+    <string name="open_web_site">Web Sitesine Git</string>
+    <string name="settings">Ayarlar</string>
+    <string name="about">Hakkında</string>
+    <string name="system_default">Cihaz temasını kullan</string>
+    <string name="light">Açık</string>
+    <string name="dark">Koyu</string>
+
+    <string name="empty_title">Yemek listesi henüz yayınlanmadı.</string>
+    <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
+    <string name="empty_reason_content">
+         • Verilerin alındığı erciyes.edu.tr adresindeki listenin henüz yayınlanmaması.\n
+         • erciyes.edu.tr adresinin yanıt vermemesi
+    </string>
+    <string name="empty_solution_title"><u>Çözüm önerileri:</u></string>
+    <string name="empty_solution_content">
+        • Ekranı yukarıdan aşağıya çekerek listeyi güncelleyebilirsiniz.\n
+        • Aşağıda bulunan \'Web sitesine git\' butonuna tıklayarak listelerin yer aldığı web sitesini ziyaret edebilirsiniz.\n
+        • Listeler web sitesinde de gözükmüyorsa, yayınlanana kadar beklemeniz gerekmektedir.</string>
+
     <string name="myGmail">bm.umuttekin@gmail.com</string>
     <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
-
-    <string name="ad_publish_id">ca-app-pub-2705228793908409~4438637145</string>
-    <string name="banner_ad_unit_id">ca-app-pub-2705228793908409/6862116545</string>
-
-    <!--
-    <string name="ad_publish_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    -->
-    <!-- Hakkında -->
     <string name="kullanim_kilavuzu">
         • Uygulamadan daha fazla verim alabilmek için lütfen Program Kullanımı kısmını okuyunuz.\n
         • Uygulama öğrenci ve personel yemek listelerini gösterir. Bu yayınlanan listenin değişmesi ile güncellenebilir.\n
         • Ayarlar menüsünden ilk olarak görmek istediğiniz listeyi düzenleyebilirsiniz.\n
-        • Yine ayarlar menüsünden gece modunu kapatıp, açabilirsiniz.\n
-        • Uygulama size hafızasında kayıtlı son verileri gösterir. Eğer erciyes.edu.tr\'den verileri sorunsuz bir şekilde alırsanız bu hafızadaki veriler,
-        güncel veriler ile değiştirilir ve size güncel veri sunulur.\n
+        • Yine ayarlar menüsünden gece modunu kapatıp açabilirsiniz.\n
+        • Uygulama size hafızasında kayıtlı son verileri gösterir. Eğer erciyes.edu.tr\'den verileri sorunsuz bir şekilde alırsanız, bu hafızadaki veriler
+        güncel veriler ile değiştirilir.\n
         • Listeler belirli sebeplerden dolayı boş olabilir. Bu sebepleri size açıklayan bir ekran gösterilir. \n
-        • Listeleri görüntülerken ekranı yukarıdan aşağı çekerek kayıtları yenileyebilirsiniz.\n
-        • Uygulamanın güncel kodlarına aşağıdaki Github linkinden erişebilirsiniz.</string>
+        • Listeleri görüntülerken ekranı yukarıdan aşağı çekerek listeleri yenileyebilirsiniz.\n
+        • Uygulamanın güncel kodlarına aşağıdaki Github linkinden erişebilirsiniz.\n
+        • Lütfen geri bildirim göndermekten ve uygulamayı değerlendirmekten çekinmeyin.</string>
+    <string name="send_mail">Mail Gönder</string>
     <string name="prog_kullanimi">Program Kullanımı</string>
     <string name="rate_app">Uygulamayı Değerlendir</string>
     <string name="send_feedback">Geri Bildirim Gönder</string>
@@ -38,15 +48,18 @@
     <string name="expand_more">Genişletmek için tıkla</string>
     <string name="expand_less">Daraltmak için tıkla</string>
 
-    <!-- Ayarlar -->
-    <string name="night_mode_active">Gece modu açık</string>
-    <string name="night_mode_passive">Gece modu kapalı</string>
-    <string name="empty_list">Liste Boş</string>
-    <string name="empty_content">Yemek listesinin boş olma sebepleri: \n\n
-        • İnternet bağlantınızın olmaması \n
-        • erciyes.edu.tr\'nin yanıt vermemesi \n
-        • Henüz erciyes.edu.tr\'deki listenin yayınlanmamış olması. \n\n
 
-        Sayfayı yenilemeyi deneyin eğer veri yoksa aşağıdaki butona tıklayarak yemek listesinin bulunduğu sayfaya ulaşabilirsiniz</string>
+    <!-- Settings Keys -->
+    <string name="firstTabKey">firstTab</string>
+    <string name="firstTabTitle">Başlangıç Sayfası</string>
+    <string name="firstTabSummary">İlk sırada gösterilecek liste türünü belirtin</string>
 
+    <string name="nightModeKey">nightMode</string>
+    <string name="nightModeTitle">Görünüm</string>
+    <string name="nightModeSummary">Açık/Koyu tema tercihinizi belirtin </string>
+
+    <string name="adKey">adActivity</string>
+    <string name="adActivityTitle">Reklam Görünümü</string>
+    <string name="adSummaryActive">Reklamlar etkin</string>
+    <string name="adSummaryPassive">Reklamlar devre dışı</string>
 </resources>

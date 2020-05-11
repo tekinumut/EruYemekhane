@@ -2,65 +2,60 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
     <ImageButton
-        android:id="@+id/openSettings"
-        android:layout_width="wrap_content"
+        android:id="@+id/ib_settings"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_settings"
-        app:layout_constraintBottom_toBottomOf="@id/tabLayout"
+        app:layout_constraintBottom_toBottomOf="@id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tabLayout"
-        app:layout_constraintTop_toTopOf="@id/tabLayout"
+        app:layout_constraintStart_toEndOf="@+id/tab_layout"
+        app:layout_constraintTop_toTopOf="@id/tab_layout"
+        app:layout_constraintWidth_percent=".1"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tab_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toStartOf="@id/openSettings"
+        app:layout_constraintEnd_toStartOf="@id/ib_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white70">
+        app:tabTextColor="@color/passive_tab_color" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ogrenci_title" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/personel_title" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_5"
-        android:layout_marginTop="@dimen/margin_10"
         app:layout_constraintBottom_toTopOf="@id/adViewBanner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adViewBanner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        ads:layout_constraintTop_toBottomOf="@id/viewPager"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent" />
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@id/refreshLayout" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

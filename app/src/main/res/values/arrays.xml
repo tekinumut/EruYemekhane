@@ -7,8 +7,20 @@
     </string-array>
 
     <string-array name="defTab_entries">
-        <item>Öğrenci</item>
-        <item>Personel</item>
+        <item>@string/ogrenci_title</item>
+        <item>@string/personel_title</item>
+    </string-array>
+
+    <string-array name="nightMode_values">
+        <item>-1</item>  <!-- otomatik -->
+        <item>0</item>   <!-- gündüz -->
+        <item>1</item>   <!-- gece -->
+    </string-array>
+
+    <string-array name="nightModel_entries">
+        <item>@string/system_default</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
     </string-array>
 
 </resources>

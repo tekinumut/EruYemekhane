@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewSwitcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/DateBG"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/empty_title"
+                android:textColor="@color/DateText"
+                android:textSize="18sp" />
+
+            <TextView
+                style="@style/empty_texts"
+                android:layout_marginTop="15dp"
+                android:text="@string/empty_reason_title"
+                android:textColor="@color/primaryText"
+                android:textSize="17sp" />
+
+            <TextView
+                style="@style/empty_texts"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="3dp"
+                android:text="@string/empty_reason_content"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                style="@style/empty_texts"
+                android:layout_marginTop="8dp"
+                android:text="@string/empty_solution_title"
+                android:textColor="@color/primaryText"
+                android:textSize="17sp" />
+
+            <TextView
+                style="@style/empty_texts"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="3dp"
+                android:text="@string/empty_solution_content"
+                android:textColor="@color/primaryText"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_open_web_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/EmptyBtnBG"
+                android:text="@string/open_web_site"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false" />
+
+</ViewSwitcher>
+
+

@@ -17,9 +17,7 @@ abstract class YemekDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): YemekDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
+            tempInstance?.let { return tempInstance }
 
             synchronized(YemekDatabase::class) {
                 val instance = Room.databaseBuilder(
