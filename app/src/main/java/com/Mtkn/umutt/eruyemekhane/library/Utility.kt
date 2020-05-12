@@ -4,9 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import com.Mtkn.umutt.eruyemekhane.R
 import com.Mtkn.umutt.eruyemekhane.YemekModel
 import org.jsoup.nodes.Document
@@ -121,5 +124,19 @@ class Utility {
             .setCancelable(false)
             .setView(R.layout.dialog_loading)
             .create()
+
+        /**
+         * Listelerin alındığı web sayfasını açar
+         */
+        fun openListWebSite(context: Context) {
+            val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
+            builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            builder.setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
+            builder.setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
+
+            val tabIntent = builder.build()
+            tabIntent.launchUrl(context, Uri.parse(Constants.URL))
+
+        }
     }
 }

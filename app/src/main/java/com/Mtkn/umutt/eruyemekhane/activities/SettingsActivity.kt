@@ -1,5 +1,6 @@
 package com.Mtkn.umutt.eruyemekhane.activities
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -15,6 +16,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.Mtkn.umutt.eruyemekhane.R
+import com.Mtkn.umutt.eruyemekhane.library.Constants
 import com.Mtkn.umutt.eruyemekhane.library.Utility
 import kotlinx.android.synthetic.main.about_settings.*
 import kotlinx.android.synthetic.main.about_settings.view.*
@@ -24,7 +26,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
         if (intent.action == getString(R.string.settings))
             supportFragmentManager.beginTransaction().replace(R.id.settings_container, Settings()).commit()
         if (intent.action == getString(R.string.about))
@@ -39,8 +40,10 @@ class SettingsActivity : AppCompatActivity() {
      */
     class Settings : PreferenceFragmentCompat() {
 
+        // private val firstTabList by lazy { findPreference<ListPreference>(getString(R.string.firstTabKey))!! }
         private val nightModeList by lazy { findPreference<ListPreference>(getString(R.string.nightModeKey))!! }
         private val adActivity by lazy { findPreference<SwitchPreference>(getString(R.string.adKey))!! }
+        //  private val focusFullList by lazy { findPreference<SwitchPreference>(getString(R.string.focusNonEmptyKey))!! }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -125,20 +128,18 @@ class SettingsActivity : AppCompatActivity() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                backToMainActivity()
-                return true
-            }
+            android.R.id.home -> backToMainActivity()
         }
         return super.onOptionsItemSelected(item)
     }
 
     /**
-     * Navigation bar'daki geri butonunu kontrol eder
+     * Geri tuşunu kontrol eder.
+     * backToMainActivity intent verisinin aktarılması için super.OnBackPressed'den önce yazılmalı
      */
     override fun onBackPressed() {
-        super.onBackPressed()
         backToMainActivity()
+        super.onBackPressed()
     }
 
     /**
@@ -146,10 +147,11 @@ class SettingsActivity : AppCompatActivity() {
      * Hakkında kısmında buna gerek yok. Çünkü hakkında bölümü açılırken Mainactivity kapatılmıyor.
      */
     private fun backToMainActivity() {
+        val resultIntent = Intent()
+        resultIntent.putExtra(Constants.settingsPageKey, intent.action)
+        setResult(Activity.RESULT_OK, resultIntent)
         finish()
-        if (intent.action == getString(R.string.settings)) {
-            startActivity(Intent(this, MainActivity::class.java))
-            overridePendingTransition(0, 0)
-        }
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
+
 }

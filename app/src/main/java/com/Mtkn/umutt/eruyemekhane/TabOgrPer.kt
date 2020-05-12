@@ -1,7 +1,5 @@
 package com.Mtkn.umutt.eruyemekhane
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.Mtkn.umutt.eruyemekhane.library.Constants
+import com.Mtkn.umutt.eruyemekhane.library.Utility
 import kotlinx.android.synthetic.main.tab1_2_main.*
 
 class TabOgrPer : Fragment() {
@@ -36,7 +35,9 @@ class TabOgrPer : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        btn_open_web_page.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.URL))) }
+        btn_open_web_page.setOnClickListener {
+            Utility.openListWebSite(requireContext())
+        }
 
         mainViewModel.getFoods(myTab).observe(requireActivity(), Observer {
             selectDisplayedChild(it)

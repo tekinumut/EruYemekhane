@@ -48,7 +48,6 @@
     <string name="expand_more">Genişletmek için tıkla</string>
     <string name="expand_less">Daraltmak için tıkla</string>
 
-
     <!-- Settings Keys -->
     <string name="firstTabKey">firstTab</string>
     <string name="firstTabTitle">Başlangıç Sayfası</string>
@@ -62,4 +61,8 @@
     <string name="adActivityTitle">Reklam Görünümü</string>
     <string name="adSummaryActive">Reklamlar etkin</string>
     <string name="adSummaryPassive">Reklamlar devre dışı</string>
+
+    <string name="focusNonEmptyKey">focusNonEmptyKey</string>
+    <string name="focusNonEmptyTitle">Dolu Listeye Odaklan</string>
+    <string name="focusNonEmptySummary">Listelerden birisi boş, diğeri dolu ise dolu olanı aç</string>
 </resources>

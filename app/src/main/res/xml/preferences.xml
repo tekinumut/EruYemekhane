@@ -20,6 +20,12 @@
         android:key="@string/adKey"
         android:summary="@string/adSummaryActive"
         android:title="@string/adActivityTitle">
-
     </SwitchPreference>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/focusNonEmptyKey"
+        android:summary="@string/focusNonEmptySummary"
+        android:title="@string/focusNonEmptyTitle"></SwitchPreference>
+
 </PreferenceScreen>

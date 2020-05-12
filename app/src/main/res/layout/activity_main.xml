@@ -27,6 +27,8 @@
         app:layout_constraintEnd_toStartOf="@id/ib_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="fill"
+        app:tabMaxWidth="0dp"
         app:tabSelectedTextColor="@color/white"
         app:tabTextColor="@color/passive_tab_color" />
 

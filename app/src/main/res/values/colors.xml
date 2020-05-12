@@ -4,14 +4,11 @@
     <color name="colorPrimaryDark">#2c3e50</color>
     <color name="colorAccent">#395169</color>
     <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
     <color name="passive_tab_color">#B3FFFFFF</color>
     <color name="DateText">#001c3d</color>
     <color name="DateBG">#FFF4D9</color>
     <color name="EmptyBtnBG">#395169</color>
     <color name="primaryText">#DE000000</color>
-    <color name="secondaryText">#8A000000</color>
-    <color name="disabledText">#61000000</color>
 
     <color name="loadingBar">#001c3d</color>
     <color name="both_white87">#DEFFFFFF</color>
