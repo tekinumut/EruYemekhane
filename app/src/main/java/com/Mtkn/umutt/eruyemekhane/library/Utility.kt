@@ -128,14 +128,14 @@ class Utility {
         /**
          * Listelerin alındığı web sayfasını açar
          */
-        fun openListWebSite(context: Context) {
+        fun openListWebSite(activity: Activity) {
             val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder()
-            builder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            builder.setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
-            builder.setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
+            builder.setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+            builder.setStartAnimations(activity, R.anim.slide_in_right, R.anim.slide_out_left)
+            builder.setExitAnimations(activity, R.anim.slide_in_left, R.anim.slide_out_right)
 
             val tabIntent = builder.build()
-            tabIntent.launchUrl(context, Uri.parse(Constants.URL))
+            tabIntent.launchUrl(activity, Uri.parse(Constants.URL))
 
         }
     }

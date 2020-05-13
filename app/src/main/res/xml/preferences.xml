@@ -26,6 +26,6 @@
         android:defaultValue="true"
         android:key="@string/focusNonEmptyKey"
         android:summary="@string/focusNonEmptySummary"
-        android:title="@string/focusNonEmptyTitle"></SwitchPreference>
+        android:title="@string/focusNonEmptyTitle" />
 
 </PreferenceScreen>

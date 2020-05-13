@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
      */
     private fun showErrorSnackBar() {
         Snackbar.make(view, getString(R.string.error_loading_data), 5000)
-            .setAction(getString(R.string.open_web_site)) { Utility.openListWebSite(applicationContext) }
+            .setAction(getString(R.string.open_web_site)) { Utility.openListWebSite(this) }
             .setActionTextColor(ContextCompat.getColor(this, R.color.white))
             .show()
     }

@@ -36,7 +36,7 @@ class TabOgrPer : Fragment() {
         recyclerView.setHasFixedSize(true)
 
         btn_open_web_page.setOnClickListener {
-            Utility.openListWebSite(requireContext())
+            Utility.openListWebSite(requireActivity())
         }
 
         mainViewModel.getFoods(myTab).observe(requireActivity(), Observer {

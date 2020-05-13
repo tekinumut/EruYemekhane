@@ -26,7 +26,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun getFoodData(type: Int): LiveData<Resource<List<YemekModel>>> = liveData(Dispatchers.IO) {
         emit(Resource.InProgress)
         try {
-            @Suppress("BlockingMethodInNonBlockingContext")
             // erciyes.edu.tr'den sayfa kaynağını al
             val doc = Jsoup.connect(Constants.URL).timeout(5000).get()
             // val doc = Jsoup.parse(Constants.fullList)
