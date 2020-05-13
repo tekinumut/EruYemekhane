@@ -53,7 +53,7 @@
     <string name="firstTabTitle">Başlangıç Sayfası</string>
     <string name="firstTabSummary">İlk sırada gösterilecek liste türünü belirtin</string>
 
-    <string name="nightModeKey">nightMode</string>
+    <string name="nightModeKey">nightModeKey</string>
     <string name="nightModeTitle">Görünüm</string>
     <string name="nightModeSummary">Açık/Koyu tema tercihinizi belirtin </string>
 

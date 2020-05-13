@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.Mtkn.umutt.eruyemekhane.YemekModel
 
-@Database(entities = [YemekModel::class], version = 1)
+@Database(entities = [YemekModel::class], version = 2)
 abstract class YemekDatabase : RoomDatabase() {
 
     abstract fun yemekDao(): YemekDAO
@@ -24,7 +24,7 @@ abstract class YemekDatabase : RoomDatabase() {
                     context.applicationContext,
                     YemekDatabase::class.java,
                     "yemek_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return instance
             }
