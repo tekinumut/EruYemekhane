@@ -7,7 +7,9 @@
     <string name="_m_please_wait">Güncel veriler yükleniyor…</string>
     <string name="data_updated">Son veriler başarıyla yüklendi</string>
     <string name="error_loading_data">Veriler alınırken bir hata meydana geldi.</string>
+    <string name="error_loading_data_certificate">Veriler alınamadı. Sistem saati uyumsuz.</string>
     <string name="no_connection">İnternet bağlantısı bulunamadı. Son kayıtlar yüklendi.</string>
+    <string name="data_loaded_last_known">Son kayıtlar yüklendi</string>
     <string name="open_web_site">Web Sitesine Git</string>
     <string name="settings">Ayarlar</string>
     <string name="about">Hakkında</string>
@@ -26,6 +28,33 @@
         • Ekranı yukarıdan aşağıya çekerek listeyi güncelleyebilirsiniz.\n
         • Aşağıda bulunan \'Web sitesine git\' butonuna tıklayarak listelerin yer aldığı web sitesini ziyaret edebilirsiniz.\n
         • Listeler web sitesinde de gözükmüyorsa, yayınlanana kadar beklemeniz gerekmektedir.</string>
+
+    <!-- Settings Keys -->
+    <string name="firstTabKey">firstTab</string>
+    <string name="firstTabTitle">Başlangıç Sayfası</string>
+    <string name="firstTabSummary">İlk sırada gösterilecek liste türünü belirtin</string>
+
+    <string name="nightModeKey">nightModeKey</string>
+    <string name="nightModeTitle">Görünüm</string>
+    <string name="nightModeSummary">Açık/Koyu tema tercihinizi belirtin </string>
+
+    <string name="adKey">adActivity</string>
+    <string name="adActivityTitle">Reklam Görünümü</string>
+    <string name="adSummaryActive">Reklamlar etkin</string>
+    <string name="adSummaryPassive">Reklamlar %s tarihinden sonra tekrar aktif olur.</string>
+
+    <string name="focusNonEmptyKey">focusNonEmptyKey</string>
+    <string name="focusNonEmptyTitle">Dolu Listeye Odaklan</string>
+    <string name="focusNonEmptySummary">Listelerden birisi boş, diğeri dolu ise dolu olan açılır</string>
+
+    <string name="autoUpdateBeginKey">autoUpdateKey</string>
+    <string name="autoUpdateBeginTitle">Liste Güncellemeleri</string>
+    <string name="autoUpdateBeginSummary">Listeler her açılışta güncelleme kontrolünden geçer</string>
+
+
+    <!-- SharedPref Key -->
+    <string name="secondaryPrefKey">secondaryPrefKey</string>
+    <string name="prefRewardExpireDate">prefRewardExpireDate</string>
 
     <string name="myGmail">bm.umuttekin@gmail.com</string>
     <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
@@ -48,21 +77,13 @@
     <string name="expand_more">Genişletmek için tıkla</string>
     <string name="expand_less">Daraltmak için tıkla</string>
 
-    <!-- Settings Keys -->
-    <string name="firstTabKey">firstTab</string>
-    <string name="firstTabTitle">Başlangıç Sayfası</string>
-    <string name="firstTabSummary">İlk sırada gösterilecek liste türünü belirtin</string>
+    <string name="disable_ad_title">Reklamları iptal et</string>
+    <string name="disable_ad_content">Reklamları bir ay boyunca kapatmak için bir adet video reklam izlemeniz gerekmektedir.</string>
+    <string name="kabul_et">Kabul Et</string>
+    <string name="iptal_et">İptal et</string>
+    <string name="ad_closed">Video reklam kapatıldı!</string>
+    <string name="ad_rewarded">Reklamlar 1 ay boyunca kaldırıldı.</string>
+    <string name="ad_failed_load">Reklam yüklenemedi! Lütfen tekrar deneyiniz.</string>
 
-    <string name="nightModeKey">nightModeKey</string>
-    <string name="nightModeTitle">Görünüm</string>
-    <string name="nightModeSummary">Açık/Koyu tema tercihinizi belirtin </string>
 
-    <string name="adKey">adActivity</string>
-    <string name="adActivityTitle">Reklam Görünümü</string>
-    <string name="adSummaryActive">Reklamlar etkin</string>
-    <string name="adSummaryPassive">Reklamlar devre dışı</string>
-
-    <string name="focusNonEmptyKey">focusNonEmptyKey</string>
-    <string name="focusNonEmptyTitle">Dolu Listeye Odaklan</string>
-    <string name="focusNonEmptySummary">Listelerden birisi boş, diğeri dolu ise dolu olanı aç</string>
 </resources>

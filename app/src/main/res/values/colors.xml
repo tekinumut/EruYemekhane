@@ -11,5 +11,8 @@
     <color name="primaryText">#DE000000</color>
 
     <color name="loadingBar">#001c3d</color>
-    <color name="both_white87">#DEFFFFFF</color>
+    <color name="start_layer_bg">#FFFFFF</color>
+
+    <color name="darkRed">#D50000</color>
+    <color name="darkGreen">#1B5E20</color>
 </resources>

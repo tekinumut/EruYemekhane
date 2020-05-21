@@ -19,6 +19,12 @@ interface YemekDAO {
     fun getFoods(type: Int): LiveData<List<YemekModel>>
 
     /**
+     * Tüm yemek listesini getirir.
+     */
+    @Query("Select * from YemekList where tarih NOT LIKE '%' || 'Akşam' || '%'")
+    fun getAllFoods(): List<YemekModel>
+
+    /**
      * Mevcut tüm yemek bilgilerini veritabanına ekler
      */
     @Insert

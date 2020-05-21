@@ -14,6 +14,8 @@ import com.Mtkn.umutt.eruyemekhane.R
 import com.Mtkn.umutt.eruyemekhane.YemekModel
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Utility {
     companion object {
@@ -138,5 +140,15 @@ class Utility {
             tabIntent.launchUrl(activity, Uri.parse(Constants.URL))
 
         }
+
+        fun timeStampToDateString(timeStamp: Long): String = Constants.defaultSDF.format(Date(timeStamp))
+
+
+        fun isRewardAdTimeExpired(context: Context): Boolean {
+            val secondPref = SecondPref.getInstance(context)
+            val expireTimeStamp = secondPref.getLong(context.getString(R.string.prefRewardExpireDate), Constants.defRewardExpireDate.time)
+            return expireTimeStamp <= Constants.currentTimeStamp()
+        }
+
     }
 }

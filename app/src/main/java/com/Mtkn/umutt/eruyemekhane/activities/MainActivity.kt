@@ -27,6 +27,7 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.net.ssl.SSLHandshakeException
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private val typeOrder by lazy { mainPref.getString(getString(R.string.firstTabKey), "${Constants.ogrType}")?.toInt()!! }
     private val adActivity by lazy { mainPref.getBoolean(getString(R.string.adKey), true) }
     private val focusFullList by lazy { mainPref.getBoolean(getString(R.string.focusNonEmptyKey), true) }
+    private val autoUpdateOnBegin by lazy { mainPref.getBoolean(getString(R.string.autoUpdateBeginKey), true) }
     private val view by lazy { findViewById<View>(android.R.id.content) }
     private var selectedTab = Constants.ogrType
 
@@ -62,8 +64,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                 toggleRefresh(state == ViewPager2.SCROLL_STATE_IDLE)
             }
         })
-
-        getFoodData(Constants.bothType)
+        loadAndInitData()
         initSettingsMenu()
 
         TabLayoutMediator(tab_layout, viewpager) { tab, position ->
@@ -72,10 +73,29 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     }
 
     /**
+     * Verileri yükler
+     */
+    private fun loadAndInitData() {
+        if (autoUpdateOnBegin) {
+            getFoodData(Constants.bothType)
+        } else {
+            mainViewModel.getAllFoods().observe(this, Observer {
+                selectNonEmptyTab(it)
+                Toast.makeText(this@MainActivity, getString(R.string.data_loaded_last_known), Toast.LENGTH_SHORT).show()
+            })
+        }
+    }
+
+    /**
      * Banner reklamı aktif et
      */
     private fun loadBannerAd() {
-        if (adActivity) {
+        val isTimeExpired = Utility.isRewardAdTimeExpired(applicationContext)
+        if (isTimeExpired) {
+            // Eğer reklam pasifleştirme süresi dolduysa, reklamları tekrar aktif et.
+            mainPref.edit().putBoolean(getString(R.string.adKey), true).apply()
+        }
+        if (adActivity || isTimeExpired) {
             MobileAds.initialize(this) {}
             val adRequest = AdRequest.Builder().build()
             adViewBanner.loadAd(adRequest)
@@ -102,9 +122,13 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                         refreshLayout.isRefreshing = false
                     }
                     is Resource.Error -> {
+                        var message = getString(R.string.error_loading_data)
+                        if (result.exception is SSLHandshakeException) {
+                            message = getString(R.string.error_loading_data_certificate)
+                        }
                         loadingDialog.dismiss()
                         refreshLayout.isRefreshing = false
-                        showErrorSnackBar()
+                        showErrorSnackBar(message)
                     }
                 }
             })
@@ -157,8 +181,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     /**
      * Veriler yüklenirken bir hata meydana geldiğinde çağrılır.
      */
-    private fun showErrorSnackBar() {
-        Snackbar.make(view, getString(R.string.error_loading_data), 5000)
+    private fun showErrorSnackBar(message: String) {
+        Snackbar.make(view, message, 5000)
             .setAction(getString(R.string.open_web_site)) { Utility.openListWebSite(this) }
             .setActionTextColor(ContextCompat.getColor(this, R.color.white))
             .show()

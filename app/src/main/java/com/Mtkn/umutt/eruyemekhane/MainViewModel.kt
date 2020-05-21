@@ -28,7 +28,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         try {
             // erciyes.edu.tr'den sayfa kaynağını al
             val doc = Jsoup.connect(Constants.URL).timeout(5000).get()
-            // val doc = Jsoup.parse(Constants.fullList)
+            //val doc = Jsoup.parse(ZBackUP.fullList)
             // Alınan sayfa kaynağını düzenlenmiş veriye dönüştür.
             val specificList = Utility.getSpecificList(doc, type)
             // Bu veriyi veritabanına kayıt et
@@ -43,6 +43,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Veritabanından belirtilen listeyi çeker.
      */
     fun getFoods(type: Int): LiveData<List<YemekModel>> = yemekDao.getFoods(type)
+
+    /**
+     * Veritabanından tüm listeyi çeker.
+     */
+    fun getAllFoods(): LiveData<List<YemekModel>> = liveData(Dispatchers.IO) {
+        val allFoods = yemekDao.getAllFoods()
+        emit(allFoods)
+    }
 
     /**
      * Veritabanına güncel listeleri ekler.

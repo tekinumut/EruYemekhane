@@ -13,6 +13,7 @@
         android:background="@color/DateBG"
         android:fontFamily="@font/roboto"
         android:text="@string/no_value"
+        android:padding="3dp"
         android:textColor="@color/DateText"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"

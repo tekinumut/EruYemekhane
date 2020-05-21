@@ -28,4 +28,10 @@
         android:summary="@string/focusNonEmptySummary"
         android:title="@string/focusNonEmptyTitle" />
 
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/autoUpdateBeginKey"
+        android:summary="@string/autoUpdateBeginSummary"
+        android:title="@string/autoUpdateBeginTitle" />
+
 </PreferenceScreen>

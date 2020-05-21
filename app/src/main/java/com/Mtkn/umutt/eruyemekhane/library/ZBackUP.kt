@@ -1,5 +1,6 @@
 package com.Mtkn.umutt.eruyemekhane.library
 
+@Suppress("unused")
 class ZBackUP {
     companion object {
         // Her iki listeninde dolu olduğu örnek html verisi

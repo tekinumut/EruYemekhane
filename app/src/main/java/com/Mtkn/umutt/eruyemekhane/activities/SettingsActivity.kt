@@ -1,14 +1,15 @@
 package com.Mtkn.umutt.eruyemekhane.activities
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.preference.ListPreference
@@ -17,7 +18,15 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.Mtkn.umutt.eruyemekhane.R
 import com.Mtkn.umutt.eruyemekhane.library.Constants
+import com.Mtkn.umutt.eruyemekhane.library.SafeClickListener
+import com.Mtkn.umutt.eruyemekhane.library.SecondPref
 import com.Mtkn.umutt.eruyemekhane.library.Utility
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.rewarded.RewardItem
+import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.about_settings.*
 import kotlinx.android.synthetic.main.about_settings.view.*
 
@@ -43,20 +52,167 @@ class SettingsActivity : AppCompatActivity() {
         // private val firstTabList by lazy { findPreference<ListPreference>(getString(R.string.firstTabKey))!! }
         private val nightModeList by lazy { findPreference<ListPreference>(getString(R.string.nightModeKey))!! }
         private val adActivity by lazy { findPreference<SwitchPreference>(getString(R.string.adKey))!! }
+        private lateinit var secondPref: SecondPref
+        private var rewardAdInfoDialog: Dialog? = null
+        private var currentToast: Toast? = null
+        private lateinit var firebaseAnalytics: FirebaseAnalytics
+
         //  private val focusFullList by lazy { findPreference<SwitchPreference>(getString(R.string.focusNonEmptyKey))!! }
+        private lateinit var rewardedAd: RewardedAd
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.preferences, rootKey)
+            firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
+            secondPref = SecondPref.getInstance(requireContext())
+
+            if (Utility.isRewardAdTimeExpired(requireContext())) {
+                createAndLoadRewardedAd()
+            }
 
             nightModeList.setOnPreferenceChangeListener { _, newValue ->
                 Utility.setTheme(newValue.toString().toInt())
                 true
             }
+
             adActivity.summaryProvider = Preference.SummaryProvider<SwitchPreference> {
                 if (it.isChecked) getString(R.string.adSummaryActive)
-                else getString(R.string.adSummaryPassive)
+                else {
+                    val expireTimeStamp = secondPref.getLong(getString(R.string.prefRewardExpireDate), Constants.defRewardExpireDate.time)
+                    val dateOnly = Utility.timeStampToDateString(expireTimeStamp).run { substring(0, length - 9) }
+                    getString(R.string.adSummaryPassive, dateOnly)
+                }
+            }
+
+            adActivity.setOnPreferenceChangeListener { _, newValue ->
+                val status: Boolean = newValue as Boolean
+                // Eğer reklamları kapatmak istiyorsa
+                if (!status) {
+                    // Eğer reklamları kapatabilecek şart sağlanmıyorsa.
+                    if (Utility.isRewardAdTimeExpired(requireContext())) {
+                        loadDialog()
+                    } else { // Sağlanıyorsa reklamları kapat.
+                        adActivity.isChecked = false
+                    }
+                }
+                // Reklamları şart olmadan açabilir :)
+                else {
+                    adActivity.isChecked = true
+                }
+
+                false
+            }
+
+
+        }
+
+        private fun loadDialog() {
+            rewardAdInfoDialog = Dialog(requireContext()).apply {
+                requestWindowFeature(Window.FEATURE_NO_TITLE)
+                setContentView(R.layout.dialog_disable_reward_ad)
+                window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                show()
+
+                val btnAccept = findViewById<Button>(R.id.btnAccept)
+                findViewById<Button>(R.id.btnReject).setOnClickListener { dismiss() }
+                btnAccept.setOnSafeClickListener { startRewardAd() }
             }
         }
+
+        /**
+         * Ödüllü reklamı init ediyoruz.
+         */
+        private fun createAndLoadRewardedAd() {
+            rewardedAd = RewardedAd(requireContext(), getString(R.string.reward_ad_unit_id))
+            val adloadCallBack = object : RewardedAdLoadCallback() {
+                override fun onRewardedAdLoaded() {
+                    super.onRewardedAdLoaded()
+                    Log.e("loaded", "lodaded")
+                }
+
+                override fun onRewardedAdFailedToLoad(p0: Int) {
+                    super.onRewardedAdFailedToLoad(p0)
+                    Log.e("failed", "faill $p0")
+                }
+            }
+            rewardedAd.loadAd(AdRequest.Builder().build(), adloadCallBack)
+        }
+
+        private fun startRewardAd() {
+            if (rewardedAd.isLoaded) {
+                // onRewardedAdClosed hep çalıştığı için kullanıyorum
+                var isEarned = false
+                val adCallback = object : RewardedAdCallback() {
+
+                    override fun onRewardedAdOpened() {
+                        // Ad opened.
+                        isEarned = false
+                    }
+
+                    override fun onRewardedAdClosed() {
+                        // Ad closed.
+                        if (isEarned) {
+                            secondPref.save(getString(R.string.prefRewardExpireDate), Constants.nextOneMonthTimeStamp())
+                            secondPref = SecondPref.getInstance(requireContext())
+                            adActivity.isChecked = false
+                            showCurrentToast(getString(R.string.ad_rewarded), Toast.LENGTH_LONG)
+                        } else {
+                            showCurrentToast(getString(R.string.ad_closed), Toast.LENGTH_SHORT)
+                        }
+                    }
+
+                    override fun onUserEarnedReward(p0: RewardItem) {
+                        isEarned = true
+                        val bundle = Bundle()
+                        bundle.putString("rewardBundle", "reklam izlendi")
+                        firebaseAnalytics.logEvent("rewardEarned", bundle)
+                    }
+
+                    override fun onRewardedAdFailedToShow(errorCode: Int) {
+                        val errorCause = when (errorCode) {
+                            ERROR_CODE_INTERNAL_ERROR -> "Teknik bir hata meydana geldi. Lütfen tekrar deneyiniz."
+                            ERROR_CODE_AD_REUSED -> "Reklam zaten bir kere gösterildi."
+                            ERROR_CODE_NOT_READY -> getString(R.string.ad_failed_load)
+                            ERROR_CODE_APP_NOT_FOREGROUND -> "Reklam uygulama ön planda değilken oynatılamaz."
+                            else -> "Teknik bir hata meydana geldi. Lütfen tekrar deneyiniz."
+                        }
+                        showCurrentToast(errorCause, Toast.LENGTH_LONG)
+                    }
+                }
+                rewardedAd.show(requireActivity(), adCallback)
+            } else {
+                createAndLoadRewardedAd()
+                showCurrentToast(getString(R.string.ad_failed_load), Toast.LENGTH_LONG)
+            }
+        }
+
+        private fun showCurrentToast(text: String, length: Int) {
+            currentToast?.cancel()
+            currentToast = Toast.makeText(requireActivity(), text, length)
+            currentToast?.show()
+        }
+
+        private fun dismissAdInfoDialog() {
+            rewardAdInfoDialog?.dismiss()
+        }
+
+        private fun dismissCurrentToast() {
+            currentToast?.cancel()
+        }
+
+        /**
+         * Alınan butonu belirtilen saniye boyunca disable eder.
+         */
+        private fun View.setOnSafeClickListener(onSafeClick: (View) -> Unit) {
+            val safeClickListener = SafeClickListener { onSafeClick(it) }
+            setOnClickListener(safeClickListener)
+        }
+
+        override fun onPause() {
+            super.onPause()
+            dismissCurrentToast()
+            dismissAdInfoDialog()
+        }
+
     }
 
     /**

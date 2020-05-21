@@ -3,7 +3,7 @@
     android:opacity="opaque">
     <!-- The background color, preferably the same as your normal theme -->
     <item
-        android:drawable="@color/both_white87"
+        android:drawable="@color/start_layer_bg"
         android:gravity="center" />
     <!-- Your product logo - 144dp color version of your app icon -->
     <item>
