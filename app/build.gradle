@@ -32,8 +32,8 @@ android {
         minSdkVersion 17
         targetSdkVersion 29
         multiDexEnabled true
-        versionCode 230
-        versionName "2.3.0"
+        versionCode 231
+        versionName "2.3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -52,11 +52,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
         }
         debug {
             minifyEnabled false
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
         }
     }
     compileOptions {

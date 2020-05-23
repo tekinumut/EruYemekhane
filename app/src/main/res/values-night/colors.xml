@@ -5,5 +5,6 @@
     <color name="DateBG">#333333</color>
     <color name="EmptyBtnBG">#2c3e50</color>
     <color name="loadingBar">#DEFFF4D9</color>
-    <color name="start_layer_bg">#DE000000</color>
+    <color name="start_layer_bg">#0b0b0b</color>
+    <color name="dialog_bg">#333333</color>
 </resources>

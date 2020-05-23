@@ -4,6 +4,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -89,7 +91,7 @@ class SettingsActivity : AppCompatActivity() {
                 if (!status) {
                     // Eğer reklamları kapatabilecek şart sağlanmıyorsa.
                     if (Utility.isRewardAdTimeExpired(requireContext())) {
-                        loadDialog()
+                        loadAndInitDialog()
                     } else { // Sağlanıyorsa reklamları kapat.
                         adActivity.isChecked = false
                     }
@@ -98,23 +100,24 @@ class SettingsActivity : AppCompatActivity() {
                 else {
                     adActivity.isChecked = true
                 }
-
+                // Şart durumuna göre manuel olarak switch değişecek.
                 false
             }
 
-
         }
 
-        private fun loadDialog() {
-            rewardAdInfoDialog = Dialog(requireContext()).apply {
+        private fun loadAndInitDialog() {
+            rewardAdInfoDialog = Dialog(requireActivity()).apply {
                 requestWindowFeature(Window.FEATURE_NO_TITLE)
                 setContentView(R.layout.dialog_disable_reward_ad)
                 window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                show()
-
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val btnAccept = findViewById<Button>(R.id.btnAccept)
-                findViewById<Button>(R.id.btnReject).setOnClickListener { dismiss() }
+                val btnReject = findViewById<Button>(R.id.btnReject)
+
+                btnReject.setOnClickListener { dismiss() }
                 btnAccept.setOnSafeClickListener { startRewardAd() }
+                show()
             }
         }
 
@@ -163,8 +166,8 @@ class SettingsActivity : AppCompatActivity() {
                     override fun onUserEarnedReward(p0: RewardItem) {
                         isEarned = true
                         val bundle = Bundle()
-                        bundle.putString("rewardBundle", "reklam izlendi")
-                        firebaseAnalytics.logEvent("rewardEarned", bundle)
+                        bundle.putString("is_reward_watched", "reklam izlendi")
+                        firebaseAnalytics.logEvent("reward_earned_count", bundle)
                     }
 
                     override fun onRewardedAdFailedToShow(errorCode: Int) {

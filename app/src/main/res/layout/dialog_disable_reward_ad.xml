@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rounded_transparent"
     android:paddingBottom="20dp">
 
     <TextView
         android:id="@+id/tvWatchAdTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/DateBG"
         android:fontFamily="@font/roboto_medium"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/disable_ad_title"
-        android:textColor="@color/primaryText"
-        android:textSize="20sp"
+        android:textColor="@color/DateText"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
+        android:gravity="center"
         android:lineSpacingMultiplier="1.1"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
@@ -48,9 +49,9 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/btnAccept"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="@+id/tvWatchAdContent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWatchAdContent"
-        app:layout_constraintHorizontal_chainStyle="spread" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWatchAdContent" />
 
     <Button
         android:id="@+id/btnAccept"
