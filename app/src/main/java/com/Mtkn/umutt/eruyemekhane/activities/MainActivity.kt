@@ -26,6 +26,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.net.ssl.SSLHandshakeException
 
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private val autoUpdateOnBegin by lazy { mainPref.getBoolean(getString(R.string.autoUpdateBeginKey), true) }
     private val view by lazy { findViewById<View>(android.R.id.content) }
     private var selectedTab = Constants.ogrType
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         refreshLayout.setOnRefreshListener(this)
         viewpager.offscreenPageLimit = 1
         viewpager.adapter = SectionPagerAdapter(this, typeOrder)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         viewpager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -118,16 +121,17 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                         if (type == Constants.bothType) {
                             selectNonEmptyTab(result.data)
                         }
-                        loadingDialog.dismiss()
-                        refreshLayout.isRefreshing = false
+                        onConnectionEnd()
                     }
                     is Resource.Error -> {
+                        val bundle = Bundle()
+                        bundle.putString("conn_err_get_food", "${result.exception}")
+                        firebaseAnalytics.logEvent("conn_errors", bundle)
                         var message = getString(R.string.error_loading_data)
                         if (result.exception is SSLHandshakeException) {
                             message = getString(R.string.error_loading_data_certificate)
                         }
-                        loadingDialog.dismiss()
-                        refreshLayout.isRefreshing = false
+                        onConnectionEnd()
                         showErrorSnackBar(message)
                     }
                 }
@@ -136,6 +140,14 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             refreshLayout.isRefreshing = false
             Snackbar.make(view, getString(R.string.no_connection), 3000).show()
         }
+    }
+
+    /**
+     * Bağlantı sonlandığında
+     */
+    private fun onConnectionEnd() {
+        loadingDialog.dismiss()
+        refreshLayout.isRefreshing = false
     }
 
     /**

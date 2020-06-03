@@ -7,7 +7,7 @@
     <string name="_m_please_wait">Güncel veriler yükleniyor…</string>
     <string name="data_updated">Son veriler başarıyla yüklendi</string>
     <string name="error_loading_data">Veriler alınırken bir hata meydana geldi.</string>
-    <string name="error_loading_data_certificate">Veriler alınamadı. Sistem saati uyumsuz.</string>
+    <string name="error_loading_data_certificate">SSLHandshakeException: Sertifika süresi doldu.</string>
     <string name="no_connection">İnternet bağlantısı bulunamadı. Son kayıtlar yüklendi.</string>
     <string name="data_loaded_last_known">Son kayıtlar yüklendi</string>
     <string name="open_web_site">Web Sitesine Git</string>
