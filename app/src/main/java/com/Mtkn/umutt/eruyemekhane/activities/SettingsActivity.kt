@@ -24,6 +24,7 @@ import com.Mtkn.umutt.eruyemekhane.library.SafeClickListener
 import com.Mtkn.umutt.eruyemekhane.library.SecondPref
 import com.Mtkn.umutt.eruyemekhane.library.Utility
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdCallback
@@ -132,7 +133,7 @@ class SettingsActivity : AppCompatActivity() {
                     Log.e("loaded", "lodaded")
                 }
 
-                override fun onRewardedAdFailedToLoad(p0: Int) {
+                override fun onRewardedAdFailedToLoad(p0: LoadAdError) {
                     super.onRewardedAdFailedToLoad(p0)
                     Log.e("failed", "faill $p0")
                 }

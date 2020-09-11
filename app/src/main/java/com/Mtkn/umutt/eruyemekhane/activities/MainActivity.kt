@@ -10,7 +10,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         if (autoUpdateOnBegin) {
             getFoodData(Constants.bothType)
         } else {
-            mainViewModel.getAllFoods().observe(this, Observer {
+            mainViewModel.getAllFoods().observe(this, {
                 selectNonEmptyTab(it)
                 Toast.makeText(this@MainActivity, getString(R.string.data_loaded_last_known), Toast.LENGTH_SHORT).show()
             })
@@ -112,7 +111,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
      */
     private fun getFoodData(type: Int) {
         if (Utility.isInternetAvailable(this)) {
-            mainViewModel.getFoodData(type).observe(this, Observer { result ->
+            mainViewModel.getFoodData(type).observe(this, { result ->
                 when (result) {
                     Resource.InProgress -> loadingDialog.show()
                     is Resource.Success -> {

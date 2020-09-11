@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.Mtkn.umutt.eruyemekhane.library.Constants
@@ -39,7 +38,7 @@ class TabOgrPer : Fragment() {
             Utility.openListWebSite(requireActivity())
         }
 
-        mainViewModel.getFoods(myTab).observe(requireActivity(), Observer {
+        mainViewModel.getFoods(myTab).observe(requireActivity(), {
             selectDisplayedChild(it)
             recyclerView.adapter = YemekAdapter(it)
         })
