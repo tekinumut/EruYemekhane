@@ -12,7 +12,7 @@
     <color name="start_layer_bg">#FFFFFF</color>
     <color name="dialog_bg">#ffffff</color>
 
-
+    <color name="button_blue">#1581ff</color>
     <color name="white">#ffffff</color>
     <color name="red">#c0392b</color>
     <color name="green">#27ae60</color>

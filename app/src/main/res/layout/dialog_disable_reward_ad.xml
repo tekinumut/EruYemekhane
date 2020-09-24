@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/rounded_transparent"
     android:paddingBottom="20dp">
 
@@ -67,5 +68,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnReject"
         app:layout_constraintTop_toTopOf="@+id/btnReject" />
+
+    <LinearLayout
+        android:id="@+id/llAdLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/btnAccept"
+        app:layout_constraintStart_toStartOf="@+id/btnReject"
+        app:layout_constraintTop_toBottomOf="@+id/btnReject"
+        tools:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:indeterminateTint="@color/button_blue"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            android:text="@string/reward_ad_loading"
+            android:textColor="@color/primaryText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llAdErrorRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/btnAccept"
+        app:layout_constraintStart_toStartOf="@+id/btnReject"
+        app:layout_constraintTop_toBottomOf="@+id/btnAccept"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/ad_load_fail_try_again"
+            android:textColor="@color/red" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

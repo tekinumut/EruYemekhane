@@ -84,6 +84,7 @@
     <string name="ad_closed">Video reklam kapatıldı!</string>
     <string name="ad_rewarded">Reklamlar 1 ay boyunca kaldırıldı.</string>
     <string name="ad_failed_load">Reklam yüklenemedi! Lütfen tekrar deneyiniz.</string>
-
+    <string name="reward_ad_loading">Reklam Yükleniyor</string>
+    <string name="ad_load_fail_try_again">Reklam yenilemedi.\nTekrar yüklemek için tıkla!</string>
 
 </resources>

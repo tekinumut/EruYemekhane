@@ -8,9 +8,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -68,10 +68,6 @@ class SettingsActivity : AppCompatActivity() {
             firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
             secondPref = SecondPref.getInstance(requireContext())
 
-            if (Utility.isRewardAdTimeExpired(requireContext())) {
-                createAndLoadRewardedAd()
-            }
-
             nightModeList.setOnPreferenceChangeListener { _, newValue ->
                 Utility.setTheme(newValue.toString().toInt())
                 true
@@ -115,9 +111,12 @@ class SettingsActivity : AppCompatActivity() {
                 window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 val btnAccept = findViewById<Button>(R.id.btnAccept)
                 val btnReject = findViewById<Button>(R.id.btnReject)
+                val llAdErrorRefresh = findViewById<LinearLayout>(R.id.llAdErrorRefresh)
 
                 btnReject.setOnClickListener { dismiss() }
                 btnAccept.setOnSafeClickListener { startRewardAd() }
+                llAdErrorRefresh.setOnClickListener { createAndLoadRewardedAd(this) }
+                createAndLoadRewardedAd(this)
                 show()
             }
         }
@@ -125,20 +124,20 @@ class SettingsActivity : AppCompatActivity() {
         /**
          * Ödüllü reklamı init ediyoruz.
          */
-        private fun createAndLoadRewardedAd() {
+        private fun createAndLoadRewardedAd(dialog:Dialog) {
+            showAdStatus(0,dialog)
             rewardedAd = RewardedAd(requireContext(), getString(R.string.reward_ad_unit_id))
-            val adloadCallBack = object : RewardedAdLoadCallback() {
+            rewardedAd.loadAd(AdRequest.Builder().build(), object : RewardedAdLoadCallback() {
                 override fun onRewardedAdLoaded() {
                     super.onRewardedAdLoaded()
-                    Log.e("loaded", "lodaded")
+                    showAdStatus(1,dialog)
                 }
 
                 override fun onRewardedAdFailedToLoad(p0: LoadAdError) {
                     super.onRewardedAdFailedToLoad(p0)
-                    Log.e("failed", "faill $p0")
+                    showAdStatus(2,dialog)
                 }
-            }
-            rewardedAd.loadAd(AdRequest.Builder().build(), adloadCallBack)
+            })
         }
 
         private fun startRewardAd() {
@@ -183,9 +182,38 @@ class SettingsActivity : AppCompatActivity() {
                     }
                 }
                 rewardedAd.show(requireActivity(), adCallback)
-            } else {
-                createAndLoadRewardedAd()
-                showCurrentToast(getString(R.string.ad_failed_load), Toast.LENGTH_LONG)
+            }
+        }
+
+        /**
+         * databinding kullanamamanın eksileri ://
+         * Reklamın yükleme durumunu takip eder
+         * 0 -> Yükleniyor
+         * 1 -> Başarılı
+         * 2 -> Başarısız
+         */
+        private fun showAdStatus(updateStatus: Int,dialog:Dialog) {
+            val btnAccept = dialog.findViewById<Button>(R.id.btnAccept)
+            val llAdLoading = dialog.findViewById<LinearLayout>(R.id.llAdLoading)
+            val llAdErrorRefresh = dialog.findViewById<LinearLayout>(R.id.llAdErrorRefresh)
+            when (updateStatus) {
+                0 -> { btnAccept.isEnabled = false
+                    btnAccept.alpha = 0.5f
+                    llAdLoading?.visibility = View.VISIBLE
+                    llAdErrorRefresh?.visibility = View.GONE
+                }
+                1 -> {
+                    btnAccept.isEnabled = true
+                    btnAccept.alpha = 1.0f
+                    llAdLoading?.visibility = View.GONE
+                    llAdErrorRefresh?.visibility = View.GONE
+                }
+                2 -> {
+                    btnAccept.isEnabled = false
+                    btnAccept.alpha = 0.5f
+                    llAdLoading?.visibility = View.GONE
+                    llAdErrorRefresh?.visibility = View.VISIBLE
+                }
             }
         }
 
