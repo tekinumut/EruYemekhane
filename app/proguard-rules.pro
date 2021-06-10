@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Model File
+# Make sure all your data classes are in this file
+-keep class com.tekinumut.eruyemekhane.data.model.** { *; }

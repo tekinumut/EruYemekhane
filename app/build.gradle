@@ -40,11 +40,13 @@ android {
     buildTypes {
         debug {
             resValue "string", "app_name", "EruTestYemek"
+            buildConfigField "String", "BASE_URL", '"https://www.erciyes.edu.tr/tr/2/"'
             minifyEnabled false
             applicationIdSuffix '.debug'
         }
         release {
             resValue "string", "app_name", "EruYemekhane"
+            buildConfigField "String", "BASE_URL", '"https://www.erciyes.edu.tr/tr/2/"'
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
@@ -85,11 +87,6 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefresh"
 
-    // Firebase
-    implementation platform("com.google.firebase:firebase-bom:$versions.firebaseBom")
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-
     // Lifecycle + ViewModel & LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycle"
@@ -113,10 +110,19 @@ dependencies {
     // Browser CustomTabs
     implementation "androidx.browser:browser:$versions.browser"
 
+    // Firebase
+    implementation platform("com.google.firebase:firebase-bom:$versions.firebaseBom")
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     // 3rd Dependencies
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+
+    // OkHttp
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:$versions.okhttp"))
+    implementation("com.squareup.okhttp3:logging-interceptor")
 
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.testExtJunit"
