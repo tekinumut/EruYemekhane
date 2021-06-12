@@ -11,5 +11,5 @@ class FoodListRepository @Inject constructor(
 ) : BaseDataSource() {
 
     fun getStudentFoodList() = observeApi { mainApi.getStudentFoodList() }
-    fun getPersonalFoodList() = observeApi { mainApi.getStudentFoodList() }
+    fun getPersonalFoodList() = observeApi { mainApi.getStudentFoodList()}
 }

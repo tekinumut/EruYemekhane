@@ -28,6 +28,11 @@ android {
         versionName versions.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
     signingConfigs {
         release {
@@ -102,6 +107,9 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$versions.room"
     kapt "androidx.room:room-compiler:$versions.room"
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$versions.room"
+
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$versions.hilt"
@@ -124,7 +132,15 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:$versions.okhttp"))
     implementation("com.squareup.okhttp3:logging-interceptor")
 
+    // Jsoup
+    implementation "org.jsoup:jsoup:$versions.jsoup"
+
+    // Local Unit Tests
+    testImplementation "com.google.truth:truth:$versions.truth"
     testImplementation "junit:junit:$versions.junit"
+
+    // Instrument Unit Test
+    androidTestImplementation "com.google.truth:truth:$versions.truth"
     androidTestImplementation "androidx.test.ext:junit:$versions.testExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.testEspresso"
 }
