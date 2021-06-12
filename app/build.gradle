@@ -137,10 +137,14 @@ dependencies {
 
     // Local Unit Tests
     testImplementation "com.google.truth:truth:$versions.truth"
+    testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesTest"
     testImplementation "junit:junit:$versions.junit"
 
     // Instrument Unit Test
     androidTestImplementation "com.google.truth:truth:$versions.truth"
+    androidTestImplementation "androidx.arch.core:core-testing:$versions.coreTesting"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesTest"
     androidTestImplementation "androidx.test.ext:junit:$versions.testExtJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.testEspresso"
 }

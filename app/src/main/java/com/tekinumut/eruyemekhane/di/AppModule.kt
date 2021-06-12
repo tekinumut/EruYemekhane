@@ -23,6 +23,7 @@ object AppModule {
         .fallbackToDestructiveMigration()
         .build()
 
+    @Singleton
     @Provides
     fun provideFoodDao(foodDatabase: FoodDatabase) = foodDatabase.foodDao()
 }

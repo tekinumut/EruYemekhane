@@ -11,15 +11,15 @@ import androidx.room.PrimaryKey
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("foodCreatorId"),
         onDelete = ForeignKey.CASCADE
-    )],indices = [Index(value = ["foodCreatorId"])]
+    )], indices = [Index(value = ["foodCreatorId"])]
 )
 data class FoodIngredients(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
     // SEBZELİ BULGUR PİLAVI
     val name: String?,
     // 227 Kalori
-    val calorie: Int?,
+    val calorie: String?,
     // Id which belongs to Food
-    val foodCreatorId: Int
+    val foodCreatorId: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 )

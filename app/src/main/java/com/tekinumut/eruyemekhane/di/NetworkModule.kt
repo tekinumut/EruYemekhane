@@ -2,7 +2,7 @@ package com.tekinumut.eruyemekhane.di
 
 import android.os.Build
 import com.tekinumut.eruyemekhane.BuildConfig
-import com.tekinumut.eruyemekhane.data.service.MainApiService
+import com.tekinumut.eruyemekhane.data.remote.MainApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.tekinumut.eruyemekhane.data.service
+package com.tekinumut.eruyemekhane.data.remote
 
 import retrofit2.Response
 import retrofit2.http.GET

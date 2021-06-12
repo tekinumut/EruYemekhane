@@ -1,7 +1,8 @@
 package com.tekinumut.eruyemekhane.di
 
+import com.tekinumut.eruyemekhane.data.local.FoodDao
+import com.tekinumut.eruyemekhane.data.remote.MainApiService
 import com.tekinumut.eruyemekhane.data.repository.FoodListRepository
-import com.tekinumut.eruyemekhane.data.service.MainApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +14,7 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Singleton
     @Provides
-    fun provideFoodListRepo(mainApiService: MainApiService): FoodListRepository {
-        return FoodListRepository(mainApiService)
+    fun provideFoodListRepo(mainApiService: MainApiService, foodDao: FoodDao): FoodListRepository {
+        return FoodListRepository(mainApiService, foodDao)
     }
 }
