@@ -1,39 +1,39 @@
 package com.tekinumut.eruyemekhane.data.repository
 
-import androidx.lifecycle.LiveData
+import android.util.Log
+import androidx.room.withTransaction
 import com.tekinumut.eruyemekhane.base.BaseDataSource
+import com.tekinumut.eruyemekhane.data.FoodDatabase
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
-import com.tekinumut.eruyemekhane.data.local.FoodDao
-import com.tekinumut.eruyemekhane.data.model.Food
-import com.tekinumut.eruyemekhane.data.model.FoodIngredients
-import com.tekinumut.eruyemekhane.data.model.FoodWithIngredients
+import com.tekinumut.eruyemekhane.data.local.SampleData
 import com.tekinumut.eruyemekhane.data.remote.MainApiService
-import com.tekinumut.eruyemekhane.utils.Resource
+import com.tekinumut.eruyemekhane.utils.networkBoundResource
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class FoodListRepository @Inject constructor(
     private val mainApi: MainApiService,
-    private val foodDao: FoodDao
+    private val foodDatabase: FoodDatabase
 ) : BaseDataSource() {
 
-    fun getStudentFoodList(): LiveData<Resource<String>> = observeApi {
-        mainApi.getStudentFoodList()
-    }
+    private val foodDao = foodDatabase.foodDao()
 
-    fun getPersonalFoodList(): LiveData<Resource<String>> = observeApi {
-        mainApi.getStudentFoodList()
-    }
-
-    fun getFoodsByType(type: FoodListType): LiveData<List<FoodWithIngredients>> {
-        return foodDao.getFoodsByType(type)
-    }
-
-    suspend fun insertFoodAndIngredients(
-        foodList: List<Food>,
-        ingredientList: List<FoodIngredients>,
-    ) {
-        foodDao.insertFoodsWithIngredients(foodList, ingredientList)
-    }
+    fun getFoodList(foodListType: FoodListType, shouldFetch: Boolean = true) = networkBoundResource(
+        databaseQuery = { foodDao.getFoodsByType(foodListType) },
+        networkCall = {
+            safeApiCall { mainApi.getFoodList(foodListType.apiVal) }
+        },
+        saveCallResult = { htmlResponse ->
+            // TODO() change data by htmlResponse
+            Log.e("BaseApp", "html: ${htmlResponse.substring(0, 100)} ")
+            val foodList = SampleData.studentFoodList
+            val ingredientList = SampleData.studentIngredientsList
+            foodDatabase.withTransaction {
+                foodDao.deleteFoodByType(foodListType)
+                foodDao.insertFood(foodList)
+                foodDao.insertFoodIngredients(ingredientList)
+            }
+        }
+    )
 }

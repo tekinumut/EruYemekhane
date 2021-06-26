@@ -1,6 +1,8 @@
 package com.tekinumut.eruyemekhane.data.enums
 
-enum class FoodListType {
-    STUDENT,
-    PERSONAL
+import com.tekinumut.eruyemekhane.utils.ConstantsApi
+
+enum class FoodListType(val apiVal: String) {
+    STUDENT(ConstantsApi.studentUrl),
+    PERSONAL(ConstantsApi.personalUrl)
 }

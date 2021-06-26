@@ -6,15 +6,21 @@ import com.tekinumut.eruyemekhane.data.model.FoodIngredients
 
 object SampleData {
 
-    val foodList = listOf(
+    val studentFoodList  = listOf(
         Food("11 Jun", "1235 Cal", FoodListType.STUDENT, id = 1),
-        Food("12 Jun", "3235 Cal", FoodListType.PERSONAL, id = 2)
+        Food("12 Jun", "3235 Cal", FoodListType.STUDENT, id = 2)
     )
-    val ingredientsList = listOf(
+    val personalFoodList = listOf(
+        Food("11 Jun", "1235 Cal", FoodListType.PERSONAL, id = 3),
+        Food("12 Jun", "3235 Cal", FoodListType.PERSONAL, id = 4)
+    )
+    val studentIngredientsList = listOf(
         FoodIngredients("Chicken", "220 Cal", foodCreatorId = 1, id = 1),
-        FoodIngredients("Chicken2", "222 Cal", foodCreatorId = 1, id = 2),
+        FoodIngredients("Chicken2", "222 Cal", foodCreatorId = 1, id = 2)
+    )
+    val personalIngredientsList = listOf(
         FoodIngredients("Chicken3", "223 Cal", foodCreatorId = 2, id = 3),
-        FoodIngredients("Chicken4", "224 Cal", foodCreatorId = 2, id = 4),
+        FoodIngredients("Chicken4", "224 Cal", foodCreatorId = 2, id = 4)
     )
 
     const val personalFoodHtml = "<div class=\"yemekListesiBlok\">\n" +

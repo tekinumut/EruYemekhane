@@ -9,8 +9,6 @@ import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.tekinumut.eruyemekhane.data.FoodDatabase
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
-import com.tekinumut.eruyemekhane.data.model.Food
-import com.tekinumut.eruyemekhane.data.model.FoodIngredients
 import com.tekinumut.eruyemekhane.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -49,36 +47,40 @@ class FoodDaoTest {
         foodDatabase.close()
     }
 
-    // runBlockingTest does not support Transaction
+    @Test
+    fun insertFoodsTest() = runBlocking {
+        val studentFoodList = SampleData.studentFoodList
+        foodDao.insertFood(studentFoodList)
+        val observeFoodList = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
+        assertThat(observeFoodList[0].food.id).isEqualTo(studentFoodList[0].id)
+    }
+
     @Test
     fun insertFoodsWithIngredientsTest() = runBlocking {
-        val ingredients1Jun = listOf(ingredientsList[0], ingredientsList[1])
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
-        val getFoodWithIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
-        assertThat(getFoodWithIngredients[0].foodIngredients).isEqualTo(ingredients1Jun)
+        val studentFoodList = SampleData.studentFoodList
+        val studentIngredientsList = SampleData.studentIngredientsList
+        foodDao.insertFood(studentFoodList)
+        foodDao.insertFoodIngredients(studentIngredientsList)
+        val observeFoodIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
+        assertThat(observeFoodIngredients[0].food.id).isEqualTo(studentFoodList[0].id)
+        assertThat(observeFoodIngredients[0].foodIngredients).isEqualTo(studentIngredientsList)
     }
 
     @Test
-    fun everyInsertShouldDeletePreviousFoodData() = runBlocking {
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
-        val getFoodWithIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
-        val studentFoodSize = foodList.filter { it.type == FoodListType.STUDENT }.size
-        assertThat(getFoodWithIngredients.size).isEqualTo(studentFoodSize)
-    }
-
-    @Test
-    fun deleteFoodTableAlsoDeleteIngredientTableBecForeignKey() = runBlocking {
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
+    fun deleteFoodShouldDeleteType() = runBlocking {
+        // Get student type size of list
+        val studentFoodSize =
+            SampleData.studentFoodList.filter { it.type == FoodListType.STUDENT }.size
+        foodDao.insertFood(SampleData.studentFoodList)
         foodDao.deleteFoodByType(FoodListType.STUDENT)
-        val foodWithIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
-        assertThat(foodWithIngredients.firstOrNull()).isNull()
+        val observeFoodList = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
+        assertThat(observeFoodList.size).isNotEqualTo(studentFoodSize)
     }
 
     @Test
     fun deleteFoodByTypeShouldNotDeleteOtherType() = runBlocking {
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
+        foodDao.insertFood(SampleData.studentFoodList)
+        foodDao.insertFood(SampleData.personalFoodList)
         // Remove Personal Type
         foodDao.deleteFoodByType(FoodListType.PERSONAL)
         val foodWithIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
@@ -87,32 +89,12 @@ class FoodDaoTest {
     }
 
     @Test
-    // If we add personal type food all foods has personal type should be removed
-    fun insertedFood_ShouldDeleteOnly_InsertedTypeFoods() = runBlocking {
-        // now we have student and personal type foods
-        foodDao.insertFoodsWithIngredients(foodList, ingredientsList)
-        // Add new Student Food
-        val newFood = listOf(Food("3 Jun", "1003 Cal", FoodListType.STUDENT, id = 3))
-        val newIngredients = listOf(
-            FoodIngredients("Chicken3", "103 Cal", foodCreatorId = 3)
-        )
-        foodDao.insertFoodsWithIngredients(newFood, newIngredients)
+    fun deleteFoodTableAlsoDeleteIngredientTableBecForeignKey() = runBlocking {
+        foodDao.insertFood(SampleData.studentFoodList)
+        foodDao.insertFoodIngredients(SampleData.studentIngredientsList)
+        foodDao.deleteFoodByType(FoodListType.STUDENT)
         val foodWithIngredients = foodDao.getFoodsByType(FoodListType.STUDENT).getOrAwaitValue()
-        // Because all previous student food data have been removed
-        // New data size should equal to newFood data we just added
-        assertThat(foodWithIngredients.size).isEqualTo(newFood.size)
+        assertThat(foodWithIngredients.firstOrNull()).isNull()
     }
-
-    private val foodList = listOf(
-        Food("1 Jun", "1001 Cal", FoodListType.STUDENT, id = 1),
-        Food("2 Jun", "1002 Cal", FoodListType.PERSONAL, id = 2)
-    )
-
-    private val ingredientsList = listOf(
-        FoodIngredients("Chicken1", "101 Cal", foodCreatorId = 1, id = 1),
-        FoodIngredients("Chicken2", "102 Cal", foodCreatorId = 1, id = 2),
-        FoodIngredients("Chicken3", "103 Cal", foodCreatorId = 2, id = 3),
-        FoodIngredients("Chicken4", "104 Cal", foodCreatorId = 2, id = 4),
-    )
 
 }

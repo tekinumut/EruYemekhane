@@ -3,6 +3,7 @@ package com.tekinumut.eruyemekhane.di
 import android.app.Application
 import androidx.room.Room
 import com.tekinumut.eruyemekhane.data.FoodDatabase
+import com.tekinumut.eruyemekhane.data.local.FoodDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFoodDatabase(app: Application) = Room.databaseBuilder(
+    fun provideFoodDatabase(app: Application): FoodDatabase = Room.databaseBuilder(
         app,
         FoodDatabase::class.java,
         "food_database"
@@ -25,5 +26,5 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFoodDao(foodDatabase: FoodDatabase) = foodDatabase.foodDao()
+    fun provideFoodDao(foodDatabase: FoodDatabase): FoodDao = foodDatabase.foodDao()
 }

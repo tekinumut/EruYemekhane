@@ -1,2 +1,18 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="student">Öğrenci</string>
+    <string name="personal" tools:ignore="Typos">Personel</string>
+
+    <!-- Empty Or Error Layout-->
+    <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
+    <string name="empty_reason_content">
+        • Verilerin alındığı erciyes.edu.tr adresindeki listenin henüz yayınlanmaması.<br />
+        • erciyes.edu.tr adresinin yanıt vermemesi</string>
+    <string name="empty_solution_title"><u>Çözüm önerileri:</u></string>
+    <string name="empty_solution_content">
+        • Ekranı yukarıdan aşağıya çekerek listeyi güncelleyebilirsiniz.<br />
+        • Aşağıda bulunan <u><i>Web sitesine git</i></u> butonuna tıklayarak
+          listelerin yer aldığı web sitesini ziyaret edebilirsiniz.<br />
+        • Listeler web sitesinde de gözükmüyorsa, yayınlanana kadar beklemeniz gerekmektedir.</string>
+    <string name="open_web_site">Web Sitesine Git</string>
+    <!-- END OF Empty Or Error Layout-->
 </resources>

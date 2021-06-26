@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#0e1d4e</color>
+    <color name="colorPrimaryDark">#2c3e50</color>
+    <color name="colorAccent">#395169</color>
+    <color name="passive_tab_color">#a5b1c2</color>
+    <color name="foodDate">#1b1a31</color>
+    <color name="foodIngredients">#111127</color>
+    <color name="foodTotalCalorie">#111127</color>
+    <color name="error_foodlist_text">#111127</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

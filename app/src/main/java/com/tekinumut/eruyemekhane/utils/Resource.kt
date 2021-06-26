@@ -2,7 +2,7 @@ package com.tekinumut.eruyemekhane.utils
 
 sealed class Resource<out T>(val status: Status) {
     object Loading : Resource<Nothing>(Status.LOADING)
-    class Success<out T : Any>(val data: T) : Resource<T>(Status.SUCCESS)
+    class Success<out T>(val data: T) : Resource<T>(Status.SUCCESS)
     class Error(val errorMessage: String) : Resource<Nothing>(Status.ERROR)
 
     enum class Status {
