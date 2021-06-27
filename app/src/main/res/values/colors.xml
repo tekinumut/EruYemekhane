@@ -5,8 +5,8 @@
     <color name="colorAccent">#395169</color>
     <color name="passive_tab_color">#a5b1c2</color>
     <color name="foodDate">#1b1a31</color>
-    <color name="foodIngredients">#111127</color>
-    <color name="foodTotalCalorie">#111127</color>
+    <color name="foodIngredients">#565665</color>
+    <color name="foodTotalCalories">#565665</color>
     <color name="error_foodlist_text">#111127</color>
 
     <color name="purple_200">#FFBB86FC</color>

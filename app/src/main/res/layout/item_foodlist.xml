@@ -11,7 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="5dp"
         android:fontFamily="@font/roboto"
         android:textColor="@color/foodDate"
         android:textSize="18sp"
@@ -30,23 +29,22 @@
         android:lineSpacingExtra="8dp"
         android:textColor="@color/foodIngredients"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@id/total_calorie"
+        app:layout_constraintEnd_toStartOf="@id/total_calories"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/date"
         tools:text="ETLİ KURU FASULYE\nŞEHRİYELİ PİRİNÇ PİLAVI\nETLİ KURU FASULYE\nŞEHRİYELİ PİRİNÇ PİLAVI" />
 
     <TextView
-        android:id="@+id/total_calorie"
+        android:id="@+id/total_calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
-        android:textColor="@color/foodTotalCalorie"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@id/foodIngredients"
+        android:textColor="@color/foodTotalCalories"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/foodIngredients"
-        app:layout_constraintTop_toTopOf="@id/foodIngredients"
+        app:layout_constraintTop_toBottomOf="@id/foodIngredients"
         tools:text="924 Kalori" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

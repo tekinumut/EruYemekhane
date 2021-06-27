@@ -26,7 +26,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = FragmentHomeBinding.bind(view)
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = FoodListType.values()[position].name
+            tab.text = when (FoodListType.values()[position]) {
+                FoodListType.STUDENT -> getString(R.string.student)
+                FoodListType.PERSONAL -> getString(R.string.personal)
+            }
         }.attach()
     }
 

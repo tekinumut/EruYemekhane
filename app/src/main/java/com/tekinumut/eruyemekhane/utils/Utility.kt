@@ -13,7 +13,7 @@ object Utility {
      */
     fun openWebSiteWithCustomTabs(context: Context, url: String) {
         val colorSchemeBuilder = CustomTabColorSchemeParams.Builder().run {
-            setToolbarColor(ContextCompat.getColor(context, R.color.purple_500))
+            setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary))
                 .build()
         }
         val builder: CustomTabsIntent.Builder = CustomTabsIntent.Builder().run {

@@ -1,13 +1,14 @@
 package com.tekinumut.eruyemekhane.data.repository
 
-import android.util.Log
 import androidx.room.withTransaction
 import com.tekinumut.eruyemekhane.base.BaseDataSource
 import com.tekinumut.eruyemekhane.data.FoodDatabase
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
-import com.tekinumut.eruyemekhane.data.local.SampleData
 import com.tekinumut.eruyemekhane.data.remote.MainApiService
+import com.tekinumut.eruyemekhane.utils.getFoodList
+import com.tekinumut.eruyemekhane.utils.getIngredientListOfFoodList
 import com.tekinumut.eruyemekhane.utils.networkBoundResource
+import org.jsoup.Jsoup
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,16 +20,15 @@ class FoodListRepository @Inject constructor(
 
     private val foodDao = foodDatabase.foodDao()
 
-    fun getFoodList(foodListType: FoodListType, shouldFetch: Boolean = true) = networkBoundResource(
+    fun getFoodList(foodListType: FoodListType) = networkBoundResource(
         databaseQuery = { foodDao.getFoodsByType(foodListType) },
         networkCall = {
-            safeApiCall { mainApi.getFoodList(foodListType.apiVal) }
+            safeApiCall { mainApi.getFoodList(foodListType.apiUrl) }
         },
         saveCallResult = { htmlResponse ->
-            // TODO() change data by htmlResponse
-            Log.e("BaseApp", "html: ${htmlResponse.substring(0, 100)} ")
-            val foodList = SampleData.studentFoodList
-            val ingredientList = SampleData.studentIngredientsList
+            val doc = Jsoup.parse(htmlResponse)
+            val foodList = doc.getFoodList(foodListType)
+            val ingredientList = doc.getIngredientListOfFoodList(foodList)
             foodDatabase.withTransaction {
                 foodDao.deleteFoodByType(foodListType)
                 foodDao.insertFood(foodList)
@@ -36,4 +36,5 @@ class FoodListRepository @Inject constructor(
             }
         }
     )
+
 }

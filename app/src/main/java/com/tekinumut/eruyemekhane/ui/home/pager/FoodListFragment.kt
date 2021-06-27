@@ -1,7 +1,6 @@
 package com.tekinumut.eruyemekhane.ui.home.pager
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -10,6 +9,7 @@ import com.tekinumut.eruyemekhane.R
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
 import com.tekinumut.eruyemekhane.utils.Resource
+import com.tekinumut.eruyemekhane.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,8 +33,14 @@ class FoodListFragment : Fragment(R.layout.fragment_foodlist) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFoodlistBinding.bind(view)
         binding.recyclerFoodList.adapter = foodlistAdapter
+        setupObservers()
+        binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
+            Utility.openWebSiteWithCustomTabs(requireContext(), foodListType.webSiteUrl)
+        }
+    }
+
+    private fun setupObservers() {
         viewModel.getFoodList(foodListType).observe(viewLifecycleOwner, { response ->
-            Log.e("BaseApp", "type: ${foodListType.name} - status ${response.status}: ")
             binding.progressBar.isVisible = response is Resource.Loading
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
             if (response is Resource.Success) {
