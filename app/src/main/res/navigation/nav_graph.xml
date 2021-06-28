@@ -9,5 +9,24 @@
         android:id="@+id/homeFragment"
         android:name="com.tekinumut.eruyemekhane.ui.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.settings.SettingsFragment"
+        android:label="@string/menu_item_settings_title"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.about.AboutFragment"
+        android:label="@string/menu_item_about_title"
+        tools:layout="@layout/fragment_about" />
+
+
 </navigation>

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.tekinumut.eruyemekhane.R
 import com.tekinumut.eruyemekhane.data.model.FoodIngredients
 import com.tekinumut.eruyemekhane.data.model.FoodWithIngredients
 import com.tekinumut.eruyemekhane.databinding.ItemFoodlistBinding
@@ -54,8 +55,10 @@ class FoodListAdapter : ListAdapter<FoodWithIngredients, FoodListViewHolder>(DIF
 
         private fun String.calorieStyle(): Spannable {
             val text = SpannableString(this)
+            val calorieSize = binding.root.context.resources
+                .getDimension(R.dimen.foodList_calorie_text_size).toInt()
             text.setSpan(TypefaceSpan("sans-serif"), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            text.setSpan(AbsoluteSizeSpan(10, true), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            text.setSpan(AbsoluteSizeSpan(calorieSize), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             return text
         }
     }

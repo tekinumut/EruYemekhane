@@ -3,9 +3,8 @@ package com.tekinumut.eruyemekhane.ui.home.pager
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.tekinumut.eruyemekhane.R
+import com.tekinumut.eruyemekhane.base.BaseFragment
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
 import com.tekinumut.eruyemekhane.utils.Resource
@@ -13,12 +12,9 @@ import com.tekinumut.eruyemekhane.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FoodListFragment : Fragment(R.layout.fragment_foodlist) {
+class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistBinding::inflate) {
 
     private lateinit var foodListType: FoodListType
-
-    private var _binding: FragmentFoodlistBinding? = null
-    private val binding: FragmentFoodlistBinding get() = _binding!!
 
     private val viewModel by viewModels<FoodListViewModel>()
 
@@ -31,7 +27,6 @@ class FoodListFragment : Fragment(R.layout.fragment_foodlist) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentFoodlistBinding.bind(view)
         binding.recyclerFoodList.adapter = foodlistAdapter
         setupObservers()
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
@@ -44,6 +39,7 @@ class FoodListFragment : Fragment(R.layout.fragment_foodlist) {
             binding.progressBar.isVisible = response is Resource.Loading
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
             if (response is Resource.Success) {
+                binding.recyclerFoodList.isVisible = response.data.isNotEmpty()
                 if (response.data.isNotEmpty()) {
                     foodlistAdapter.submitList(response.data)
                 } else {
@@ -51,11 +47,6 @@ class FoodListFragment : Fragment(R.layout.fragment_foodlist) {
                 }
             }
         })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

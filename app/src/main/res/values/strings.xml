@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="student">ÖĞRENCİ</string>
     <string name="personal" tools:ignore="Typos">PERSONEL</string>
+    <string name="menu_item_settings_title">Ayarlar</string>
+    <string name="menu_item_about_title">Hakkında</string>
 
     <!-- Empty Or Error Layout-->
     <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
