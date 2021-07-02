@@ -110,6 +110,8 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$versions.room"
 
+    // Datastore
+    implementation "androidx.datastore:datastore-preferences:$versions.dataStore"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$versions.hilt"

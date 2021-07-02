@@ -19,11 +19,11 @@ private fun Document.getTotalCaloriesList(): List<String> {
     return totalCaloriesList
 }
 
-fun Document.getFoodList(type: FoodListType): List<Food> {
+fun Document.getFoodList(type: FoodListType, lastId: Long): List<Food> {
     val foodList = mutableListOf<Food>()
     getDateList().forEachIndexed { index, date ->
         val totalCalories = getTotalCaloriesList().getOrNull(index)
-        foodList.add(Food(index + 1, date, totalCalories, type))
+        foodList.add(Food(lastId + index + 1, date, totalCalories, type))
     }
     return foodList
 }

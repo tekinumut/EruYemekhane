@@ -1,10 +1,10 @@
 package com.tekinumut.eruyemekhane.data.repository
 
-import androidx.room.withTransaction
 import com.tekinumut.eruyemekhane.base.BaseDataSource
-import com.tekinumut.eruyemekhane.data.FoodDatabase
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
+import com.tekinumut.eruyemekhane.data.local.FoodDao
 import com.tekinumut.eruyemekhane.data.remote.MainApiService
+import com.tekinumut.eruyemekhane.utils.DataStoreManager
 import com.tekinumut.eruyemekhane.utils.getFoodList
 import com.tekinumut.eruyemekhane.utils.getIngredientListOfFoodList
 import com.tekinumut.eruyemekhane.utils.networkBoundResource
@@ -15,25 +15,26 @@ import javax.inject.Singleton
 @Singleton
 class FoodListRepository @Inject constructor(
     private val mainApi: MainApiService,
-    private val foodDatabase: FoodDatabase
+    private val foodDao: FoodDao,
+    private val dataStoreManager: DataStoreManager
 ) : BaseDataSource() {
-
-    private val foodDao = foodDatabase.foodDao()
 
     fun getFoodList(foodListType: FoodListType) = networkBoundResource(
         databaseQuery = { foodDao.getFoodsByType(foodListType) },
         networkCall = {
             safeApiCall { mainApi.getFoodList(foodListType.apiUrl) }
         },
-        saveCallResult = { htmlResponse ->
+        saveCallResult = { htmlResponse ->//TODO
             val doc = Jsoup.parse(htmlResponse)
-            val foodList = doc.getFoodList(foodListType)
+            val lastId = dataStoreManager.lastInsertedId()
+            val foodList = doc.getFoodList(foodListType, lastId)
             val ingredientList = doc.getIngredientListOfFoodList(foodList)
-            foodDatabase.withTransaction {
-                foodDao.deleteFoodByType(foodListType)
-                foodDao.insertFood(foodList)
-                foodDao.insertFoodIngredients(ingredientList)
-            }
+            foodDao.insertFoodsWithIngredients(
+                foodList,
+                ingredientList,
+                foodListType,
+                dataStoreManager
+            )
         }
     )
 
