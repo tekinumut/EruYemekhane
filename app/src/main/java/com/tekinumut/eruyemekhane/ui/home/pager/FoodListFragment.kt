@@ -18,7 +18,7 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
 
     private val viewModel by viewModels<FoodListViewModel>()
 
-    private val foodlistAdapter = FoodListAdapter()
+    private val foodListAdapter = FoodListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recyclerFoodList.adapter = foodlistAdapter
+        binding.recyclerFoodList.adapter = foodListAdapter
         setupObservers()
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
             Utility.openWebSiteWithCustomTabs(requireContext(), foodListType.webSiteUrl)
@@ -35,16 +35,22 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
     }
 
     private fun setupObservers() {
-        viewModel.getFoodList(foodListType).observe(viewLifecycleOwner, { response ->
+        viewModel.foodList.observe(viewLifecycleOwner, { response ->
             binding.progressBar.isVisible = response is Resource.Loading
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
             if (response is Resource.Success) {
                 binding.recyclerFoodList.isVisible = response.data.isNotEmpty()
                 if (response.data.isNotEmpty()) {
-                    foodlistAdapter.submitList(response.data)
+                    foodListAdapter.submitList(response.data)
                 } else {
                     binding.incErrorFoodlist.root.isVisible = true
                 }
+            }
+        })
+        viewModel.isFragmentCreatedBefore.observe(viewLifecycleOwner, { createdBefore ->
+            if (!createdBefore) {
+                viewModel.fetchFoodList(foodListType)
+                viewModel.setFragmentCreatedBefore(true)
             }
         })
     }
