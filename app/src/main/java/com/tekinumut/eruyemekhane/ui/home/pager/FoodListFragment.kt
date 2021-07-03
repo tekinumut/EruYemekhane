@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tekinumut.eruyemekhane.base.BaseFragment
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
@@ -28,6 +29,7 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerFoodList.adapter = foodListAdapter
+        binding.swipeRefreshFoodList.setOnRefreshListener(refreshListener)
         setupObservers()
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
             Utility.openWebSiteWithCustomTabs(requireContext(), foodListType.webSiteUrl)
@@ -38,6 +40,9 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
         viewModel.foodList.observe(viewLifecycleOwner, { response ->
             binding.progressBar.isVisible = response is Resource.Loading
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
+            if (response !is Resource.Loading) {
+                binding.swipeRefreshFoodList.isRefreshing = false
+            }
             if (response is Resource.Success) {
                 binding.recyclerFoodList.isVisible = response.data.isNotEmpty()
                 if (response.data.isNotEmpty()) {
@@ -53,6 +58,12 @@ class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistB
                 viewModel.setFragmentCreatedBefore(true)
             }
         })
+    }
+
+    private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
+        binding.swipeRefreshFoodList.post {
+            viewModel.fetchFoodList(foodListType)
+        }
     }
 
     companion object {
