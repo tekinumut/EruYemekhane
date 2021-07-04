@@ -5,15 +5,21 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.tekinumut.eruyemekhane.BuildConfig
 import com.tekinumut.eruyemekhane.base.BaseFragmentVB
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
+import com.tekinumut.eruyemekhane.utils.PreferencesManager
 import com.tekinumut.eruyemekhane.utils.Resource
 import com.tekinumut.eruyemekhane.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlistBinding::inflate) {
+
+    @Inject
+    lateinit var preferencesManager: PreferencesManager
 
     private lateinit var foodListType: FoodListType
 
@@ -32,7 +38,8 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
         binding.swipeRefreshFoodList.setOnRefreshListener(refreshListener)
         setupObservers()
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
-            Utility.openWebSiteWithCustomTabs(requireContext(), foodListType.webSiteUrl)
+            val webSiteUrl = BuildConfig.BASE_URL + foodListType.apiUrl
+            Utility.openWebSiteWithCustomTabs(requireContext(), webSiteUrl)
         }
     }
 
@@ -54,7 +61,7 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
         })
         viewModel.isFragmentCreatedBefore.observe(viewLifecycleOwner, { createdBefore ->
             if (!createdBefore) {
-                viewModel.fetchFoodList(foodListType)
+                viewModel.fetchFoodList(foodListType,preferencesManager.updateListOnLaunch())
                 viewModel.setFragmentCreatedBefore(true)
             }
         })
@@ -62,7 +69,7 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         binding.swipeRefreshFoodList.post {
-            viewModel.fetchFoodList(foodListType)
+            viewModel.fetchFoodList(foodListType,true)
         }
     }
 

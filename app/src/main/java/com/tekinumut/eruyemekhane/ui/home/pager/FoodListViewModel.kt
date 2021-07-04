@@ -13,13 +13,13 @@ class FoodListViewModel @Inject constructor(
     private val repository: FoodListRepository
 ) : BaseViewModel() {
 
-    private val _foodListType = MutableLiveData<FoodListType>()
+    private val _foodListType = MutableLiveData<Pair<FoodListType, Boolean>>()
 
-    val foodList = _foodListType.switchMap { type ->
-        repository.getFoodList(type)
+    val foodList = _foodListType.switchMap { pair ->
+        repository.getFoodList(pair.first, pair.second)
     }
 
-    fun fetchFoodList(foodListType: FoodListType) {
-        _foodListType.value = foodListType
+    fun fetchFoodList(foodListType: FoodListType, shouldFetch: Boolean) {
+        _foodListType.value = Pair(foodListType, shouldFetch)
     }
 }

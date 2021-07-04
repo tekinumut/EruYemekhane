@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.tekinumut.eruyemekhane.data.FoodDatabase
 import com.tekinumut.eruyemekhane.data.local.FoodDao
 import com.tekinumut.eruyemekhane.utils.DataStoreManager
+import com.tekinumut.eruyemekhane.utils.PreferencesManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,5 +36,10 @@ object AppModule {
     @Provides
     fun provideDataStoreManager(@ApplicationContext appContext: Context): DataStoreManager =
         DataStoreManager(appContext)
+
+    @Singleton
+    @Provides
+    fun providePreferencesManager(@ApplicationContext appContext: Context): PreferencesManager =
+        PreferencesManager(appContext)
 
 }

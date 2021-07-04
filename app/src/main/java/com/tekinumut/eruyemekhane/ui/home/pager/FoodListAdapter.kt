@@ -69,7 +69,8 @@ class FoodListAdapter : ListAdapter<FoodWithIngredients, FoodListViewHolder>(DIF
                 oldItem: FoodWithIngredients,
                 newItem: FoodWithIngredients
             ): Boolean {
-                return oldItem.food.id == newItem.food.id
+                // We will not use id because the ID will always increase because of lastInsertedId
+                return oldItem.food.date == newItem.food.date
             }
 
             override fun areContentsTheSame(

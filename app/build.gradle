@@ -110,12 +110,15 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$versions.room"
 
-    // Datastore
-    implementation "androidx.datastore:datastore-preferences:$versions.dataStore"
-
     // Hilt
     implementation "com.google.dagger:hilt-android:$versions.hilt"
     kapt "com.google.dagger:hilt-compiler:$versions.hilt"
+
+    // Datastore
+    implementation "androidx.datastore:datastore-preferences:$versions.dataStore"
+
+    // Preference Settings
+    implementation "androidx.preference:preference-ktx:$versions.preference"
 
     // Browser CustomTabs
     implementation "androidx.browser:browser:$versions.browser"

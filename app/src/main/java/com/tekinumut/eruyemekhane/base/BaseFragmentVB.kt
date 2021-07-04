@@ -22,11 +22,8 @@ abstract class BaseFragmentVB<VB : ViewBinding>(private val inflate: Inflate<VB>
         return binding.root
     }
 
-    open fun onDestroyedView() {}
-
     override fun onDestroyView() {
         super.onDestroyView()
-        onDestroyedView()
         _binding = null
     }
 }

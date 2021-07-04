@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Night Theme Preference -->
+    <string-array name="night_theme_entries">
+        <item>@string/night_theme_entry_light</item>
+        <item>@string/night_theme_entry_dark</item>
+        <item>@string/night_theme_entry_system_default</item>
+    </string-array>
+
+    <string-array name="night_theme_values">
+        <item>@string/night_theme_value_light</item>
+        <item>@string/night_theme_value_dark</item>
+        <item>@string/night_theme_value_system_default</item>
+    </string-array>
+</resources>

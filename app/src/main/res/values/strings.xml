@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="student">ÖĞRENCİ</string>
-    <string name="personal" tools:ignore="Typos">PERSONEL</string>
+    <string name="student_list_title">Öğrenci</string>
+    <string name="personal_list_title" tools:ignore="Typos">Personel</string>
     <string name="menu_item_settings_title">Ayarlar</string>
     <string name="menu_item_about_title">Hakkında</string>
     <string name="gmail_address">bm.umuttekin@gmail.com</string>
@@ -34,5 +34,26 @@
     <string name="send_feedback">Geri Bildirim Gönder</string>
     <string name="rate_app">Uygulamayı Değerlendir</string>
     <string name="github_source_code">Uygulama Kaynak Kodları</string>
+
+    <!-- Settings Page -->
+    <!-- Theme -->
+    <string name="night_theme_title">Tema</string>
+    <string name="night_theme_key">night_theme_key</string>
+    <string name="night_theme_entry_light">Her zaman açık tema</string>
+    <string name="night_theme_entry_dark">Her zaman koyu tema</string>
+    <string name="night_theme_entry_system_default">Cihazda kullanılan tema</string>
+    <string name="night_theme_value_light">night_theme_light</string>
+    <string name="night_theme_value_dark">night_theme_dark</string>
+    <string name="night_theme_value_system_default">night_theme_system_default</string>
+    <!-- Ads -->
+    <string name="ads_title">Reklam Görünümü</string>
+    <string name="ads_key">ads_key</string>
+    <string name="ads_summary_on">Reklamlar Etkin</string>
+    <string name="ads_summary_off">Reklamlar %s tarihine kadar devre dışı bırakıldı.</string>
+    <!-- Update List On App Launch -->
+    <string name="update_list_on_launch_title">Başlangıçta Listeleri Güncelle</string>
+    <string name="update_list_on_launch_key">update_list_on_launch_key</string>
+    <string name="update_list_on_launch_summary_on">Başlangıçta listeler otomatik olarak güncellenecek.</string>
+    <string name="update_list_on_launch_summary_off">Başlangıçta hafızada kayıtlı son listeler görüntülenecek.</string>
 
 </resources>

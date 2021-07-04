@@ -19,7 +19,7 @@ class FoodListRepository @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ) : BaseDataSource() {
 
-    fun getFoodList(foodListType: FoodListType) = networkBoundResource(
+    fun getFoodList(foodListType: FoodListType, shouldFetch: Boolean) = networkBoundResource(
         databaseQuery = { foodDao.getFoodsByType(foodListType) },
         networkCall = {
             safeApiCall { mainApi.getFoodList(foodListType.apiUrl) }
@@ -35,7 +35,8 @@ class FoodListRepository @Inject constructor(
                 foodListType,
                 dataStoreManager
             )
-        }
+        },
+        shouldFetch = { shouldFetch }
     )
 
 }

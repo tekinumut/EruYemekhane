@@ -3,7 +3,6 @@ package com.tekinumut.eruyemekhane.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tekinumut.eruyemekhane.R
@@ -16,22 +15,23 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
-    private val viewModel by viewModels<HomeViewModel>()
-
     private lateinit var pagerAdapter: HomePagerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         pagerAdapter = HomePagerAdapter(this)
-        binding.ivSettings.setOnClickListener { showPopup(it) }
+        mainActivity.supportActionBar?.hide()
+        setListeners()
+        binding.viewPager.offscreenPageLimit = FoodListType.values().size
         binding.viewPager.adapter = pagerAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (FoodListType.values()[position]) {
-                FoodListType.STUDENT -> getString(R.string.student)
-                FoodListType.PERSONAL -> getString(R.string.personal)
-            }
+            tab.text = getString(FoodListType.values()[position].nameRes)
         }.attach()
+    }
+
+    private fun setListeners() {
+        binding.ivSettings.setOnClickListener { showPopup(it) }
     }
 
     private fun showPopup(v: View) {
@@ -51,5 +51,10 @@ class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::in
             true
         }
         popup.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mainActivity.supportActionBar?.show()
     }
 }

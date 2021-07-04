@@ -4,19 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 
-fun <T, A> networkBoundResource(
-    databaseQuery: () -> LiveData<T>,
-    networkCall: suspend () -> Resource<A>,
-    saveCallResult: suspend (A) -> Unit
+inline fun <T, A> networkBoundResource(
+    crossinline databaseQuery: () -> LiveData<T>,
+    crossinline networkCall: suspend () -> Resource<A>,
+    crossinline saveCallResult: suspend (A) -> Unit,
+    crossinline shouldFetch: () -> Boolean
 ): LiveData<Resource<T>> =
     liveData {
         emit(Resource.Loading)
-        val responseStatus = networkCall.invoke()
-        if (responseStatus is Resource.Success) {
-            saveCallResult(responseStatus.data!!)
-            emitSource(databaseQuery.invoke().map { Resource.Success(it) })
-        } else if (responseStatus is Resource.Error) {
-            emit(Resource.Error(responseStatus.errorMessage))
+        if (shouldFetch()) {
+            val responseStatus = networkCall.invoke()
+            if (responseStatus is Resource.Success) {
+                saveCallResult(responseStatus.data!!)
+                emitSource(databaseQuery.invoke().map { Resource.Success(it) })
+            } else if (responseStatus is Resource.Error) {
+                emit(Resource.Error(responseStatus.errorMessage))
+                emitSource(databaseQuery.invoke().map { Resource.Success(it) })
+            }
+        } else {
             emitSource(databaseQuery.invoke().map { Resource.Success(it) })
         }
     }
