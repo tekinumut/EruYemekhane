@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.tekinumut.eruyemekhane.base.BaseFragment
+import com.tekinumut.eruyemekhane.base.BaseFragmentVB
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
 import com.tekinumut.eruyemekhane.utils.Resource
@@ -13,7 +13,7 @@ import com.tekinumut.eruyemekhane.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FoodListFragment : BaseFragment<FragmentFoodlistBinding>(FragmentFoodlistBinding::inflate) {
+class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlistBinding::inflate) {
 
     private lateinit var foodListType: FoodListType
 

@@ -3,6 +3,9 @@
     <string name="personal" tools:ignore="Typos">PERSONEL</string>
     <string name="menu_item_settings_title">Ayarlar</string>
     <string name="menu_item_about_title">Hakkında</string>
+    <string name="gmail_address">bm.umuttekin@gmail.com</string>
+    <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
+    <string name="send_mail_title">Mail Gönder</string>
 
     <!-- Empty Or Error Layout-->
     <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
@@ -16,5 +19,20 @@
           listelerin yer aldığı web sitesini ziyaret edebilirsiniz.\n
         • Listeler web sitesinde de gözükmüyorsa, yayınlanana kadar beklemeniz gerekmektedir.</string>
     <string name="open_web_site">Web Sitesine Git</string>
-    <!-- END OF Empty Or Error Layout-->
+
+    <!-- About Page -->
+    <string name="user_guide_title">EruYemekhane\'ye Hoş Geldiniz.</string>
+    <string name="user_guide" tools:ignore="Typos">
+        • Erciyes Üniversitesine ait Öğrenci ve Personel listelerini görüntüleyebilirsiniz.
+        \n• Bir kere indirdikten sonra yemek listelerine internetiniz olmadan erişebilirsiniz.
+        \n• Sayfayı yukarıdan aşağı kaydırarak mevcut listeyi güncelleyebilirsiniz.
+        \n• Ayarlar menüsünden birçok farklı özelliğe erişebilirsiniz.
+        \n• Uygulamanın güncel kodlarına aşağıda bulunan Github linkinden erişebilirsiniz.
+        \n• Lütfen geri bildirim göndermekten ve uygulamayı değerlendirmekten çekinmeyin.</string>
+    <string name="expand_more">Genişletmek için tıkla</string>
+    <string name="expand_less">Daraltmak için tıkla</string>
+    <string name="send_feedback">Geri Bildirim Gönder</string>
+    <string name="rate_app">Uygulamayı Değerlendir</string>
+    <string name="github_source_code">Uygulama Kaynak Kodları</string>
+
 </resources>

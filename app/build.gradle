@@ -137,6 +137,9 @@ dependencies {
     // Jsoup
     implementation "org.jsoup:jsoup:$versions.jsoup"
 
+    // Lottie
+    implementation "com.airbnb.android:lottie:$versions.lottieVersion"
+
     // Local Unit Tests
     testImplementation "com.google.truth:truth:$versions.truth"
     testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"

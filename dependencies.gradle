@@ -35,6 +35,7 @@ ext.versions = [
         okhttp          : '5.0.0-alpha.2',
         retrofit        : '2.9.0',
         jsoup           : '1.13.1',
+        lottieVersion   : '3.7.0',
 
         //Test
         truth           : '1.1.3',
