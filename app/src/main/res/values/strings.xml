@@ -21,7 +21,7 @@
     <string name="open_web_site">Web Sitesine Git</string>
 
     <!-- About Page -->
-    <string name="user_guide_title">EruYemekhane\'ye Hoş Geldiniz.</string>
+    <string name="user_guide_title">EruYemekhane\'ye Hoş Geldiniz</string>
     <string name="user_guide" tools:ignore="Typos">
         • Erciyes Üniversitesine ait Öğrenci ve Personel listelerini görüntüleyebilirsiniz.
         \n• Bir kere indirdikten sonra yemek listelerine internetiniz olmadan erişebilirsiniz.

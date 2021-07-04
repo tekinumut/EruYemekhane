@@ -2,6 +2,7 @@ package com.tekinumut.eruyemekhane.utils
 
 import android.content.Context
 import android.net.Uri
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -23,5 +24,19 @@ object Utility {
         }
         val tabIntent = builder.build()
         tabIntent.launchUrl(context, Uri.parse(url))
+    }
+
+    fun setNightTheme(context: Context, value: String) {
+        when (value) {
+            context.getString(R.string.night_theme_value_light) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_NO
+            )
+            context.getString(R.string.night_theme_value_dark) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES
+            )
+            context.getString(R.string.night_theme_value_system_default) -> AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            )
+        }
     }
 }

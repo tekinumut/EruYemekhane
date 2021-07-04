@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
-        app:defaultValue="@string/night_theme_value_system_default"
+        app:defaultValue="night_theme_system_default"
         app:entries="@array/night_theme_entries"
         app:entryValues="@array/night_theme_values"
         app:iconSpaceReserved="false"

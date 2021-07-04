@@ -15,6 +15,10 @@ plugins {
 def keystorePropertiesFile = rootProject.file("Certificates/keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// Secret Keys
+def secretsFile = rootProject.file("Certificates/secrets.properties")
+def secretProperties = new Properties()
+secretProperties.load(new FileInputStream(secretsFile))
 
 android {
     compileSdkVersion versions.compileSdk
@@ -45,12 +49,18 @@ android {
     buildTypes {
         debug {
             resValue "string", "app_name", "EruTestYemek"
+            resValue "string", "admob_app_id", "${secretProperties['admobAppIdTest']}"
+            resValue "string", "adUnitIdMainBanner", "${secretProperties['adUnitIdTest']}"
+            resValue "string", "adUnitIdRemoveBanner", "${secretProperties['adUnitIdTest']}"
             buildConfigField "String", "BASE_URL", '"https://www.erciyes.edu.tr/tr/2/"'
             minifyEnabled false
             applicationIdSuffix '.debug'
         }
         release {
             resValue "string", "app_name", "EruYemekhane"
+            resValue "string", "admob_app_id", "${secretProperties['admobAppId']}"
+            resValue "string", "adUnitIdMainBanner", "${secretProperties['adUnitIdMainBanner']}"
+            resValue "string", "adUnitIdRemoveBanner", "${secretProperties['adUnitIdRemoveBanner']}"
             buildConfigField "String", "BASE_URL", '"https://www.erciyes.edu.tr/tr/2/"'
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -127,6 +137,9 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:$versions.firebaseBom")
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Ads
+    implementation "com.google.android.gms:play-services-ads:$versions.gmsAds"
 
     // 3rd Dependencies
     // Retrofit

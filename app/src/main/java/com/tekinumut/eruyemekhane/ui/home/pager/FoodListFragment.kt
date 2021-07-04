@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tekinumut.eruyemekhane.BuildConfig
+import com.tekinumut.eruyemekhane.R
 import com.tekinumut.eruyemekhane.base.BaseFragmentVB
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentFoodlistBinding
@@ -35,8 +36,13 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerFoodList.adapter = foodListAdapter
-        binding.swipeRefreshFoodList.setOnRefreshListener(refreshListener)
+        binding.swipeRefreshFoodList.run {
+            setOnRefreshListener(refreshListener)
+            setColorSchemeResources(R.color.swipe_refresh_progress)
+            setProgressBackgroundColorSchemeResource(R.color.swipe_refresh_bg)
+        }
         setupObservers()
+
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
             val webSiteUrl = BuildConfig.BASE_URL + foodListType.apiUrl
             Utility.openWebSiteWithCustomTabs(requireContext(), webSiteUrl)
@@ -45,11 +51,9 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
 
     private fun setupObservers() {
         viewModel.foodList.observe(viewLifecycleOwner, { response ->
-            binding.progressBar.isVisible = response is Resource.Loading
+            binding.progressBar.isVisible =
+                response is Resource.Loading && !binding.swipeRefreshFoodList.isRefreshing
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
-            if (response !is Resource.Loading) {
-                binding.swipeRefreshFoodList.isRefreshing = false
-            }
             if (response is Resource.Success) {
                 binding.recyclerFoodList.isVisible = response.data.isNotEmpty()
                 if (response.data.isNotEmpty()) {
@@ -58,10 +62,13 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
                     binding.incErrorFoodlist.root.isVisible = true
                 }
             }
+            if (response !is Resource.Loading) {
+                binding.swipeRefreshFoodList.isRefreshing = false
+            }
         })
         viewModel.isFragmentCreatedBefore.observe(viewLifecycleOwner, { createdBefore ->
             if (!createdBefore) {
-                viewModel.fetchFoodList(foodListType,preferencesManager.updateListOnLaunch())
+                viewModel.fetchFoodList(foodListType, preferencesManager.updateListOnLaunch())
                 viewModel.setFragmentCreatedBefore(true)
             }
         })
@@ -69,7 +76,7 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
 
     private val refreshListener = SwipeRefreshLayout.OnRefreshListener {
         binding.swipeRefreshFoodList.post {
-            viewModel.fetchFoodList(foodListType,true)
+            viewModel.fetchFoodList(foodListType, true)
         }
     }
 

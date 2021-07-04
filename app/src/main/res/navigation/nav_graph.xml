@@ -20,8 +20,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.tekinumut.eruyemekhane.ui.settings.SettingsFragment"
-        android:label="@string/menu_item_settings_title"
-        tools:layout="@layout/fragment_settings" />
+        android:label="@string/menu_item_settings_title" />
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.tekinumut.eruyemekhane.ui.about.AboutFragment"

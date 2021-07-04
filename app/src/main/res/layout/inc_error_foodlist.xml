@@ -23,8 +23,7 @@
         <TextView
             style="@style/EmptyFoodTextView"
             android:layout_marginTop="8dp"
-            android:text="@string/empty_solution_title"
-            android:textColor="@color/error_foodlist_text" />
+            android:text="@string/empty_solution_title" />
 
         <TextView
             style="@style/EmptyFoodTextView"
@@ -37,13 +36,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/teal_200"
+            android:backgroundTint="@color/error_foodList_btn_bg"
             android:fontFamily="@font/roboto_medium"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="@string/open_web_site"
             android:textAllCaps="false"
-            android:textColor="@color/white"
+            android:textColor="@color/white_fixed"
             android:textSize="16sp" />
     </LinearLayout>
 

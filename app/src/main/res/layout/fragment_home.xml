@@ -9,7 +9,7 @@
         android:id="@+id/iv_settings"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbar_bg"
         android:paddingHorizontal="10dp"
         android:src="@drawable/ic_settings"
         app:layout_constraintBottom_toBottomOf="@id/tab_layout"
@@ -22,22 +22,34 @@
         android:id="@+id/tab_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbar_bg"
         app:layout_constraintEnd_toStartOf="@id/iv_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="fill"
+        app:tabIndicatorColor="@color/tab_indicator_color"
         app:tabMaxWidth="0dp"
-        app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/passive_tab_color" />
+        app:tabSelectedTextColor="@color/white_fixed"
+        app:tabTextColor="@color/tab_text_color" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/adUnitIdMainBanner"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@id/viewPager"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

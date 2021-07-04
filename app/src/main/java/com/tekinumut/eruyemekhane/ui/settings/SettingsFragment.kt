@@ -5,6 +5,7 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.tekinumut.eruyemekhane.R
+import com.tekinumut.eruyemekhane.utils.Utility
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -16,7 +17,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.preferences_settings, rootKey)
         init()
         setListeners()
-
     }
 
     private fun init() {
@@ -26,7 +26,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setListeners() {
-
+        nightTheme.setOnPreferenceChangeListener { _, newValue ->
+            Utility.setNightTheme(nightTheme.context, newValue.toString())
+            true
+        }
     }
 
 }

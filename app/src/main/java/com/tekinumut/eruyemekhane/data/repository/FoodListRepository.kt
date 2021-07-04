@@ -24,7 +24,7 @@ class FoodListRepository @Inject constructor(
         networkCall = {
             safeApiCall { mainApi.getFoodList(foodListType.apiUrl) }
         },
-        saveCallResult = { htmlResponse ->//TODO
+        saveCallResult = { htmlResponse ->
             val doc = Jsoup.parse(htmlResponse)
             val lastId = dataStoreManager.lastInsertedId()
             val foodList = doc.getFoodList(foodListType, lastId)

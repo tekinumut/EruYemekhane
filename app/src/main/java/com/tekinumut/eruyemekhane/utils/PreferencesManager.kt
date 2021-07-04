@@ -15,4 +15,9 @@ class PreferencesManager @Inject constructor(@ApplicationContext private val con
     fun updateListOnLaunch(): Boolean {
         return pref.getBoolean(context.getString(R.string.update_list_on_launch_key), true)
     }
+
+    fun selectedNightTheme(): String {
+        val defaultTheme = context.getString(R.string.night_theme_value_system_default)
+        return pref.getString(context.getString(R.string.night_theme_key), defaultTheme)!!
+    }
 }
