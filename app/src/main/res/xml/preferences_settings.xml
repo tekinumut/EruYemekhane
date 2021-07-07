@@ -12,9 +12,9 @@
     <SwitchPreferenceCompat
         app:defaultValue="true"
         app:iconSpaceReserved="false"
-        app:key="@string/ads_key"
-        app:summaryOn="@string/ads_summary_on"
-        app:title="@string/ads_title" />
+        app:key="@string/removeBanner_key"
+        app:summaryOn="@string/removeBanner_summary_on"
+        app:title="@string/removeBanner_title" />
 
     <SwitchPreferenceCompat
         app:defaultValue="true"

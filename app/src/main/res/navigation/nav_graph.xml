@@ -20,12 +20,22 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.tekinumut.eruyemekhane.ui.settings.SettingsFragment"
-        android:label="@string/menu_item_settings_title" />
+        android:label="@string/menu_item_settings_title">
+        <action
+            android:id="@+id/action_settingsFragment_to_removeBannerDialogFragment"
+            app:destination="@id/removeBannerDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.tekinumut.eruyemekhane.ui.about.AboutFragment"
         android:label="@string/menu_item_about_title"
         tools:layout="@layout/fragment_about" />
+
+    <dialog
+        android:id="@+id/removeBannerDialogFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.settings.removebanner.RemoveBannerDialogFragment"
+        android:label="RemoveBannerDialogFragment"
+        tools:layout="@layout/dialog_remove_banner" />
 
 
 </navigation>

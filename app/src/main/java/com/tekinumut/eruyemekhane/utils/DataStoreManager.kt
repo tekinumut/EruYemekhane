@@ -3,7 +3,6 @@ package com.tekinumut.eruyemekhane.utils
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -23,8 +22,8 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
     private val mainDataStore = appContext.dataStore
 
     suspend fun setLastInsertedId(lastId: Long) {
-        mainDataStore.edit { main ->
-            main[LAST_INSERTED_ID] = lastId
+        mainDataStore.edit { store ->
+            store[LAST_INSERTED_ID] = lastId
         }
     }
 
@@ -34,22 +33,18 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
         }.first()
     }
 
-    suspend fun setShowBannerAd(isShow: Boolean) {
-        mainDataStore.edit { main ->
-            main[SHOW_BANNER_AD] = isShow
+    val rewardExpireTime: Flow<Long> = mainDataStore.data.map { preferences ->
+        preferences[REWARD_AD_EXPIRE_TIME] ?: 0
+    }
+
+    suspend fun setRewardAdExpireTime(expireTime: Long) {
+        mainDataStore.edit { store ->
+            store[REWARD_AD_EXPIRE_TIME] = expireTime
         }
-    }
-
-    val isShowBannerAd: Flow<Boolean> = mainDataStore.data.map { preferences ->
-        preferences[SHOW_BANNER_AD] ?: true
-    }
-
-    val isShowBannerAd2: Boolean = runBlocking {
-        mainDataStore.data.first()[SHOW_BANNER_AD] ?: false
     }
 
     companion object {
         private val LAST_INSERTED_ID = longPreferencesKey("last_inserted_id")
-        private val SHOW_BANNER_AD = booleanPreferencesKey("show_banner_ad")
+        private val REWARD_AD_EXPIRE_TIME = longPreferencesKey("reward_ad_expire_time")
     }
 }

@@ -6,6 +6,9 @@
     <string name="gmail_address">bm.umuttekin@gmail.com</string>
     <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
     <string name="send_mail_title">Mail Gönder</string>
+    <string name="accept">Kabul Et</string>
+    <string name="reject">İptal et</string>
+    <string name="try_again">Tekrar Dene</string>
 
     <!-- Empty Or Error Layout-->
     <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
@@ -45,15 +48,27 @@
     <string name="night_theme_value_light">night_theme_light</string>
     <string name="night_theme_value_dark">night_theme_dark</string>
     <string name="night_theme_value_system_default">night_theme_system_default</string>
+
     <!-- Ads -->
-    <string name="ads_title">Reklam Görünümü</string>
-    <string name="ads_key">ads_key</string>
-    <string name="ads_summary_on">Reklamlar Etkin</string>
-    <string name="ads_summary_off">Reklamlar %s tarihine kadar devre dışı bırakıldı.</string>
+    <string name="removeBanner_title">Reklam Görünümü</string>
+    <string name="removeBanner_key">removeBanner_key</string>
+    <string name="removeBanner_summary_on">Reklamlar Etkin</string>
+    <string name="removeBanner_summary_off">Reklamlar %s tarihine kadar devre dışı bırakıldı.</string>
+
     <!-- Update List On App Launch -->
     <string name="update_list_on_launch_title">Başlangıçta Listeleri Güncelle</string>
     <string name="update_list_on_launch_key">update_list_on_launch_key</string>
     <string name="update_list_on_launch_summary_on">Başlangıçta listeler otomatik olarak güncellenecek.</string>
     <string name="update_list_on_launch_summary_off">Başlangıçta hafızada kayıtlı son listeler görüntülenecek.</string>
+    <!-- END OF Settings Page -->
 
+    <!-- Disable Reward -->
+    <string name="disable_ad_title">Reklamları Kaldır</string>
+    <string name="disable_ad_content">Video reklam izleyerek mevcut reklamları bir ay boyunca devre dışı bırakabilirsiniz. </string>
+    <string name="ad_closed">Video reklam kapatıldı!</string>
+    <string name="ad_reward_earned">Reklamlar 1 ay boyunca kaldırıldı</string>
+    <string name="ad_failed_load">Reklam yüklenemedi! Lütfen tekrar deneyiniz.</string>
+    <string name="reward_ad_loading">Reklam Yükleniyor</string>
+    <string name="ad_load_fail_try_again">Reklam yüklenirken bir hata meydana geldi.</string>
+    <string name="ad_not_ready_yet">Reklam henüz hazır değil.</string>
 </resources>

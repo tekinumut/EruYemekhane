@@ -26,8 +26,7 @@ class FoodListRepository @Inject constructor(
         },
         saveCallResult = { htmlResponse ->
             val doc = Jsoup.parse(htmlResponse)
-            val lastId = dataStoreManager.lastInsertedId()
-            val foodList = doc.getFoodList(foodListType, lastId)
+            val foodList = doc.getFoodList(foodListType, dataStoreManager.lastInsertedId())
             val ingredientList = doc.getIngredientListOfFoodList(foodList)
             foodDao.insertFoodsWithIngredients(
                 foodList,

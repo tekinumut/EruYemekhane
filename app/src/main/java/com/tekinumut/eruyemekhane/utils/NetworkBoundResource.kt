@@ -15,7 +15,7 @@ inline fun <T, A> networkBoundResource(
         if (shouldFetch()) {
             val responseStatus = networkCall.invoke()
             if (responseStatus is Resource.Success) {
-                saveCallResult(responseStatus.data!!)
+                saveCallResult(responseStatus.data)
                 emitSource(databaseQuery.invoke().map { Resource.Success(it) })
             } else if (responseStatus is Resource.Error) {
                 emit(Resource.Error(responseStatus.errorMessage))

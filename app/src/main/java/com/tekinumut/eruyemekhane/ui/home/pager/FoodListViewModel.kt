@@ -13,6 +13,8 @@ class FoodListViewModel @Inject constructor(
     private val repository: FoodListRepository
 ) : BaseViewModel() {
 
+    var isCreatedBefore = false
+
     private val _foodListType = MutableLiveData<Pair<FoodListType, Boolean>>()
 
     val foodList = _foodListType.switchMap { pair ->

@@ -20,4 +20,12 @@ class PreferencesManager @Inject constructor(@ApplicationContext private val con
         val defaultTheme = context.getString(R.string.night_theme_value_system_default)
         return pref.getString(context.getString(R.string.night_theme_key), defaultTheme)!!
     }
+
+    fun setRemoveBannerChecked(isChecked: Boolean) {
+        pref.edit().putBoolean(context.getString(R.string.removeBanner_key), isChecked).apply()
+    }
+
+    fun isRemoveBannerChecked(): Boolean {
+        return pref.getBoolean(context.getString(R.string.removeBanner_key), true)
+    }
 }

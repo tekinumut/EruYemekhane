@@ -50,8 +50,8 @@ android {
         debug {
             resValue "string", "app_name", "EruTestYemek"
             resValue "string", "admob_app_id", "${secretProperties['admobAppIdTest']}"
-            resValue "string", "adUnitIdMainBanner", "${secretProperties['adUnitIdTest']}"
-            resValue "string", "adUnitIdRemoveBanner", "${secretProperties['adUnitIdTest']}"
+            resValue "string", "adUnitIdMainBanner", "${secretProperties['adUnitIdBannerAdTest']}"
+            resValue "string", "adUnitIdRemoveBanner", "${secretProperties['adUnitIdRewardedAdTest']}"
             buildConfigField "String", "BASE_URL", '"https://www.erciyes.edu.tr/tr/2/"'
             minifyEnabled false
             applicationIdSuffix '.debug'

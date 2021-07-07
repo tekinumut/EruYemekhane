@@ -2,6 +2,7 @@ package com.tekinumut.eruyemekhane.ui.home.pager
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -41,7 +42,12 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
             setColorSchemeResources(R.color.swipe_refresh_progress)
             setProgressBackgroundColorSchemeResource(R.color.swipe_refresh_bg)
         }
-        setupObservers()
+        initObservers()
+
+        if (!viewModel.isCreatedBefore) {
+            viewModel.fetchFoodList(foodListType, preferencesManager.updateListOnLaunch())
+            viewModel.isCreatedBefore = true
+        }
 
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {
             val webSiteUrl = BuildConfig.BASE_URL + foodListType.apiUrl
@@ -49,13 +55,13 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
         }
     }
 
-    private fun setupObservers() {
+    private fun initObservers() {
         viewModel.foodList.observe(viewLifecycleOwner, { response ->
             binding.progressBar.isVisible =
                 response is Resource.Loading && !binding.swipeRefreshFoodList.isRefreshing
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error
             if (response is Resource.Success) {
-                binding.recyclerFoodList.isVisible = response.data.isNotEmpty()
+                binding.recyclerFoodList.isGone = response.data.isEmpty()
                 if (response.data.isNotEmpty()) {
                     foodListAdapter.submitList(response.data)
                 } else {
@@ -64,12 +70,6 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
             }
             if (response !is Resource.Loading) {
                 binding.swipeRefreshFoodList.isRefreshing = false
-            }
-        })
-        viewModel.isFragmentCreatedBefore.observe(viewLifecycleOwner, { createdBefore ->
-            if (!createdBefore) {
-                viewModel.fetchFoodList(foodListType, preferencesManager.updateListOnLaunch())
-                viewModel.setFragmentCreatedBefore(true)
             }
         })
     }

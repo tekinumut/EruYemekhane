@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.tekinumut.eruyemekhane.base.extension.Inflate
 
-abstract class BaseFragmentVB<VB : ViewBinding>(private val inflate: Inflate<VB>) : BaseFragment() {
+abstract class BaseDialogFragmentVB<VB : ViewBinding>(
+    private val inflate: Inflate<VB>
+) : BaseDialogFragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
@@ -16,7 +18,7 @@ abstract class BaseFragmentVB<VB : ViewBinding>(private val inflate: Inflate<VB>
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = inflate.invoke(inflater, container, false)
         return binding.root
     }
@@ -25,4 +27,5 @@ abstract class BaseFragmentVB<VB : ViewBinding>(private val inflate: Inflate<VB>
         super.onDestroyView()
         _binding = null
     }
+
 }

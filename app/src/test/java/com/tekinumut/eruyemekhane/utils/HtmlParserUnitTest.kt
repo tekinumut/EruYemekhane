@@ -11,7 +11,7 @@ class HtmlParserUnitTest {
 
     private val html = SampleData.htmlOfFoodListBlock
     private val doc = Jsoup.parse(html)
-    private val studentFoodList = doc.getFoodList(FoodListType.STUDENT)
+    private val studentFoodList = doc.getFoodList(FoodListType.STUDENT,0)
     private val ingredientsListOfFood = doc.getIngredientListOfFoodList(studentFoodList)
 
 //    @Test

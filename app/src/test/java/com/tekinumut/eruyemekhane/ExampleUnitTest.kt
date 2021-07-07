@@ -11,6 +11,9 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 4)
+        val numbers = listOf<Long>(30, 24, 60, 60, 1000)
+
+        val sum = numbers.reduce { sum, element -> sum * element }
+        assertEquals(2592000000, sum)
     }
 }
