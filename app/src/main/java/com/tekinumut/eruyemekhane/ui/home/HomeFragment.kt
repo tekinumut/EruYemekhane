@@ -13,7 +13,6 @@ import com.tekinumut.eruyemekhane.base.BaseFragmentVB
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.databinding.FragmentHomeBinding
 import com.tekinumut.eruyemekhane.ui.home.pager.HomePagerAdapter
-import com.tekinumut.eruyemekhane.utils.DataStoreManager
 import com.tekinumut.eruyemekhane.utils.PreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,9 +23,6 @@ class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::in
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
-    @Inject
-    lateinit var dataStoreManager: DataStoreManager
-
     private lateinit var pagerAdapter: HomePagerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +31,7 @@ class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::in
         mainActivity.supportActionBar?.hide()
         initAdView()
         setListeners()
-        //binding.viewPager.offscreenPageLimit = FoodListType.values().size
+        binding.viewPager.offscreenPageLimit = FoodListType.values().size
         binding.viewPager.adapter = pagerAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

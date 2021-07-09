@@ -19,7 +19,15 @@ class AboutFragment : BaseFragmentDB<FragmentAboutBinding>(R.layout.fragment_abo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        init()
         setListeners()
+    }
+
+    private fun init() {
+        if (!viewModel.isLottiePlayed) {
+            binding.lottieView.playAnimation()
+            viewModel.isLottiePlayed = true
+        }
     }
 
     private fun setListeners() {

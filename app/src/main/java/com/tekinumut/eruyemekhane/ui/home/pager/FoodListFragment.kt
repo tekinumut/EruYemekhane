@@ -44,9 +44,9 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
         }
         initObservers()
 
-        if (!viewModel.isCreatedBefore) {
+        if (!viewModel.isFragmentCreatedBefore) {
             viewModel.fetchFoodList(foodListType, preferencesManager.updateListOnLaunch())
-            viewModel.isCreatedBefore = true
+            viewModel.isFragmentCreatedBefore = true
         }
 
         binding.incErrorFoodlist.btnOpenWebPage.setOnClickListener {

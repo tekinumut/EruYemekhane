@@ -27,7 +27,6 @@
                 android:layout_height="120dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                app:lottie_autoPlay="true"
                 app:lottie_rawRes="@raw/about_book_search"
                 app:lottie_scale="0.4" />
 

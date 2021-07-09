@@ -3,8 +3,6 @@ package com.tekinumut.eruyemekhane.ui.settings.removebanner
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdError
@@ -90,7 +88,6 @@ class RemoveBannerDialogFragment : BaseDialogFragmentDB<DialogRemoveBannerBindin
                 lifecycleScope.launch {
                     dataStoreManager.setRewardAdExpireTime(DateUtils.getNextMonthTimeStamp())
                 }.invokeOnCompletion {
-                    setFragmentResult(REQUEST_KEY, bundleOf(ON_REWARD_EARNED to true))
                     dismiss()
                 }
             }

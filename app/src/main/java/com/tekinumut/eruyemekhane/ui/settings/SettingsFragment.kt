@@ -1,15 +1,14 @@
 package com.tekinumut.eruyemekhane.ui.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.tekinumut.eruyemekhane.R
-import com.tekinumut.eruyemekhane.ui.settings.removebanner.RemoveBannerDialogFragment
 import com.tekinumut.eruyemekhane.utils.DataStoreManager
 import com.tekinumut.eruyemekhane.utils.DateUtils
 import com.tekinumut.eruyemekhane.utils.DateUtils.toFormattedDate
@@ -51,6 +50,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
         removeBannerAd.setOnPreferenceChangeListener { _, newValue ->
+            Log.e("BaseApp", "wtf $newValue: ")
             val isChecked: Boolean = newValue as Boolean
             if (isChecked) {
                 // Switch can be opened in any situation
@@ -66,12 +66,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // We'll manage status of switch
             false
         }
-        setFragmentResultListener(RemoveBannerDialogFragment.REQUEST_KEY) { _, bundle ->
-            val isRewardEarned = bundle.getBoolean(RemoveBannerDialogFragment.ON_REWARD_EARNED)
-            if (isRewardEarned) {
-                removeBannerAd.isChecked = false
-            }
-        }
         dataStoreManager.rewardExpireTime.asLiveData().observe(viewLifecycleOwner, {
             rewardAdExpireTime = it
             if (DateUtils.isGivenTimePassed(rewardAdExpireTime)) {
@@ -81,6 +75,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     R.string.removeBanner_summary_off,
                     rewardAdExpireTime.toFormattedDate()
                 )
+                removeBannerAd.isChecked = false
             }
         })
     }

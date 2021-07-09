@@ -15,4 +15,6 @@ class AboutViewModel @Inject constructor() : ViewModel() {
     fun setIsExpanded(isExpanded: Boolean) {
         _isExpanded.value = isExpanded
     }
+
+    var isLottiePlayed = false
 }

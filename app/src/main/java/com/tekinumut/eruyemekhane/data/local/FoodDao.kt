@@ -6,8 +6,9 @@ import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.data.model.Food
 import com.tekinumut.eruyemekhane.data.model.FoodIngredients
 import com.tekinumut.eruyemekhane.data.model.FoodWithIngredients
-import com.tekinumut.eruyemekhane.utils.Constants
-import com.tekinumut.eruyemekhane.utils.DataStoreManager
+import com.tekinumut.eruyemekhane.utils.getFoodList
+import com.tekinumut.eruyemekhane.utils.getIngredientList
+import org.jsoup.nodes.Document
 
 @Dao
 interface FoodDao {
@@ -29,17 +30,11 @@ interface FoodDao {
     suspend fun deleteFoodByType(type: FoodListType)
 
     @Transaction
-    suspend fun insertFoodsWithIngredients(
-        foodList: List<Food>,
-        ingredientList: List<FoodIngredients>,
-        foodListType: FoodListType,
-        dataStoreManager: DataStoreManager
-    ) {
+    suspend fun insertFoodsWithIngredients(document: Document, foodListType: FoodListType) {
+        val foodList = document.getFoodList(foodListType)
         deleteFoodByType(foodListType)
-        val lastId: Long = insertFood(foodList).lastOrNull() ?: Constants.DEFAULT_FOOD_ID
-        // prevent empty api list update lastInsertedId
-        if (lastId > 0)
-            dataStoreManager.setLastInsertedId(lastId)
+        val idList: List<Long> = insertFood(foodList)
+        val ingredientList = document.getIngredientList(foodList, idList)
         insertFoodIngredients(ingredientList)
     }
 
