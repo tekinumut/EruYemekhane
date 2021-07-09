@@ -20,13 +20,10 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideFoodDatabase(app: Application): FoodDatabase = Room.databaseBuilder(
-        app,
-        FoodDatabase::class.java,
-        "food_database"
-    )
-        .fallbackToDestructiveMigration()
-        .build()
+    fun provideFoodDatabase(app: Application): FoodDatabase =
+        Room.databaseBuilder(app, FoodDatabase::class.java, "food_database")
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Singleton
     @Provides

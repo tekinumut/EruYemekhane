@@ -69,7 +69,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     removeBannerAd.isChecked = false
                 }
             }
-            // We'll manage status of switch
+            // We'll manage the state of the switch
             false
         }
         setFragmentResultListener(RemoveBannerDialogFragment.REQUEST_KEY) { _, bundle ->

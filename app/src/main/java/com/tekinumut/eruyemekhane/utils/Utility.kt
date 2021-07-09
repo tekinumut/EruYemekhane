@@ -11,6 +11,7 @@ import com.tekinumut.eruyemekhane.R
 object Utility {
     /**
      * It opens the given url with Chrome custom tabs
+     * @param url the web address to open
      */
     fun openWebSiteWithCustomTabs(context: Context, url: String) {
         val colorSchemeBuilder = CustomTabColorSchemeParams.Builder().run {
@@ -26,6 +27,10 @@ object Utility {
         tabIntent.launchUrl(context, Uri.parse(url))
     }
 
+    /**
+     * Sets the theme with given value
+     * @param value theme type
+     */
     fun setNightTheme(context: Context, value: String) {
         when (value) {
             context.getString(R.string.night_theme_value_light) -> AppCompatDelegate.setDefaultNightMode(

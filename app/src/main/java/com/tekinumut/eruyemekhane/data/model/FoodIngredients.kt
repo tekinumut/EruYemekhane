@@ -19,6 +19,7 @@ data class FoodIngredients(
     // 227 Kalori
     val calorie: String?,
     // Id which belongs to Food
+    // Represents the food to which the ingredient belongs
     val foodCreatorId: Long,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0

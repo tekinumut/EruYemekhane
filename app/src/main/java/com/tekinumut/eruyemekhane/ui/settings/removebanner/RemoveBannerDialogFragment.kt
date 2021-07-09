@@ -35,6 +35,7 @@ class RemoveBannerDialogFragment : BaseDialogFragmentDB<DialogRemoveBannerBindin
 
     private var mRewardedAd: RewardedAd? = null
 
+    // is user watched reward ad successfully
     private var isEarned = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

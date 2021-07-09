@@ -44,6 +44,7 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
         }
         initObservers()
 
+        // prevent request to api on configuration changes
         if (!viewModel.isFragmentCreatedBefore) {
             viewModel.fetchFoodList(foodListType, preferencesManager.updateListOnLaunch())
             viewModel.isFragmentCreatedBefore = true
@@ -57,6 +58,7 @@ class FoodListFragment : BaseFragmentVB<FragmentFoodlistBinding>(FragmentFoodlis
 
     private fun initObservers() {
         viewModel.foodList.observe(viewLifecycleOwner, { response ->
+            // hide progressBar if swipeRefresh also working
             binding.progressBar.isVisible =
                 response is Resource.Loading && !binding.swipeRefreshFoodList.isRefreshing
             binding.incErrorFoodlist.root.isVisible = response is Resource.Error

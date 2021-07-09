@@ -8,7 +8,7 @@ import com.tekinumut.eruyemekhane.utils.Constants
 @Entity
 data class Food(
     @PrimaryKey(autoGenerate = true)
-    val id: Long? = Constants.DEFAULT_FOOD_ID,
+    val id: Long? = 0,
     // 10 Haziran 2021 Perşembe
     val date: String,
     // 1356 Kalori

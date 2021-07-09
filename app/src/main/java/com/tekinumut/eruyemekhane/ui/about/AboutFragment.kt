@@ -24,6 +24,7 @@ class AboutFragment : BaseFragmentDB<FragmentAboutBinding>(R.layout.fragment_abo
     }
 
     private fun init() {
+        // prevent animation plays on configuration changes
         if (!viewModel.isLottiePlayed) {
             binding.lottieView.playAnimation()
             viewModel.isLottiePlayed = true
@@ -44,6 +45,7 @@ class AboutFragment : BaseFragmentDB<FragmentAboutBinding>(R.layout.fragment_abo
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(nativeStorePage)))
             } catch (e: ActivityNotFoundException) {
+                // if there is no google play app on the phone
                 Utility.openWebSiteWithCustomTabs(it.context, storagePageUrl)
             }
         }

@@ -9,7 +9,7 @@ import androidx.annotation.StringRes
 private var toast: Toast? = null
 
 /**
- * We block toast to stack.
+ * To prevent Toast from stacking
  */
 fun showToast(context: Context, @StringRes message: Int, duration: Int = Toast.LENGTH_SHORT) {
     toast?.cancel()

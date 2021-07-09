@@ -69,7 +69,7 @@ class FoodListAdapter : ListAdapter<FoodWithIngredients, FoodListViewHolder>(DIF
                 oldItem: FoodWithIngredients,
                 newItem: FoodWithIngredients
             ): Boolean {
-                // We will not use id because the ID will always increase because of lastInsertedId
+                // We will not use id because the id will increase with every request to api
                 return oldItem.food.date == newItem.food.date
             }
 

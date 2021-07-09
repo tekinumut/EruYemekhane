@@ -8,5 +8,4 @@ interface MainApiService {
 
     @GET("{foodListType}")
     suspend fun getFoodList(@Path("foodListType") foodListType: String): Response<String>
-
 }

@@ -6,6 +6,9 @@ import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.data.model.Food
 import com.tekinumut.eruyemekhane.data.model.FoodIngredients
 
+/**
+ * Data to be used only for testing
+ */
 object SampleData {
 
     val studentFoodList = listOf(

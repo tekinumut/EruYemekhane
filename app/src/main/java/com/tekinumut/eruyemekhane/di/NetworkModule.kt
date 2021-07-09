@@ -50,13 +50,12 @@ object NetworkModule {
             connectTimeout(15, TimeUnit.SECONDS)
             readTimeout(15, TimeUnit.SECONDS)
             addInterceptor(getHeaders())
-            //if (BuildConfig.DEBUG) TODO()
+            if (BuildConfig.DEBUG)
             addInterceptor(loggingBody)
-            // for > API 23 -> we used network_security_config.xml
+            // for API 23 and above -> we'll use network_security_config.xml
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
                 letUnsafeConnection()
         }
-
         return clientBuilder.build()
     }
 

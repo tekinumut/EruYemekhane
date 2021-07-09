@@ -25,7 +25,7 @@ interface FoodDao {
     fun getFoodsByType(type: FoodListType): LiveData<List<FoodWithIngredients>>
 
     /**
-     * This will remove all Food data and related to Food by Foreign Key
+     * Remove all Foods and Ingredients of Foods by Foreign Key
      */
     @Query("Delete from Food where type =:type")
     suspend fun deleteFoodByType(type: FoodListType)
@@ -34,11 +34,11 @@ interface FoodDao {
     @AddTrace(name = "insertFoodsWithIngredients")
     suspend fun insertFoodsWithIngredients(document: Document, foodListType: FoodListType) {
         val foodList = document.getFoodList(foodListType)
+        // Refresh food and ingredients data of department
+        // by deleting and inserting again
         deleteFoodByType(foodListType)
-        val idList: List<Long> = insertFood(foodList)
-        val ingredientList = document.getIngredientList(foodList, idList)
+        val currentFoodIdList: List<Long> = insertFood(foodList)
+        val ingredientList = document.getIngredientList(foodList, currentFoodIdList)
         insertFoodIngredients(ingredientList)
     }
-
-
 }

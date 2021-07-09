@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object DateUtils {
+
     // Default Time Format
     private val defaultDateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale("tr"))
 

@@ -2,8 +2,9 @@ package com.tekinumut.eruyemekhane.utils
 
 object Constants {
 
+    // domain path of student department
     const val STUDENT_URL = "ogrenci-yemek-listesi"
-    const val PERSONAL_URL = "personel-yemek-listesi"
 
-    const val DEFAULT_FOOD_ID: Long = 0
+    // domain path of personal department
+    const val PERSONAL_URL = "personel-yemek-listesi"
 }
