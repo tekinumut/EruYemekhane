@@ -6,7 +6,6 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tekinumut.eruyemekhane.R
 import com.tekinumut.eruyemekhane.base.BaseFragmentVB
@@ -23,11 +22,9 @@ class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::in
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
-    private lateinit var pagerAdapter: HomePagerAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pagerAdapter = HomePagerAdapter(this)
+        val pagerAdapter = HomePagerAdapter(this)
         mainActivity.supportActionBar?.hide()
         initAdView()
         setListeners()
@@ -42,7 +39,6 @@ class HomeFragment : BaseFragmentVB<FragmentHomeBinding>(FragmentHomeBinding::in
     private fun initAdView() {
         val isRemoveBannerChecked = preferencesManager.isRemoveBannerChecked()
         if (isRemoveBannerChecked) {
-            MobileAds.initialize(requireContext()) {}
             val adRequest = AdRequest.Builder().build()
             binding.adView.loadAd(adRequest)
         }

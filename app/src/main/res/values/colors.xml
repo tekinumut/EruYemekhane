@@ -6,7 +6,6 @@
     <color name="food_item_card_bg">#f7f8f9</color>
     <color name="foodDateText">#111028</color>
     <color name="foodIngredients">#565665</color>
-    <color name="error_foodList_btn_bg">#2196F3</color>
     <color name="swipe_refresh_progress">@color/cyan_03a9f4</color>
     <color name="swipe_refresh_bg">@color/food_item_card_bg</color>
     <color name="primaryText">#0d0d0d</color>

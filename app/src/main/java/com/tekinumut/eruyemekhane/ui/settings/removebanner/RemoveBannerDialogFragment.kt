@@ -3,6 +3,8 @@ package com.tekinumut.eruyemekhane.ui.settings.removebanner
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.ads.AdError
@@ -87,8 +89,7 @@ class RemoveBannerDialogFragment : BaseDialogFragmentDB<DialogRemoveBannerBindin
                 isEarned = true
                 lifecycleScope.launch {
                     dataStoreManager.setRewardAdExpireTime(DateUtils.getNextMonthTimeStamp())
-                }.invokeOnCompletion {
-                    dismiss()
+                    setFragmentResult(REQUEST_KEY, bundleOf(ON_REWARD_EARNED to true))
                 }
             }
         } ?: kotlin.run {
@@ -115,15 +116,14 @@ class RemoveBannerDialogFragment : BaseDialogFragmentDB<DialogRemoveBannerBindin
                 onAdError(getString(R.string.ad_closed))
             } else {
                 //  Called when ad is dismissed after successfully watched.
+                dismiss()
                 showToast(requireContext(), getString(R.string.ad_reward_earned), Toast.LENGTH_LONG)
             }
 
         }
     }
-
     companion object {
         const val ON_REWARD_EARNED = "on_reward_earned"
-        const val REQUEST_KEY = "request_key"
+        const val REQUEST_KEY = "request_key_remove_banner_dialog_fragment"
     }
-
 }

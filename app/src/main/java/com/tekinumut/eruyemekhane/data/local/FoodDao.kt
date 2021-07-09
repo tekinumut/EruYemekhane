@@ -2,6 +2,7 @@ package com.tekinumut.eruyemekhane.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.google.firebase.perf.metrics.AddTrace
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.data.model.Food
 import com.tekinumut.eruyemekhane.data.model.FoodIngredients
@@ -30,6 +31,7 @@ interface FoodDao {
     suspend fun deleteFoodByType(type: FoodListType)
 
     @Transaction
+    @AddTrace(name = "insertFoodsWithIngredients")
     suspend fun insertFoodsWithIngredients(document: Document, foodListType: FoodListType) {
         val foodList = document.getFoodList(foodListType)
         deleteFoodByType(foodListType)

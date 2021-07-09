@@ -1,17 +1,22 @@
 package com.tekinumut.eruyemekhane.ui.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.tekinumut.eruyemekhane.R
+import com.tekinumut.eruyemekhane.ui.settings.removebanner.RemoveBannerDialogFragment
 import com.tekinumut.eruyemekhane.utils.DataStoreManager
 import com.tekinumut.eruyemekhane.utils.DateUtils
 import com.tekinumut.eruyemekhane.utils.DateUtils.toFormattedDate
+import com.tekinumut.eruyemekhane.utils.FirebaseEvents
 import com.tekinumut.eruyemekhane.utils.Utility
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,11 +51,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun setListeners() {
         nightTheme.setOnPreferenceChangeListener { _, newValue ->
+            val params = bundleOf("selected_theme" to newValue.toString())
+            Firebase.analytics.logEvent(FirebaseEvents.SELECT_NIGHT_THEME, params)
             Utility.setNightTheme(nightTheme.context, newValue.toString())
             true
         }
         removeBannerAd.setOnPreferenceChangeListener { _, newValue ->
-            Log.e("BaseApp", "wtf $newValue: ")
             val isChecked: Boolean = newValue as Boolean
             if (isChecked) {
                 // Switch can be opened in any situation
@@ -66,17 +72,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // We'll manage status of switch
             false
         }
-        dataStoreManager.rewardExpireTime.asLiveData().observe(viewLifecycleOwner, {
-            rewardAdExpireTime = it
-            if (DateUtils.isGivenTimePassed(rewardAdExpireTime)) {
-                removeBannerAd.isChecked = true
-            } else {
-                removeBannerAd.summaryOff = getString(
-                    R.string.removeBanner_summary_off,
-                    rewardAdExpireTime.toFormattedDate()
-                )
+        setFragmentResultListener(RemoveBannerDialogFragment.REQUEST_KEY) { _, bundle ->
+            val isRewardEarned = bundle.getBoolean(RemoveBannerDialogFragment.ON_REWARD_EARNED)
+            if (isRewardEarned) {
                 removeBannerAd.isChecked = false
             }
+        }
+        dataStoreManager.rewardExpireTime.asLiveData().observe(viewLifecycleOwner, {
+            rewardAdExpireTime = it
+            removeBannerAd.summaryOff = getString(
+                R.string.removeBanner_summary_off,
+                rewardAdExpireTime.toFormattedDate()
+            )
         })
     }
 
