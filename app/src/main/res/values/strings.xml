@@ -1,90 +1,74 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="Typos">
-    <string name="app_name">Eru Yemekhane</string>
-    <string name="ogrenci_title">Öğrenci</string>
-    <string name="personel_title">Personel</string>
-    <string name="error">HATA</string>
-    <string name="no_value">Veri Alınamadı</string>
-    <string name="_m_please_wait">Güncel veriler yükleniyor…</string>
-    <string name="data_updated">Son veriler başarıyla yüklendi</string>
-    <string name="error_loading_data">Veriler alınırken bir hata meydana geldi.</string>
-    <string name="error_loading_data_certificate">SSLHandshakeException: Sertifika süresi doldu.</string>
-    <string name="no_connection">İnternet bağlantısı bulunamadı. Son kayıtlar yüklendi.</string>
-    <string name="data_loaded_last_known">Son kayıtlar yüklendi</string>
-    <string name="open_web_site">Web Sitesine Git</string>
-    <string name="settings">Ayarlar</string>
-    <string name="about">Hakkında</string>
-    <string name="system_default">Cihaz temasını kullan</string>
-    <string name="light">Açık</string>
-    <string name="dark">Koyu</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="student_list_title">Öğrenci</string>
+    <string name="personal_list_title" tools:ignore="Typos">Personel</string>
+    <string name="menu_item_settings_title">Ayarlar</string>
+    <string name="menu_item_about_title">Hakkında</string>
+    <string name="gmail_address">bm.umuttekin@gmail.com</string>
+    <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
+    <string name="send_mail_title">Mail Gönder</string>
+    <string name="accept">Kabul Et</string>
+    <string name="reject">İptal et</string>
+    <string name="try_again">Tekrar Dene</string>
 
-    <string name="empty_title">Yemek listesi henüz yayınlanmadı.</string>
+    <!-- Empty Or Error Layout-->
     <string name="empty_reason_title"><u>Yemek listesinin boş olma sebepleri:</u></string>
     <string name="empty_reason_content">
-         • Verilerin alındığı erciyes.edu.tr adresindeki listenin henüz yayınlanmaması.\n
-         • erciyes.edu.tr adresinin yanıt vermemesi
-    </string>
+        • Verilerin alındığı erciyes.edu.tr adresindeki listenin henüz yayınlanmaması
+        \n• erciyes.edu.tr adresinin yanıt vermemesi</string>
     <string name="empty_solution_title"><u>Çözüm önerileri:</u></string>
     <string name="empty_solution_content">
         • Ekranı yukarıdan aşağıya çekerek listeyi güncelleyebilirsiniz.\n
-        • Aşağıda bulunan \'Web sitesine git\' butonuna tıklayarak listelerin yer aldığı web sitesini ziyaret edebilirsiniz.\n
+        • Aşağıda bulunan <u><i>Web sitesine git</i></u> butonuna tıklayarak
+          listelerin yer aldığı web sitesini ziyaret edebilirsiniz.\n
         • Listeler web sitesinde de gözükmüyorsa, yayınlanana kadar beklemeniz gerekmektedir.</string>
+    <string name="open_web_site">Web Sitesine Git</string>
 
-    <!-- Settings Keys -->
-    <string name="firstTabKey">firstTab</string>
-    <string name="firstTabTitle">Başlangıç Sayfası</string>
-    <string name="firstTabSummary">İlk sırada gösterilecek liste türünü belirtin</string>
-
-    <string name="nightModeKey">nightModeKey</string>
-    <string name="nightModeTitle">Görünüm</string>
-    <string name="nightModeSummary">Açık/Koyu tema tercihinizi belirtin </string>
-
-    <string name="adKey">adActivity</string>
-    <string name="adActivityTitle">Reklam Görünümü</string>
-    <string name="adSummaryActive">Reklamlar etkin</string>
-    <string name="adSummaryPassive">Reklamlar %s tarihinden sonra tekrar aktif olur.</string>
-
-    <string name="focusNonEmptyKey">focusNonEmptyKey</string>
-    <string name="focusNonEmptyTitle">Dolu Listeye Odaklan</string>
-    <string name="focusNonEmptySummary">Listelerden birisi boş, diğeri dolu ise dolu olan açılır</string>
-
-    <string name="autoUpdateBeginKey">autoUpdateKey</string>
-    <string name="autoUpdateBeginTitle">Liste Güncellemeleri</string>
-    <string name="autoUpdateBeginSummary">Listeler her açılışta güncelleme kontrolünden geçer</string>
-
-
-    <!-- SharedPref Key -->
-    <string name="secondaryPrefKey">secondaryPrefKey</string>
-    <string name="prefRewardExpireDate">prefRewardExpireDate</string>
-
-    <string name="myGmail">bm.umuttekin@gmail.com</string>
-    <string name="github_address">https://github.com/tekinumut/EruYemekhane</string>
-    <string name="kullanim_kilavuzu">
-        • Uygulamadan daha fazla verim alabilmek için lütfen Program Kullanımı kısmını okuyunuz.\n
-        • Uygulama öğrenci ve personel yemek listelerini gösterir. Bu yayınlanan listenin değişmesi ile güncellenebilir.\n
-        • Ayarlar menüsünden ilk olarak görmek istediğiniz listeyi düzenleyebilirsiniz.\n
-        • Yine ayarlar menüsünden gece modunu kapatıp açabilirsiniz.\n
-        • Uygulama size hafızasında kayıtlı son verileri gösterir. Eğer erciyes.edu.tr\'den verileri sorunsuz bir şekilde alırsanız, bu hafızadaki veriler
-        güncel veriler ile değiştirilir.\n
-        • Listeler belirli sebeplerden dolayı boş olabilir. Bu sebepleri size açıklayan bir ekran gösterilir. \n
-        • Listeleri görüntülerken ekranı yukarıdan aşağı çekerek listeleri yenileyebilirsiniz.\n
-        • Uygulamanın güncel kodlarına aşağıdaki Github linkinden erişebilirsiniz.\n
-        • Lütfen geri bildirim göndermekten ve uygulamayı değerlendirmekten çekinmeyin.</string>
-    <string name="send_mail">Mail Gönder</string>
-    <string name="prog_kullanimi">Program Kullanımı</string>
-    <string name="rate_app">Uygulamayı Değerlendir</string>
-    <string name="send_feedback">Geri Bildirim Gönder</string>
-    <string name="github_source_code">Uygulama Kaynak Kodları</string>
+    <!-- About Page -->
+    <string name="user_guide_title">EruYemekhane\'ye Hoş Geldiniz</string>
+    <string name="user_guide" tools:ignore="Typos">
+        • Erciyes Üniversitesine ait Öğrenci ve Personel listelerini görüntüleyebilirsiniz.
+        \n• Bir kere indirdikten sonra yemek listelerine internetiniz olmadan erişebilirsiniz.
+        \n• Sayfayı yukarıdan aşağı kaydırarak mevcut listeyi güncelleyebilirsiniz.
+        \n• Ayarlar menüsünden birçok farklı özelliğe erişebilirsiniz.
+        \n• Uygulamanın güncel kodlarına aşağıda bulunan Github linkinden erişebilirsiniz.
+        \n• Lütfen geri bildirim göndermekten ve uygulamayı değerlendirmekten çekinmeyin.</string>
     <string name="expand_more">Genişletmek için tıkla</string>
     <string name="expand_less">Daraltmak için tıkla</string>
+    <string name="send_feedback">Geri Bildirim Gönder</string>
+    <string name="rate_app">Uygulamayı Değerlendir</string>
+    <string name="github_source_code">Uygulama Kaynak Kodları</string>
 
-    <string name="disable_ad_title">Reklamları iptal et</string>
-    <string name="disable_ad_content">Reklamları bir ay boyunca kapatmak için bir adet video reklam izlemeniz gerekmektedir.</string>
-    <string name="kabul_et">Kabul Et</string>
-    <string name="iptal_et">İptal et</string>
+    <!-- Settings Page -->
+    <!-- Theme -->
+    <string name="night_theme_title">Tema</string>
+    <string name="night_theme_key">night_theme_key</string>
+    <string name="night_theme_entry_light">Her zaman açık tema</string>
+    <string name="night_theme_entry_dark">Her zaman koyu tema</string>
+    <string name="night_theme_entry_system_default">Cihazda kullanılan tema</string>
+    <string name="night_theme_value_light">night_theme_light</string>
+    <string name="night_theme_value_dark">night_theme_dark</string>
+    <string name="night_theme_value_system_default">night_theme_system_default</string>
+
+    <!-- Ads -->
+    <string name="removeBanner_title">Reklam Görünümü</string>
+    <string name="removeBanner_key">removeBanner_key</string>
+    <string name="removeBanner_summary_on">Reklamlar Etkin</string>
+    <string name="removeBanner_summary_off">Reklamlar %s tarihine kadar devre dışı bırakıldı.</string>
+
+    <!-- Update List On App Launch -->
+    <string name="update_list_on_launch_title">Başlangıçta Listeleri Güncelle</string>
+    <string name="update_list_on_launch_key">update_list_on_launch_key</string>
+    <string name="update_list_on_launch_summary_on">Başlangıçta listeler otomatik olarak güncellenecek.</string>
+    <string name="update_list_on_launch_summary_off">Başlangıçta hafızada kayıtlı son listeler görüntülenecek.</string>
+    <!-- END OF Settings Page -->
+
+    <!-- Disable Reward -->
+    <string name="disable_ad_title">Reklamları Kaldır</string>
+    <string name="disable_ad_content">Video reklam izleyerek mevcut reklamları bir ay boyunca devre dışı bırakabilirsiniz. </string>
     <string name="ad_closed">Video reklam kapatıldı!</string>
-    <string name="ad_rewarded">Reklamlar 1 ay boyunca kaldırıldı.</string>
+    <string name="ad_reward_earned">Reklamlar 1 ay boyunca kaldırıldı</string>
     <string name="ad_failed_load">Reklam yüklenemedi! Lütfen tekrar deneyiniz.</string>
     <string name="reward_ad_loading">Reklam Yükleniyor</string>
-    <string name="ad_load_fail_try_again">Reklam yenilemedi.\nTekrar yüklemek için tıkla!</string>
-
+    <string name="ad_load_fail_try_again">Reklam yüklenirken bir hata meydana geldi.</string>
+    <string name="ad_not_ready_yet">Reklam henüz hazır değil.</string>
 </resources>

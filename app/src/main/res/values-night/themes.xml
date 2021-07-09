@@ -1,0 +1,13 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.EruYemekhane" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/cyan_3498db</item>
+        <item name="colorPrimaryVariant">@color/cyan_03a9f4</item>
+        <item name="colorOnPrimary">@color/white_fixed</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/cyan_03a9f4</item>
+        <item name="colorSecondaryVariant">@color/cyan_03a9f4</item>
+        <item name="colorOnSecondary">@color/black_fixed</item>
+    </style>
+</resources>

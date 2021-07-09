@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.settings.SettingsFragment"
+        android:label="@string/menu_item_settings_title">
+        <action
+            android:id="@+id/action_settingsFragment_to_removeBannerDialogFragment"
+            app:destination="@id/removeBannerDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.about.AboutFragment"
+        android:label="@string/menu_item_about_title"
+        tools:layout="@layout/fragment_about" />
+
+    <dialog
+        android:id="@+id/removeBannerDialogFragment"
+        android:name="com.tekinumut.eruyemekhane.ui.settings.removebanner.RemoveBannerDialogFragment"
+        android:label="RemoveBannerDialogFragment"
+        tools:layout="@layout/dialog_remove_banner" />
+
+
+</navigation>

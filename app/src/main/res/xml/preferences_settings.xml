@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        app:defaultValue="night_theme_system_default"
+        app:entries="@array/night_theme_entries"
+        app:entryValues="@array/night_theme_values"
+        app:iconSpaceReserved="false"
+        app:key="@string/night_theme_key"
+        app:title="@string/night_theme_title"
+        app:useSimpleSummaryProvider="true" />
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:iconSpaceReserved="false"
+        app:key="@string/removeBanner_key"
+        app:summaryOn="@string/removeBanner_summary_on"
+        app:title="@string/removeBanner_title" />
+
+    <SwitchPreferenceCompat
+        app:defaultValue="true"
+        app:iconSpaceReserved="false"
+        app:key="@string/update_list_on_launch_key"
+        app:summaryOff="@string/update_list_on_launch_summary_off"
+        app:summaryOn="@string/update_list_on_launch_summary_on"
+        app:title="@string/update_list_on_launch_title" />
+
+</PreferenceScreen>

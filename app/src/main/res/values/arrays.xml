@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string-array name="defTab_values">
-        <item>0</item>
-        <item>1</item>
+    <!-- Night Theme Preference -->
+    <string-array name="night_theme_entries">
+        <item>@string/night_theme_entry_light</item>
+        <item>@string/night_theme_entry_dark</item>
+        <item>@string/night_theme_entry_system_default</item>
     </string-array>
 
-    <string-array name="defTab_entries">
-        <item>@string/ogrenci_title</item>
-        <item>@string/personel_title</item>
+    <string-array name="night_theme_values">
+        <item>@string/night_theme_value_light</item>
+        <item>@string/night_theme_value_dark</item>
+        <item>@string/night_theme_value_system_default</item>
     </string-array>
-
-    <string-array name="nightMode_values">
-        <item>-1</item>  <!-- otomatik -->
-        <item>0</item>   <!-- gündüz -->
-        <item>1</item>   <!-- gece -->
-    </string-array>
-
-    <string-array name="nightModel_entries">
-        <item>@string/system_default</item>
-        <item>@string/light</item>
-        <item>@string/dark</item>
-    </string-array>
-
 </resources>

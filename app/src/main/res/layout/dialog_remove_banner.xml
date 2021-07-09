@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.tekinumut.eruyemekhane.ui.settings.removebanner.RemoveBannerViewModel" />
+
+        <import type="com.tekinumut.eruyemekhane.utils.Resource" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/disable_ad_title"
+            android:textColor="@color/foodDateText"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/disable_ad_content"
+            android:textColor="@color/primaryText"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+        <Button
+            android:id="@+id/btnReject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/red_c0392b"
+            android:fontFamily="@font/roboto_medium"
+            android:padding="10dp"
+            android:text="@string/reject"
+            android:textAllCaps="false"
+            android:textColor="@color/white_fixed"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnAccept"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/content"
+            app:layout_constraintTop_toBottomOf="@+id/content" />
+
+        <Button
+            android:id="@+id/btnAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="@{viewModel.adStatus instanceof Resource.Success ? 1f : 0.5f}"
+            android:backgroundTint="@color/green_2ecc71"
+            android:enabled="@{viewModel.adStatus instanceof Resource.Success}"
+            android:fontFamily="@font/roboto_medium"
+            android:padding="10dp"
+            android:text="@string/accept"
+            android:textAllCaps="false"
+            android:textColor="@color/white_fixed"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnReject"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnReject"
+            app:layout_constraintTop_toTopOf="@+id/btnReject" />
+
+        <LinearLayout
+            android:id="@+id/ll_loading"
+            isVisible="@{viewModel.adStatus instanceof Resource.Loading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/btnAccept"
+            app:layout_constraintStart_toStartOf="@+id/btnReject"
+            app:layout_constraintTop_toBottomOf="@+id/btnReject"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:text="@string/reward_ad_loading"
+                android:textColor="@color/primaryText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_error"
+            isVisible="@{viewModel.adStatus instanceof Resource.Error}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_loading"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ad_load_fail_try_again"
+                android:textColor="@color/red_e74c3c" />
+
+            <Button
+                android:id="@+id/btn_try_again"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/try_again"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

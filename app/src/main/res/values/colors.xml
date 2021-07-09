@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#001c3d</color>
-    <color name="colorPrimaryDark">#2c3e50</color>
-    <color name="colorAccent">#395169</color>
-    <color name="passive_tab_color">#a5b1c2</color>
+    <color name="toolbar_bg">@color/colorPrimary</color>
+    <color name="tab_text_color">#a5b1c2</color>
+    <color name="tab_indicator_color">@color/tab_text_color</color>
+    <color name="food_item_card_bg">#f7f8f9</color>
+    <color name="foodDateText">#111028</color>
+    <color name="foodIngredients">#565665</color>
+    <color name="swipe_refresh_progress">@color/cyan_03a9f4</color>
+    <color name="swipe_refresh_bg">@color/food_item_card_bg</color>
     <color name="primaryText">#0d0d0d</color>
-    <color name="DateText">#001c3d</color>
-    <color name="DateBG">#FFF4D9</color>
-    <color name="EmptyBtnBG">#395169</color>
-    <color name="loadingBar">#001c3d</color>
-    <color name="start_layer_bg">#FFFFFF</color>
-    <color name="dialog_bg">#ffffff</color>
 
-    <color name="button_blue">#1581ff</color>
-    <color name="white">#ffffff</color>
-    <color name="red">#c0392b</color>
-    <color name="green">#27ae60</color>
+    <!-- Fixed Colors -->
+    <color name="colorPrimary">#0d1d4e</color>
+    <color name="cyan_03a9f4">#03A9F4</color>
+    <color name="cyan_3498db">#3498db</color>
+    <color name="black_12">#121212</color>
+    <color name="black_21">#212121</color>
+    <color name="red_c0392b">#c0392b</color>
+    <color name="red_e74c3c">#e74c3c</color>
+    <color name="green_2ecc71">#2ecc71</color>
+
+    <color name="white_fixed">#FFFFFF</color>
+    <color name="black_fixed">#000000</color>
+
+    <!-- Colors with opposite-->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>
