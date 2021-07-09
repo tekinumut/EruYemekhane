@@ -6,8 +6,8 @@ ext.versions = [
         buildTools      : '30.0.3',
 
         // Version
-        version_code    : 1,
-        version_name    : '1.0',
+        version_code    : 300,
+        version_name    : '3.0.0',
 
         // Module dependencies
         gradle          : '4.2.2',
