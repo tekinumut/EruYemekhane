@@ -13,6 +13,7 @@ buildscript {
         // Google Services - Firebase
         classpath "com.google.gms:google-services:$versions.googleServices"
         classpath "com.google.firebase:firebase-crashlytics-gradle:$versions.crashlytics"
+        classpath "com.google.firebase:perf-plugin:$versions.perf"
         // Navigation
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
     }

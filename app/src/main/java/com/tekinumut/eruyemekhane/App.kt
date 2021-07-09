@@ -1,7 +1,6 @@
 package com.tekinumut.eruyemekhane
 
 import android.app.Application
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.tekinumut.eruyemekhane.utils.DataStoreManager
 import com.tekinumut.eruyemekhane.utils.DateUtils
 import com.tekinumut.eruyemekhane.utils.PreferencesManager
@@ -22,7 +21,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(!BuildConfig.DEBUG)
         Utility.setNightTheme(this, preferencesManager.selectedNightTheme())
         checkRewardAdExpired()
     }

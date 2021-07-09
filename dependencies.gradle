@@ -15,6 +15,7 @@ ext.versions = [
         hilt            : '2.37',
         googleServices  : '4.3.8',
         crashlytics     : '2.7.0',
+        perf            : '1.4.0',
 
         // App dependencies
         ktx             : '1.6.0',
