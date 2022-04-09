@@ -5,8 +5,8 @@ ext.versions = [
         compileSdk      : 31,
 
         // Version
-        version_code    : 301,
-        version_name    : '3.0.1',
+        version_code    : 302,
+        version_name    : '3.0.2',
 
         // Module dependencies
         gradle          : '7.1.3',

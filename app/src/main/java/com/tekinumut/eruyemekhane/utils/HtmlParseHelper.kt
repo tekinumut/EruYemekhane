@@ -26,7 +26,7 @@ private const val TOTAL_CALORIE_TAG = ".yemekListesiBlok .location.hidden-xs"
 private fun Document.getDateList(): List<String> {
     val dateList = mutableListOf<String>()
     val dateElements = select(DATE_LIST_TAG)
-    dateElements.forEach { dateList.add(it.ownText()) }
+    dateElements.forEach { dateList.add(it.text()) }
     return dateList
 }
 
