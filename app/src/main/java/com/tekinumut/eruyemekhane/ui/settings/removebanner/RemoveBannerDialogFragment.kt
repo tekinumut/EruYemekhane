@@ -106,7 +106,7 @@ class RemoveBannerDialogFragment : BaseDialogFragmentDB<DialogRemoveBannerBindin
     private val fullScreenContentCallback = object : FullScreenContentCallback() {
         override fun onAdShowedFullScreenContent() = Unit
 
-        override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+        override fun onAdFailedToShowFullScreenContent(adError: AdError) {
             // Called when ad fails to show.
             onAdError(getString(R.string.ad_failed_load))
         }

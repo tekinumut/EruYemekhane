@@ -23,7 +23,6 @@ secretProperties.load(new FileInputStream(secretsFile))
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
 
     defaultConfig {
         applicationId "com.Mtkn.umutt.eruyemekhane"

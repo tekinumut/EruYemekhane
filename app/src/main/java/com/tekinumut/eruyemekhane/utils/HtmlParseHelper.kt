@@ -1,6 +1,5 @@
 package com.tekinumut.eruyemekhane.utils
 
-import android.util.Log
 import com.tekinumut.eruyemekhane.data.enums.FoodListType
 import com.tekinumut.eruyemekhane.data.model.Food
 import com.tekinumut.eruyemekhane.data.model.FoodIngredients
@@ -8,7 +7,7 @@ import org.jsoup.nodes.Document
 
 // eg: [28 Haziran 2021 Pazartesi Öğlen,29 Haziran 2021 Salı Öğlen]
 // collects Date List
-private const val DATE_LIST_TAG = ".yemekListesiBlok li .title"
+private const val DATE_LIST_TAG = ".yemekListesiBlok li:has(ul) .title"
 
 // [ETLİ KURU FASULYE 354 Kalori ŞEHRİYELİ PİRİNÇ PİLAVI 380 Kalori MEYVE 120 Kalori AYRAN 70 Kalori,
 //  SEBZELİ ET SOTE 449 Kalori MERCİMEKLİ BULGUR PİLAVI 338 Kalori YOĞURT 136 Kalori YEŞİL SALATA 45 Kalori]
