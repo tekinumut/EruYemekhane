@@ -10,7 +10,6 @@ import com.tekinumut.eruyemekhane.utils.Constants
  * @param nameRes department id at strings.xml for title
  */
 enum class FoodListType(val apiUrl: String, @StringRes val nameRes: Int) {
-    STUDENT(Constants.STUDENT_URL, R.string.student_list_title),
-    PERSONAL(Constants.PERSONAL_URL, R.string.personal_list_title)
-
+    PERSONAL(Constants.PERSONAL_URL, R.string.personal_list_title),
+    STUDENT(Constants.STUDENT_URL, R.string.student_list_title)
 }
